@@ -74,32 +74,56 @@ gltfLoader.load(
     '5d-portfolio-test4.glb',
     (gltf) => 
     {
-        gltf.scene.traverse((child) =>
-        {
-          
-            if (child.name === 'round_floor') {
-                child.material = bakedMaterials.material4; 
-            }
-              
-            else if (child.name.startsWith('Calc_')) {
-                child.material = bakedMaterials.material1;
-            } else if (child.name.startsWith('Cup_')) {
-                child.material = bakedMaterials.material2;
-            }  else if (child.name.startsWith('Extra_')) {
-                child.material = bakedMaterials.material3;
-            } else if (child.name.startsWith('Keyboard_')) {
-                child.material = bakedMaterials.material5;
-            } else if (child.name.startsWith('Chassis_')) {
-                child.material = bakedMaterials.material6;
-            } else if (child.name.startsWith('Parts2_')) {
-                child.material = bakedMaterials.material7;
-                const smoke = createSmokeEffect();
-                child.add(smoke); 
-            } else if (child.name.startsWith('Parts_')) {
-                child.material = bakedMaterials.material8;
-            } else if (child.name.startsWith('Small_')) {
-                child.material = bakedMaterials.material9;
-            }
+
+        const roundFloor = gltf.scene.children.filter(child => child.name === 'round_floor');
+        roundFloor.forEach(child => {
+            child.material = bakedMaterials.material4; 
+        });
+
+        const parts2Cylinder = gltf.scene.children.filter(child => child.name === 'Parts2_Cylinder003');
+        parts2Cylinder.forEach(child => {
+            const smoke = createSmokeEffect();
+            child.add(smoke); 
+        });
+
+        const calc = gltf.scene.children.filter(child => child.name.startsWith('Calc_'));
+        calc.forEach(child => {
+            child.material = bakedMaterials.material1; 
+        });
+
+        const cup = gltf.scene.children.filter(child => child.name.startsWith('Cup_'));
+        cup.forEach(child => {
+            child.material = bakedMaterials.material2;
+        });
+
+        const extra = gltf.scene.children.filter(child => child.name.startsWith('Extra_'));
+        extra.forEach(child => {
+            child.material = bakedMaterials.material3;
+        });
+
+        const keyboard = gltf.scene.children.filter(child => child.name.startsWith('Keyboard_'));
+        keyboard.forEach(child => {
+            child.material = bakedMaterials.material5;
+        });
+
+        const chassis = gltf.scene.children.filter(child => child.name.startsWith('Chassis_'));
+        chassis.forEach(child => {
+            child.material = bakedMaterials.material6;
+        });
+
+        const parts2 = gltf.scene.children.filter(child => child.name.startsWith('Parts2_'));
+        parts2.forEach(child => {
+            child.material = bakedMaterials.material7;
+        });
+
+        const parts = gltf.scene.children.filter(child => child.name.startsWith('Parts_'));
+        parts.forEach(child => {
+            child.material = bakedMaterials.material8;
+        });
+
+        const small = gltf.scene.children.filter(child => child.name.startsWith('Small_'));
+        small.forEach(child => {
+            child.material = bakedMaterials.material9;
         });
 
         // Handle glow materials
