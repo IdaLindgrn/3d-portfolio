@@ -26,6 +26,8 @@ const gltfLoader = new GLTFLoader();
 /**
  * Textures
  */
+
+
 const bakedTextures = {
     texture1: textureLoader.load('calcBaked1024.jpg'),
     texture2: textureLoader.load('cupJoystickBaked.jpg'),
@@ -41,7 +43,7 @@ const bakedTextures = {
 // Ensure textures are flipped and wrapped correctly
 for (const key in bakedTextures) {
     bakedTextures[key].flipY = false;
-    bakedTextures[key].wrapS = THREE.RepeatWrapping;
+    bakedTextures[key].flipY = false;
 }
 
 // Baked materials
@@ -74,7 +76,7 @@ gltfLoader.load(
     {
         gltf.scene.traverse((child) =>
         {
-            console.log(child);
+          
             if (child.name === 'round_floor') {
                 child.material = bakedMaterials.material4; 
             }
@@ -144,6 +146,8 @@ gltfLoader.load(
         scene.add(gltf.scene);
     }
 );
+
+
 
 /**
  * Sizes
