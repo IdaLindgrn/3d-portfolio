@@ -18,8 +18,8 @@ export function loadFont(scene) {
             new THREE.MeshBasicMaterial({ color: 0xffffe5 })
         ]);
 
-        textMesh.position.set(-55, 12, -8); // Set the position
+        textMesh.position.set(-55, 12, -8);
         textMesh.rotation.y = 4.7;
-        scene.add(textMesh); // Add text to the scene
+        scene.add(textMesh);
     });
 }
