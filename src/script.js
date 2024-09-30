@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createSmokeEffect } from './smokeEffect.js'; // Import the smoke effect function
+import { loadFont } from './fontLoader.js';
 import GUI from 'lil-gui';
 
 /**
@@ -171,6 +172,7 @@ gltfLoader.load(
     }
 );
 
+loadFont(scene);
 
 
 /**
