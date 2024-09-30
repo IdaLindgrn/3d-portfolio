@@ -18,8 +18,8 @@ export function loadFont(scene) {
             new THREE.MeshPhongMaterial({ color: 0x5c2301 }) // Sides
         ]);
 
-        textMesh.position.set(-60, 10, -30); // Set the position
-        textMesh.rotation.y = 90;
+        textMesh.position.set(-60, 10, 20); // Set the position
+        textMesh.rotation.y = -90;
         scene.add(textMesh); // Add text to the scene
     });
 }
