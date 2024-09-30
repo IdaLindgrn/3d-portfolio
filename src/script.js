@@ -194,14 +194,14 @@ window.addEventListener('resize', () => {
 /**
  * Camera
  */
-const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 30, 500);
-camera.position.set(90, 4, 20);
+const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 10, 500);
+camera.position.set(110, 50, 40);
 scene.add(camera);
 
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-controls.maxDistance = 100;
+controls.maxDistance = 180;
 controls.minDistance = 1;
 
 /**
