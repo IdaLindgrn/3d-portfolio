@@ -9,17 +9,17 @@ export function loadFont(scene) {
     loader.load('./fonts/BrownMedium_Regular.json', (font) => {
         const geometry = new TextGeometry('DO NOT PRESS!', {
             font: font,
-            size: 4,
+            size: 3,
             height: 2,
         });
 
         const textMesh = new THREE.Mesh(geometry, [
-            new THREE.MeshPhongMaterial({ color: 0xad4000 }), // Front
-            new THREE.MeshPhongMaterial({ color: 0x5c2301 }) // Sides
+            new THREE.MeshBasicMaterial({ color: 0xffffe5 }),
+            new THREE.MeshBasicMaterial({ color: 0xffffe5 })
         ]);
 
-        textMesh.position.set(-60, 10, 20); // Set the position
-        textMesh.rotation.y = -90;
+        textMesh.position.set(-55, 12, -8); // Set the position
+        textMesh.rotation.y = 4.7;
         scene.add(textMesh); // Add text to the scene
     });
 }
