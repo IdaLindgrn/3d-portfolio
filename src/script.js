@@ -27,6 +27,9 @@ const gltfLoader = new GLTFLoader();
  * Textures
  */
 
+let currentIntersect = null;
+const objectsToTest = []
+
 
 const bakedTextures = {
     texture1: textureLoader.load('calcBaked1024.jpg'),
@@ -74,6 +77,7 @@ gltfLoader.load(
     '5d-portfolio-test4.glb',
     (gltf) => 
     {
+        console.log("children:", gltf.scene.children.map(child => child.name));
 
         const roundFloor = gltf.scene.children.filter(child => child.name === 'round_floor');
         roundFloor.forEach(child => {
@@ -84,6 +88,18 @@ gltfLoader.load(
         parts2Cylinder.forEach(child => {
             const smoke = createSmokeEffect();
             child.add(smoke); 
+        });
+
+        const button = gltf.scene.children.filter(child => child.name === 'Parts2_Cube066');
+        button.forEach(child => {
+            objectsToTest.push(child);  // Add to the raycasting list
+           
+        });
+
+        const gameboyScreen = gltf.scene.children.filter(child => child.name === 'Green_gameboy_large_screen');
+        gameboyScreen.forEach(child => {
+            objectsToTest.push(child);  // Add to the raycasting list
+           
         });
 
         const calc = gltf.scene.children.filter(child => child.name.startsWith('Calc_'));
@@ -172,7 +188,6 @@ gltfLoader.load(
 );
 
 
-
 /**
  * Sizes
  */
@@ -214,13 +229,55 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
+//Raycaster:
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+window.addEventListener('mousemove', (event) => 
+    {
+        mouse.x = event.clientX / sizes.width * 2 - 1
+        mouse.y = - (event.clientY / sizes.height) * 2 + 1
+
+        console.log(mouse)
+    })
+
+window.addEventListener('click', () => {
+    if(currentIntersect) {
+        console.log('click on the button')
+    }
+})
+
 /**
  * Animate
  */
 const clock = new THREE.Clock();
 
+console.log("objectsToTest:", objectsToTest)
+
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
+
+    // Cast a ray
+
+    raycaster.setFromCamera(mouse, camera)
+
+    const intersects = raycaster.intersectObjects(objectsToTest)
+
+    for (const intersect of intersects) {
+        intersect.object.material.color.set('0000ff')
+    }
+
+    if (intersects.length) {
+        if(currentIntersect === null) {
+            console.log('mouse enter')
+        }
+    }
+    else {
+        if(currentIntersect) {
+            console.log('mouse leave')
+        }
+        currentIntersect = null
+    }
     
 
     // Update controls
