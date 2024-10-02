@@ -27,10 +27,6 @@ const gltfLoader = new GLTFLoader();
  * Textures
  */
 
-let currentIntersect = null;
-const objectsToTest = []
-
-
 const bakedTextures = {
     texture1: textureLoader.load('calcBaked1024.jpg'),
     texture2: textureLoader.load('cupJoystickBaked.jpg'),
@@ -77,7 +73,6 @@ gltfLoader.load(
     '5d-portfolio-test4.glb',
     (gltf) => 
     {
-        console.log("children:", gltf.scene.children.map(child => child.name));
 
         const roundFloor = gltf.scene.children.filter(child => child.name === 'round_floor');
         roundFloor.forEach(child => {
@@ -237,22 +232,60 @@ window.addEventListener('mousemove', (event) =>
     {
         mouse.x = event.clientX / sizes.width * 2 - 1
         mouse.y = - (event.clientY / sizes.height) * 2 + 1
-
-        console.log(mouse)
     })
 
+let currentIntersect = null;
+const objectsToTest = []
+
+// window.addEventListener('click', () => {
+//     if (currentIntersect) {
+
+//         const index = objectsToTest.indexOf(currentIntersect.object);
+        
+//         switch (index) {
+//             case 0:
+//                 console.log('click on button');
+//                 break;
+//             case 1:
+//                 console.log('click on screen');
+//                 break;
+//         }
+//     }
+// });
+
+
+
+// Click event listener
 window.addEventListener('click', () => {
-    if(currentIntersect) {
-        console.log('click on the button')
+    // Update the raycaster to get the latest intersections
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(objectsToTest);
+
+    if (intersects.length) {
+        const index = objectsToTest.indexOf(intersects[0].object);
+        
+        switch (index) {
+            case 0:
+                console.log('click on button');
+                break;
+            case 1:
+                console.log('click on screen');
+                break;
+            default:
+                console.log('click on unknown object');
+                break;
+        }
     }
-})
+});
+
+
+
+
 
 /**
  * Animate
  */
 const clock = new THREE.Clock();
-
-console.log("objectsToTest:", objectsToTest)
 
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
@@ -260,17 +293,17 @@ const tick = () => {
     // Cast a ray
 
     raycaster.setFromCamera(mouse, camera)
-
     const intersects = raycaster.intersectObjects(objectsToTest)
 
-    for (const intersect of intersects) {
-        intersect.object.material.color.set('0000ff')
-    }
+    // for (const intersect of intersects) {
+    //     // logic for camera
+    // }
 
     if (intersects.length) {
         if(currentIntersect === null) {
             console.log('mouse enter')
         }
+        currentIntersect = intersects[0]
     }
     else {
         if(currentIntersect) {
