@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createSmokeEffect } from './smokeEffect.js'; // Import the smoke effect function
 import GUI from 'lil-gui';
+import { gsap } from 'gsap';
 
 /**
  * Base
@@ -234,42 +235,32 @@ window.addEventListener('mousemove', (event) =>
         mouse.y = - (event.clientY / sizes.height) * 2 + 1
     })
 
+
 let currentIntersect = null;
 const objectsToTest = []
 
-// window.addEventListener('click', () => {
-//     if (currentIntersect) {
+const cameraPositions = {
+    button: { positionOffset: { x: -25, y: 5, z: -10 }, targetOffset: { x: 0, y: -5, z: 0 } },
+    screen: { positionOffset: { x: 25, y: 15, z: 0 }, targetOffset: { x: 0, y: 8.5, z: 0 } },
+};
 
-//         const index = objectsToTest.indexOf(currentIntersect.object);
-        
-//         switch (index) {
-//             case 0:
-//                 console.log('click on button');
-//                 break;
-//             case 1:
-//                 console.log('click on screen');
-//                 break;
-//         }
-//     }
-// });
-
-
-
-// Click event listener
 window.addEventListener('click', () => {
-    // Update the raycaster to get the latest intersections
+
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(objectsToTest);
 
     if (intersects.length) {
-        const index = objectsToTest.indexOf(intersects[0].object);
+        const clickedObject = intersects[0].object;
+        const index = objectsToTest.indexOf(clickedObject);
         
         switch (index) {
             case 0:
                 console.log('click on button');
+                animateCamera(clickedObject.position, 1.5, cameraPositions.button);
                 break;
             case 1:
                 console.log('click on screen');
+                animateCamera(clickedObject.position, 1.5, cameraPositions.screen);
                 break;
             default:
                 console.log('click on unknown object');
@@ -277,6 +268,42 @@ window.addEventListener('click', () => {
         }
     }
 });
+
+function animateCamera(targetPosition, duration, cameraSettings) {
+    // Disable controls during animation
+    controls.enableRotate = false;
+    controls.enableZoom = false;
+
+    // Use cameraSettings for position and target offsets
+    const positionOffset = cameraSettings.positionOffset;
+    const targetOffset = cameraSettings.targetOffset;
+
+    // GSAP animation for the camera position
+    gsap.to(camera.position, {
+        duration: duration,
+        x: targetPosition.x + positionOffset.x,
+        y: targetPosition.y + positionOffset.y,
+        z: targetPosition.z + positionOffset.z,
+        ease: 'power1.inOut'
+    });
+
+    // GSAP animation for the OrbitControls target (focus point)
+    gsap.to(controls.target, {
+        duration: duration,
+        x: targetPosition.x + targetOffset.x,  // Adjust these values to focus differently
+        y: targetPosition.y + targetOffset.y,
+        z: targetPosition.z + targetOffset.z,
+        ease: 'power1.inOut',
+        onComplete: () => {
+            // Re-enable controls after animation
+            controls.enableRotate = true;
+            controls.enableZoom = true;
+
+            // Update controls to reflect the new target
+            controls.update();
+        }
+    });
+}
 
 
 
