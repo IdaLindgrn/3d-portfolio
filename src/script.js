@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { createSmokeEffect } from './smokeEffect.js'; // Import the smoke effect function
+import { createSmokeEffect } from './smokeEffect.js';
+import { particles, particlesMaterial } from './particles.js';
 import GUI from 'lil-gui';
 import { gsap } from 'gsap';
 
@@ -23,6 +24,8 @@ const scene = new THREE.Scene();
  */
 const textureLoader = new THREE.TextureLoader();
 const gltfLoader = new GLTFLoader();
+
+particles(scene);
 
 /**
  * Textures
@@ -200,7 +203,12 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-});
+
+    //Update particles
+    if (particlesMaterial) {
+        particlesMaterial.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
+    }
+})
 
 /**
  * Camera
@@ -315,7 +323,12 @@ function animateCamera(targetPosition, duration, cameraSettings) {
 const clock = new THREE.Clock();
 
 const tick = () => {
+
     const elapsedTime = clock.getElapsedTime();
+
+    // particles
+
+    particlesMaterial.uniforms.uTime.value = elapsedTime;
 
     // Cast a ray
 
