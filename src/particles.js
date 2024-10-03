@@ -35,7 +35,7 @@ export function particles(scene) {
         {
             uTime: { value: 0},
             uPixelRatio: { value: Math.min(window.devicePixelRatio, 2)},
-            uSize: { value: 800}
+            uSize: { value: 100}
         },
        vertexShader: particlesVertexShader,
        fragmentShader: particlesFragmentShader,
