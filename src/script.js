@@ -22,31 +22,80 @@ const scene = new THREE.Scene();
 /**
  * Loaders
  */
-const textureLoader = new THREE.TextureLoader();
-const gltfLoader = new GLTFLoader();
 
-particles(scene);
+const loadingManager = new THREE.LoadingManager()  
+
+const textureLoader = new THREE.TextureLoader(loadingManager);
+const gltfLoader = new GLTFLoader();
 
 /**
  * Textures
  */
 
+
 const bakedTextures = {
-    texture1: textureLoader.load('calcBaked1024.jpg'),
-    texture2: textureLoader.load('cupJoystickBaked.jpg'),
-    texture3: textureLoader.load('extraSmallPartsBaked.jpg'),
-    texture4: textureLoader.load('floorBaked1024.jpg'),
-    texture5: textureLoader.load('gameboyBaked1024.jpg'),
-    texture6: textureLoader.load('gameboyChassisBaked.jpg'),
-    texture7: textureLoader.load('gameboyParts2Baked.jpg'),
-    texture8: textureLoader.load('gameboyPartsBaked.jpg'),
-    texture9: textureLoader.load('smallPartsBaked1024.jpg')
+    texture1: textureLoader.load('./textures/calcBaked1024.jpg'),
+    texture2: textureLoader.load('./textures/cupJoystickBaked.jpg'),
+    texture3: textureLoader.load('./textures/extraSmallPartsBaked.jpg'),
+    texture4: textureLoader.load('./textures/floorBaked1024.jpg'),
+    texture5: textureLoader.load('./textures/gameboyBaked1024.jpg'),
+    texture6: textureLoader.load('./textures/gameboyChassisBaked.jpg'),
+    texture7: textureLoader.load('./textures/gameboyParts2Baked.jpg'),
+    texture8: textureLoader.load('./textures/gameboyPartsBaked.jpg'),
+    texture9: textureLoader.load('./textures/smallPartsBaked1024.jpg')
 };
 
-// Ensure textures are flipped and wrapped correctly
+const screens = {
+    screenStart: textureLoader.load('./textures/GroupTest2.png'),
+    screenRobot: textureLoader.load('./textures/screenRobot.png'),
+    screenProjects: textureLoader.load('./textures/screenProjects.png'),
+};
+
+// screens.screenStart.colorSpace = THREE.SRGBColorSpace;
+
+const cubeGeometry = new THREE.PlaneGeometry(26, 17);  // Adjust width and height as needed
+
+
+// Create a material using the screenStart texture
+const cubeMaterial = new THREE.MeshBasicMaterial({
+    map: screens.screenStart,
+    side: THREE.DoubleSide // Ensures the texture is visible from both sides
+});
+
+
+// screen 
+
+const screenCube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+
+screenCube.position.set(-9, 28, 7.7);  
+
+const yAxis = new THREE.Vector3(0, 1, 0);
+const yRot = Math.PI / 2; // 90 degrees
+const yQuaternion = new THREE.Quaternion();
+yQuaternion.setFromAxisAngle(yAxis, yRot);
+
+const xAxis = new THREE.Vector3(1, 0, 0);
+const xRot = Math.PI / -16; // Tilt back
+const xQuaternion = new THREE.Quaternion();
+xQuaternion.setFromAxisAngle(xAxis, xRot);
+
+const combinedQuaternion = new THREE.Quaternion();
+combinedQuaternion.multiplyQuaternions(yQuaternion, xQuaternion);
+
+screenCube.quaternion.copy(combinedQuaternion);
+
+scene.add(screenCube);
+
+
+
+for (const key in screens) {
+    screens[key].colorSpace = THREE.SRGBColorSpace; 
+}
+
+
 for (const key in bakedTextures) {
     bakedTextures[key].flipY = false;
-    bakedTextures[key].flipY = false;
+    bakedTextures[key].wrapS = THREE.RepeatWrapping; 
 }
 
 // Baked materials
@@ -96,10 +145,13 @@ gltfLoader.load(
         });
 
         const gameboyScreen = gltf.scene.children.filter(child => child.name === 'Green_gameboy_large_screen');
+
         gameboyScreen.forEach(child => {
             objectsToTest.push(child);  // Add to the raycasting list
-           
+
         });
+
+        console.log(gameboyScreen)
 
         const calc = gltf.scene.children.filter(child => child.name.startsWith('Calc_'));
         calc.forEach(child => {
@@ -141,7 +193,7 @@ gltfLoader.load(
             child.material = bakedMaterials.material9;
         });
 
-        // Handle glow materials
+        // // Handle glow materials
         const red = gltf.scene.children.filter(child => child.name.startsWith('Red_'));
         red.forEach(child => {
             child.material = redGlow;  
@@ -186,6 +238,8 @@ gltfLoader.load(
     }
 );
 
+particles(scene);
+
 
 /**
  * Sizes
@@ -213,14 +267,14 @@ window.addEventListener('resize', () => {
 /**
  * Camera
  */
-const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 10, 500);
+const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 10, 500);
 camera.position.set(110, 50, 40);
 scene.add(camera);
 
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-controls.maxDistance = 180;
+controls.maxDistance = 170;
 controls.minDistance = 1;
 
 /**
@@ -247,6 +301,9 @@ window.addEventListener('mousemove', (event) =>
 let currentIntersect = null;
 const objectsToTest = []
 
+const newScreenMaterial = new THREE.MeshBasicMaterial({ map: screens.screenStart });
+
+
 const cameraPositions = {
     button: { positionOffset: { x: -25, y: 5, z: -10 }, targetOffset: { x: 0, y: -5, z: 0 } },
     screen: { positionOffset: { x: 25, y: 15, z: 0 }, targetOffset: { x: 0, y: 8.5, z: 0 } },
@@ -268,6 +325,8 @@ window.addEventListener('click', () => {
                 break;
             case 1:
                 console.log('click on screen');
+                clickedObject.material = newScreenMaterial;
+
                 animateCamera(clickedObject.position, 1.5, cameraPositions.screen);
                 break;
             default:
@@ -314,9 +373,6 @@ function animateCamera(targetPosition, duration, cameraSettings) {
 }
 
 
-
-
-
 /**
  * Animate
  */
@@ -327,11 +383,9 @@ const tick = () => {
     const elapsedTime = clock.getElapsedTime();
 
     // particles
-
     particlesMaterial.uniforms.uTime.value = elapsedTime;
 
     // Cast a ray
-
     raycaster.setFromCamera(mouse, camera)
     const intersects = raycaster.intersectObjects(objectsToTest)
 
