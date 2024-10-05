@@ -6,32 +6,24 @@ import { particles, particlesMaterial } from './particles.js';
 import GUI from 'lil-gui';
 import { gsap } from 'gsap';
 
-/**
- * Base
- */
+
 const gui = new GUI({
     width: 400
 });
 
-// Canvas
 const canvas = document.querySelector('canvas.webgl');
 
-// Scene
 const scene = new THREE.Scene();
-
-/**
- * Loaders
- */
 
 const loadingManager = new THREE.LoadingManager()  
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
 const gltfLoader = new GLTFLoader();
 
+
 /**
  * Textures
  */
-
 
 const bakedTextures = {
     texture1: textureLoader.load('./textures/calcBaked1024.jpg'),
@@ -51,42 +43,6 @@ const screens = {
     screenProjects: textureLoader.load('./textures/screenProjects.png'),
 };
 
-// screens.screenStart.colorSpace = THREE.SRGBColorSpace;
-
-const cubeGeometry = new THREE.PlaneGeometry(26, 17);  // Adjust width and height as needed
-
-
-// Create a material using the screenStart texture
-const cubeMaterial = new THREE.MeshBasicMaterial({
-    map: screens.screenStart,
-    side: THREE.DoubleSide // Ensures the texture is visible from both sides
-});
-
-
-// screen 
-
-const screenCube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-
-screenCube.position.set(-9, 28, 7.7);  
-
-const yAxis = new THREE.Vector3(0, 1, 0);
-const yRot = Math.PI / 2; // 90 degrees
-const yQuaternion = new THREE.Quaternion();
-yQuaternion.setFromAxisAngle(yAxis, yRot);
-
-const xAxis = new THREE.Vector3(1, 0, 0);
-const xRot = Math.PI / -16; // Tilt back
-const xQuaternion = new THREE.Quaternion();
-xQuaternion.setFromAxisAngle(xAxis, xRot);
-
-const combinedQuaternion = new THREE.Quaternion();
-combinedQuaternion.multiplyQuaternions(yQuaternion, xQuaternion);
-
-screenCube.quaternion.copy(combinedQuaternion);
-
-scene.add(screenCube);
-
-
 
 for (const key in screens) {
     screens[key].colorSpace = THREE.SRGBColorSpace; 
@@ -98,7 +54,10 @@ for (const key in bakedTextures) {
     bakedTextures[key].wrapS = THREE.RepeatWrapping; 
 }
 
-// Baked materials
+/**
+ * Materials
+ */
+
 const bakedMaterials = {
     material1: new THREE.MeshBasicMaterial({ map: bakedTextures.texture1 }),
     material2: new THREE.MeshBasicMaterial({ map: bakedTextures.texture2 }),
@@ -111,7 +70,6 @@ const bakedMaterials = {
     material9: new THREE.MeshBasicMaterial({ map: bakedTextures.texture9 })
 };
 
-// Glow materials
 const redGlow = new THREE.MeshBasicMaterial({ color: 0xffaa9f });
 const orangeGlow = new THREE.MeshBasicMaterial({ color: 0xe6c4a3 });
 const yellowGlow = new THREE.MeshBasicMaterial({ color: 0xffeb2a });
@@ -121,7 +79,35 @@ const purpleGlow = new THREE.MeshBasicMaterial({ color: 0xd2c2ef });
 const whiteGlow = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
 const whiteGlow2 = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
 
-// Model
+// screen 
+
+const cubeGeometry = new THREE.PlaneGeometry(26, 17);  
+
+
+const screenCube = new THREE.Mesh(cubeGeometry, greenGlow);
+
+screenCube.position.set(-9, 28, 7.7);  
+
+const yAxis = new THREE.Vector3(0, 1, 0);
+const yRot = Math.PI / 2; // 90 degrees
+const yQuaternion = new THREE.Quaternion();
+yQuaternion.setFromAxisAngle(yAxis, yRot);
+
+const xAxis = new THREE.Vector3(1, 0, 0);
+const xRot = Math.PI / -17; // Tilt back
+const xQuaternion = new THREE.Quaternion();
+xQuaternion.setFromAxisAngle(xAxis, xRot);
+
+const combinedQuaternion = new THREE.Quaternion();
+combinedQuaternion.multiplyQuaternions(yQuaternion, xQuaternion);
+
+screenCube.quaternion.copy(combinedQuaternion);
+
+scene.add(screenCube);
+
+
+
+
 gltfLoader.load(
     '5d-portfolio-test4.glb',
     (gltf) => 
@@ -138,20 +124,22 @@ gltfLoader.load(
             child.add(smoke); 
         });
 
+  
+
         const button = gltf.scene.children.filter(child => child.name === 'Parts2_Cube066');
         button.forEach(child => {
             objectsToTest.push(child);  // Add to the raycasting list
            
         });
 
-        const gameboyScreen = gltf.scene.children.filter(child => child.name === 'Green_gameboy_large_screen');
+        objectsToTest.push(screenCube)
 
-        gameboyScreen.forEach(child => {
-            objectsToTest.push(child);  // Add to the raycasting list
+        // const gameboyScreen = gltf.scene.children.filter(child => child.name === 'Green_gameboy_large_screen');
+        // gameboyScreen.forEach(child => {
+        //     objectsToTest.push(child);  // Add to the raycasting list
+        // });
 
-        });
-
-        console.log(gameboyScreen)
+        // console.log(gameboyScreen)
 
         const calc = gltf.scene.children.filter(child => child.name.startsWith('Calc_'));
         calc.forEach(child => {
@@ -193,7 +181,6 @@ gltfLoader.load(
             child.material = bakedMaterials.material9;
         });
 
-        // // Handle glow materials
         const red = gltf.scene.children.filter(child => child.name.startsWith('Red_'));
         red.forEach(child => {
             child.material = redGlow;  
@@ -238,18 +225,18 @@ gltfLoader.load(
     }
 );
 
+
+
 particles(scene);
 
 
-/**
- * Sizes
- */
+// Resize event listener
+
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
 };
 
-// Resize event listener
 window.addEventListener('resize', () => {
     sizes.width = window.innerWidth;
     sizes.height = window.innerHeight;
@@ -277,6 +264,10 @@ controls.enableDamping = true;
 controls.maxDistance = 170;
 controls.minDistance = 1;
 
+const initialCameraPosition = camera.position.clone(); // Store initial position
+const initialControlTarget = controls.target.clone(); 
+
+
 /**
  * Renderer
  */
@@ -301,6 +292,9 @@ window.addEventListener('mousemove', (event) =>
 let currentIntersect = null;
 const objectsToTest = []
 
+console.log(objectsToTest)
+
+
 const newScreenMaterial = new THREE.MeshBasicMaterial({ map: screens.screenStart });
 
 
@@ -309,8 +303,9 @@ const cameraPositions = {
     screen: { positionOffset: { x: 25, y: 15, z: 0 }, targetOffset: { x: 0, y: 8.5, z: 0 } },
 };
 
-window.addEventListener('click', () => {
+let cameraMoved = false;
 
+window.addEventListener('click', () => {
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(objectsToTest);
 
@@ -322,30 +317,56 @@ window.addEventListener('click', () => {
             case 0:
                 console.log('click on button');
                 animateCamera(clickedObject.position, 1.5, cameraPositions.button);
+                cameraMoved = true;
                 break;
             case 1:
                 console.log('click on screen');
                 clickedObject.material = newScreenMaterial;
-
                 animateCamera(clickedObject.position, 1.5, cameraPositions.screen);
+                cameraMoved = true;
                 break;
-            default:
-                console.log('click on unknown object');
-                break;
+        }
+    } else {
+        if (cameraMoved) {
+            screenCube.material = greenGlow;
+            resetCamera(1.5);
+            cameraMoved = false; 
         }
     }
 });
 
+function resetCamera(duration) {
+    controls.enableRotate = false; 
+
+    gsap.to(camera.position, {
+        duration: duration,
+        x: initialCameraPosition.x,
+        y: initialCameraPosition.y,
+        z: initialCameraPosition.z,
+        ease: 'power1.inOut'
+    });
+
+    gsap.to(controls.target, {
+        duration: duration,
+        x: initialControlTarget.x, 
+        y: initialControlTarget.y,
+        z: initialControlTarget.z,
+        ease: 'power1.inOut',
+        onComplete: () => {
+            controls.enableRotate = true; 
+            controls.enableZoom = true;
+            controls.update();
+        }
+    });
+}
+
 function animateCamera(targetPosition, duration, cameraSettings) {
-    // Disable controls during animation
     controls.enableRotate = false;
     controls.enableZoom = false;
 
-    // Use cameraSettings for position and target offsets
     const positionOffset = cameraSettings.positionOffset;
     const targetOffset = cameraSettings.targetOffset;
 
-    // GSAP animation for the camera position
     gsap.to(camera.position, {
         duration: duration,
         x: targetPosition.x + positionOffset.x,
@@ -354,44 +375,31 @@ function animateCamera(targetPosition, duration, cameraSettings) {
         ease: 'power1.inOut'
     });
 
-    // GSAP animation for the OrbitControls target (focus point)
     gsap.to(controls.target, {
         duration: duration,
-        x: targetPosition.x + targetOffset.x,  // Adjust these values to focus differently
+        x: targetPosition.x + targetOffset.x, 
         y: targetPosition.y + targetOffset.y,
         z: targetPosition.z + targetOffset.z,
         ease: 'power1.inOut',
         onComplete: () => {
-            // Re-enable controls after animation
-            controls.enableRotate = true;
-            controls.enableZoom = true;
-
-            // Update controls to reflect the new target
+            controls.enableRotate = false;
+            controls.enableZoom = false;
             controls.update();
         }
     });
 }
 
-
-/**
- * Animate
- */
 const clock = new THREE.Clock();
 
 const tick = () => {
 
     const elapsedTime = clock.getElapsedTime();
 
-    // particles
     particlesMaterial.uniforms.uTime.value = elapsedTime;
 
-    // Cast a ray
     raycaster.setFromCamera(mouse, camera)
     const intersects = raycaster.intersectObjects(objectsToTest)
 
-    // for (const intersect of intersects) {
-    //     // logic for camera
-    // }
 
     if (intersects.length) {
         if(currentIntersect === null) {
@@ -405,9 +413,7 @@ const tick = () => {
         }
         currentIntersect = null
     }
-    
-
-    // Update controls
+ 
     controls.update();
 
     scene.traverse((child) => {
@@ -416,10 +422,7 @@ const tick = () => {
         }
     });
 
-    // Render
     renderer.render(scene, camera);
-
-    // Call tick again on the next frame
     window.requestAnimationFrame(tick);
 };
 
