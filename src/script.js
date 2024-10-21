@@ -53,7 +53,7 @@ for (const key in screens) {
 
 for (const key in bakedTextures) {
     bakedTextures[key].flipY = false;
-    bakedTextures[key].wrapS = THREE.RepeatWrapping; 
+    bakedTextures[key].colorSpace = THREE.SRGBColorSpace; 
 }
 
 /**
@@ -111,7 +111,7 @@ scene.add(screenCube);
 
 
 gltfLoader.load(
-    '5d-portfolio-test5006.glb',
+    'gameboy.glb',
     (gltf) => 
     {
 
@@ -305,7 +305,7 @@ const newScreenMaterial = new THREE.MeshBasicMaterial({ map: screens.screenStart
 
 const cameraPositions = {
     button: { positionOffset: { x: -25, y: 5, z: -10 }, targetOffset: { x: 0, y: -5, z: 0 } },
-    screen: { positionOffset: { x: 25, y: 15, z: 0 }, targetOffset: { x: 0, y: 8.5, z: 0 } },
+    screen: { positionOffset: { x: 25, y: 5, z: 0 }, targetOffset: { x: 0, y: 0, z: 0 } },
 };
 
 let cameraMoved = false;
