@@ -12,6 +12,7 @@ const gui = new GUI({
     width: 400
 });
 
+
 const canvas = document.querySelector('canvas.webgl');
 
 const scene = new THREE.Scene();
@@ -27,15 +28,15 @@ const gltfLoader = new GLTFLoader();
  */
 
 const bakedTextures = {
-    texture1: textureLoader.load('./textures/calcBaked1024.jpg'),
-    texture2: textureLoader.load('./textures/cupJoystickBaked.jpg'),
-    texture3: textureLoader.load('./textures/extraSmallPartsBaked.jpg'),
-    texture4: textureLoader.load('./textures/floorBaked1024.jpg'),
-    texture5: textureLoader.load('./textures/gameboyBaked1024.jpg'),
-    texture6: textureLoader.load('./textures/gameboyChassisBaked.jpg'),
-    texture7: textureLoader.load('./textures/gameboyParts2Baked.jpg'),
-    texture8: textureLoader.load('./textures/gameboyPartsBaked.jpg'),
-    texture9: textureLoader.load('./textures/smallPartsBaked1024.jpg')
+    texture1: textureLoader.load('./textures2/calc.jpg'),
+    texture2: textureLoader.load('./textures2/cup.jpg'),
+    texture3: textureLoader.load('./textures2/extra.jpg'),
+    texture4: textureLoader.load('./textures2/floor.jpg'),
+    texture5: textureLoader.load('./textures2/keyboard.jpg'),
+    texture6: textureLoader.load('./textures2/chassis.jpg'),
+    texture7: textureLoader.load('./textures2/testing.jpg'),
+    texture8: textureLoader.load('./textures2/parts.jpg'),
+    texture9: textureLoader.load('./textures2/small.jpg')
 };
 
 const screens = {
@@ -110,7 +111,7 @@ scene.add(screenCube);
 
 
 gltfLoader.load(
-    '5d-portfolio-test4.glb',
+    '5d-portfolio-test5006.glb',
     (gltf) => 
     {
 
@@ -230,6 +231,8 @@ loadFont(scene);
 
 
 particles(scene);
+
+
 
 
 // Resize event listener
