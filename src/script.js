@@ -81,6 +81,57 @@ const purpleGlow = new THREE.MeshBasicMaterial({ color: 0xd2c2ef });
 const whiteGlow = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
 const whiteGlow2 = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
 
+// transparent screen navigation
+
+const transparentMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffffff,  
+    transparent: true,
+    opacity: 0.5    
+});
+
+const robotGeometry = new THREE.BoxGeometry(3, 2.3, 3)
+const userGeometry = new THREE.BoxGeometry(2.5, 2.5, 2.5)
+const notesGeometry = new THREE.BoxGeometry(2.5, 2.5, 2.5)
+const projectsGeometry = new THREE.BoxGeometry(2.5, 2.7, 3)
+const creditsGeometry = new THREE.BoxGeometry(2.5, 2.5, 2.5)
+const photosGeometry = new THREE.BoxGeometry(2.5, 2.7, 3)
+const projectDocGeometry = new THREE.BoxGeometry(2.5, 2.7, 3.2)
+const jpgGeometry = new THREE.BoxGeometry(2.5, 2.7, 3)
+const binGeometry = new THREE.BoxGeometry(3, 3, 3)
+
+const robotNav = new THREE.Mesh(robotGeometry, transparentMaterial);
+const userNav = new THREE.Mesh(userGeometry, transparentMaterial);
+const notesNav = new THREE.Mesh(notesGeometry, transparentMaterial);
+const projectsNav = new THREE.Mesh(projectsGeometry, transparentMaterial);
+const creditsNav = new THREE.Mesh(creditsGeometry, transparentMaterial);
+const photosNav = new THREE.Mesh(photosGeometry, transparentMaterial);
+const projectDocNav = new THREE.Mesh(projectDocGeometry, transparentMaterial);
+const jpgNav = new THREE.Mesh(jpgGeometry, transparentMaterial);
+const binNav = new THREE.Mesh(binGeometry, transparentMaterial);
+
+robotNav.position.set(-8, 20.7, 19); 
+userNav.position.set(-10.8, 34, 18.4); 
+notesNav.position.set(-10.8, 34, 15.2); 
+projectsNav.position.set(-10, 30.8, 18.1); 
+creditsNav.position.set(-10.8, 34, 0.3); 
+photosNav.position.set(-10.8, 34, -3); 
+projectDocNav.position.set(-10, 31, -2.8); 
+jpgNav.position.set(-9, 27.9, 18.1); 
+binNav.position.set(-9, 24, -3);
+
+scene.add(robotNav);
+scene.add(userNav);
+scene.add(notesNav);
+scene.add(projectsNav);
+scene.add(creditsNav);
+scene.add(photosNav);
+scene.add(projectDocNav)
+scene.add(jpgNav)
+scene.add(binNav)
+
+
+
+
 // screen 
 
 const cubeGeometry = new THREE.PlaneGeometry(26, 17);  
