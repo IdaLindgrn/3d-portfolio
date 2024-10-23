@@ -8,9 +8,9 @@ import GUI from 'lil-gui';
 import { gsap } from 'gsap';
 
 
-const gui = new GUI({
-    width: 400
-});
+// const gui = new GUI({
+//     width: 400
+// });
 
 
 const canvas = document.querySelector('canvas.webgl');
@@ -145,12 +145,12 @@ const screenCube = new THREE.Mesh(cubeGeometry, greenGlow);
 screenCube.position.set(-9, 27.8, 7.7);  
 
 const yAxis = new THREE.Vector3(0, 1, 0);
-const yRot = Math.PI / 2; // 90 degrees
+const yRot = Math.PI / 2; 
 const yQuaternion = new THREE.Quaternion();
 yQuaternion.setFromAxisAngle(yAxis, yRot);
 
 const xAxis = new THREE.Vector3(1, 0, 0);
-const xRot = Math.PI / -17; // Tilt back
+const xRot = Math.PI / -17; 
 const xQuaternion = new THREE.Quaternion();
 xQuaternion.setFromAxisAngle(xAxis, xRot);
 
@@ -160,6 +160,14 @@ combinedQuaternion.multiplyQuaternions(yQuaternion, xQuaternion);
 screenCube.quaternion.copy(combinedQuaternion);
 
 scene.add(screenCube);
+
+
+// Test cude for holographic
+
+// const testGeometry = new THREE.BoxGeometry(10, 10, 10);
+// const testCube = new THREE.Mesh(testGeometry, greenGlow);
+// testCube.position.set(40, 27.8, 7.7);
+// scene.add(testCube);  
 
 
 
