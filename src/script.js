@@ -139,7 +139,7 @@ const cubeGeometry = new THREE.PlaneGeometry(26, 17);
 
 const screenCube = new THREE.Mesh(cubeGeometry, greenGlow);
 
-screenCube.position.set(-9, 28, 7.7);  
+screenCube.position.set(-9, 27.8, 7.7);  
 
 const yAxis = new THREE.Vector3(0, 1, 0);
 const yRot = Math.PI / 2; // 90 degrees
@@ -181,11 +181,22 @@ gltfLoader.load(
 
         const button = gltf.scene.children.filter(child => child.name === 'Parts2_Cube066');
         button.forEach(child => {
-            objectsToTest.push(child);  // Add to the raycasting list
+            objectsToTest.push(child);  
            
         });
 
         objectsToTest.push(screenCube)
+
+        objectsToTest.push(robotNav)
+        objectsToTest.push(userNav)
+        objectsToTest.push(notesNav)
+        objectsToTest.push(projectsNav)
+        objectsToTest.push(creditsNav)
+        objectsToTest.push(photosNav)
+        objectsToTest.push(projectDocNav)
+        objectsToTest.push(jpgNav)
+        objectsToTest.push(binNav)
+
 
         // const gameboyScreen = gltf.scene.children.filter(child => child.name === 'Green_gameboy_large_screen');
         // gameboyScreen.forEach(child => {
@@ -351,7 +362,10 @@ const objectsToTest = []
 console.log(objectsToTest)
 
 
-const newScreenMaterial = new THREE.MeshBasicMaterial({ map: screens.screenStart });
+const screenStartMaterial = new THREE.MeshBasicMaterial({ map: screens.screenStart });
+const screenRobottMaterial = new THREE.MeshBasicMaterial({ map: screens.screenRobot });
+const screenProjectsMaterial = new THREE.MeshBasicMaterial({ map: screens.screenProjects });
+
 
 
 const cameraPositions = {
@@ -377,9 +391,38 @@ window.addEventListener('click', () => {
                 break;
             case 1:
                 console.log('click on screen');
-                clickedObject.material = newScreenMaterial;
+                clickedObject.material = screenStartMaterial;
                 animateCamera(clickedObject.position, 1.5, cameraPositions.screen);
                 cameraMoved = true;
+                break;
+            case 2:
+                console.log('click on robot');
+                screenCube.material = screenRobottMaterial;
+                break;
+            case 3:
+                console.log('click on user');
+                break;
+            case 4:
+                console.log('click on notes');
+                break;
+            case 5:
+                console.log('click on projects');
+                screenCube.material = screenProjectsMaterial;
+                break;
+            case 6:
+                console.log('click on credits');
+                break;
+            case 7:
+                console.log('click on photos');
+                break;
+            case 8:
+                console.log('click on projectsDoc');
+                break;
+            case 9:
+                console.log('click on jpg');
+                break;
+            case 10:
+                console.log('click on bin');
                 break;
         }
     } else {
