@@ -81,7 +81,10 @@ const purpleGlow = new THREE.MeshBasicMaterial({ color: 0xd2c2ef });
 const whiteGlow = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
 const whiteGlow2 = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
 
-// transparent screen navigation
+const cords = new THREE.MeshBasicMaterial({ color: 0x181515 });
+const pipes = new THREE.MeshBasicMaterial({ color: 0x0f0e0e });
+const string = new THREE.MeshBasicMaterial({ color: 0xa4a3a3 });
+const text = new THREE.MeshBasicMaterial({ color: 0x863f0c });
 
 const transparentMaterial = new THREE.MeshBasicMaterial({
     color: 0xffffff,  
@@ -171,6 +174,33 @@ gltfLoader.load(
             child.material = bakedMaterials.material4; 
         });
 
+        const cordMeshes = ['cords', 'GP_Layer001', 'GP_Layer'];
+        const pipeMeshes = ['NurbsPath', 'NurbsPath002'];
+        const textMeshes = ['text_idas_gameboy', 'Text'];
+
+        const cordMesh = gltf.scene.children.filter(child => cordMeshes.includes(child.name));
+        cordMesh.forEach(child => {
+            child.material = cords;
+        });
+
+        const pipeMesh = gltf.scene.children.filter(child => pipeMeshes.includes(child.name));
+        pipeMesh.forEach(child => {
+            child.material = pipes;
+        });
+
+        const textMesh = gltf.scene.children.filter(child => textMeshes.includes(child.name));
+        textMesh.forEach(child => {
+            child.material = text;
+        });
+
+        
+
+        const stringMesh = gltf.scene.children.filter(child => child.name === 'tea_bag_string');
+        stringMesh.forEach(child => {
+            child.material = string;
+        });
+
+
         const parts2Cylinder = gltf.scene.children.filter(child => child.name === 'Parts2_Cylinder003');
         parts2Cylinder.forEach(child => {
             const smoke = createSmokeEffect();
@@ -182,8 +212,12 @@ gltfLoader.load(
         const button = gltf.scene.children.filter(child => child.name === 'Parts2_Cube066');
         button.forEach(child => {
             objectsToTest.push(child);  
-           
         });
+
+        // const buttonPressed = gltf.scene.children.filter(child => child.name === 'Parts2_Plane.009');
+        // buttonPressed.forEach(child => {
+        //     objectsToTest.push(child);  
+        // });
 
         objectsToTest.push(screenCube)
 
@@ -366,6 +400,34 @@ const screenStartMaterial = new THREE.MeshBasicMaterial({ map: screens.screenSta
 const screenRobottMaterial = new THREE.MeshBasicMaterial({ map: screens.screenRobot });
 const screenProjectsMaterial = new THREE.MeshBasicMaterial({ map: screens.screenProjects });
 
+const originalMaterials = new Map();
+
+function storeOriginalMaterials(scene) {
+    scene.traverse((child) => {
+        if (child.isMesh) {
+            originalMaterials.set(child, child.material);  
+        }
+    });
+}
+
+function changeMaterials(scene, newMaterial, duration) {
+    scene.traverse((child) => {
+        if (child.isMesh) {
+            if (!originalMaterials.has(child)) {
+                originalMaterials.set(child, child.material);
+            }
+            child.material = newMaterial;
+        }
+    });
+
+    setTimeout(() => {
+        scene.traverse((child) => {
+            if (child.isMesh && originalMaterials.has(child)) {
+                child.material = originalMaterials.get(child);  
+            }
+        });
+    }, duration * 1000); 
+}
 
 
 const cameraPositions = {
@@ -387,6 +449,7 @@ window.addEventListener('click', () => {
             case 0:
                 console.log('click on button');
                 animateCamera(clickedObject.position, 1.5, cameraPositions.button);
+                changeMaterials(scene, redGlow, 2);
                 cameraMoved = true;
                 break;
             case 1:
