@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createSmokeEffect } from './smokeEffect.js';
 import { loadFont } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
+import { loadingManager } from './loadingManager.js'; 
 import GUI from 'lil-gui';
 import { gsap } from 'gsap';
 
@@ -17,14 +18,14 @@ const canvas = document.querySelector('canvas.webgl');
 
 const scene = new THREE.Scene();
 
-const loadingManager = new THREE.LoadingManager()  
+// const loadingManager = new THREE.LoadingManager()  
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
 const gltfLoader = new GLTFLoader();
 
 
 /**
- * Textures
+ * Texturesa
  */
 
 const bakedTextures = {
