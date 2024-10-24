@@ -41,9 +41,18 @@ const bakedTextures = {
 };
 
 const screens = {
-    screenStart: textureLoader.load('./textures/GroupTest2.png'),
-    screenRobot: textureLoader.load('./textures/screenRobot.png'),
-    screenProjects: textureLoader.load('./textures/screenProjects.png'),
+    screenStart: textureLoader.load('./textures/startScreen.jpg'),
+    screenRobot: textureLoader.load('./textures/robotScreen.jpg'),
+    screenProjects: textureLoader.load('./textures/projectsScreen.jpg'),
+    screenProject: textureLoader.load('./textures/projectScreen.jpg'),
+    screenUser: textureLoader.load('./textures/userScreen.jpg'),
+    screenNotes: textureLoader.load('./textures/notesScreen.jpg'),
+    screenCredits: textureLoader.load('./textures/creditsScreen.jpg'),
+    screenPhotos: textureLoader.load('./textures/photosScreen.jpg'),
+    screenPhoto: textureLoader.load('./textures/photoScreen.jpg'),
+    screenYoshi: textureLoader.load('./textures/yoshiScreen.jpg'),
+    screenBin: textureLoader.load('./textures/binScreen.jpg'),
+    screenBinDoc: textureLoader.load('./textures/binDocScreen.jpg'),
 };
 
 
@@ -93,49 +102,6 @@ const transparentMaterial = new THREE.MeshBasicMaterial({
     opacity: 0.5    
 });
 
-const robotGeometry = new THREE.BoxGeometry(3, 2.3, 3)
-const userGeometry = new THREE.BoxGeometry(2.5, 2.5, 2.5)
-const notesGeometry = new THREE.BoxGeometry(2.5, 2.5, 2.5)
-const projectsGeometry = new THREE.BoxGeometry(2.5, 2.7, 3)
-const creditsGeometry = new THREE.BoxGeometry(2.5, 2.5, 2.5)
-const photosGeometry = new THREE.BoxGeometry(2.5, 2.7, 3)
-const projectDocGeometry = new THREE.BoxGeometry(2.5, 2.7, 3.2)
-const jpgGeometry = new THREE.BoxGeometry(2.5, 2.7, 3)
-const binGeometry = new THREE.BoxGeometry(3, 3, 3)
-
-const robotNav = new THREE.Mesh(robotGeometry, transparentMaterial);
-const userNav = new THREE.Mesh(userGeometry, transparentMaterial);
-const notesNav = new THREE.Mesh(notesGeometry, transparentMaterial);
-const projectsNav = new THREE.Mesh(projectsGeometry, transparentMaterial);
-const creditsNav = new THREE.Mesh(creditsGeometry, transparentMaterial);
-const photosNav = new THREE.Mesh(photosGeometry, transparentMaterial);
-const projectDocNav = new THREE.Mesh(projectDocGeometry, transparentMaterial);
-const jpgNav = new THREE.Mesh(jpgGeometry, transparentMaterial);
-const binNav = new THREE.Mesh(binGeometry, transparentMaterial);
-
-robotNav.position.set(-8, 20.7, 19); 
-userNav.position.set(-10.8, 34, 18.4); 
-notesNav.position.set(-10.8, 34, 15.2); 
-projectsNav.position.set(-10, 30.8, 18.1); 
-creditsNav.position.set(-10.8, 34, 0.3); 
-photosNav.position.set(-10.8, 34, -3); 
-projectDocNav.position.set(-10, 31, -2.8); 
-jpgNav.position.set(-9, 27.9, 18.1); 
-binNav.position.set(-9, 24, -3);
-
-scene.add(robotNav);
-scene.add(userNav);
-scene.add(notesNav);
-scene.add(projectsNav);
-scene.add(creditsNav);
-scene.add(photosNav);
-scene.add(projectDocNav)
-scene.add(jpgNav)
-scene.add(binNav)
-
-
-
-
 // screen 
 
 const cubeGeometry = new THREE.PlaneGeometry(26, 17);  
@@ -161,6 +127,60 @@ combinedQuaternion.multiplyQuaternions(yQuaternion, xQuaternion);
 screenCube.quaternion.copy(combinedQuaternion);
 
 scene.add(screenCube);
+
+// screen nav
+
+// const robotGeometry = new THREE.BoxGeometry(3, 2.3, 3)
+const robotGeometry = new THREE.PlaneGeometry(3, 2.3)
+const userGeometry = new THREE.PlaneGeometry(2.5, 2.5)
+const notesGeometry = new THREE.PlaneGeometry(2.5, 2.5)
+const projectsGeometry = new THREE.PlaneGeometry(2.5, 2.7)
+const creditsGeometry = new THREE.PlaneGeometry(2.5, 2.5)
+const photosGeometry = new THREE.PlaneGeometry(2.5, 2.7)
+const projectDocGeometry = new THREE.PlaneGeometry(2.5, 2.7)
+const jpgGeometry = new THREE.PlaneGeometry(2.5, 2.7)
+const binGeometry = new THREE.PlaneGeometry(3, 3)
+
+const robotNav = new THREE.Mesh(robotGeometry, transparentMaterial);
+const userNav = new THREE.Mesh(userGeometry, transparentMaterial);
+const notesNav = new THREE.Mesh(notesGeometry, transparentMaterial);
+const projectsNav = new THREE.Mesh(projectsGeometry, transparentMaterial);
+const creditsNav = new THREE.Mesh(creditsGeometry, transparentMaterial);
+const photosNav = new THREE.Mesh(photosGeometry, transparentMaterial);
+const projectDocNav = new THREE.Mesh(projectDocGeometry, transparentMaterial);
+const jpgNav = new THREE.Mesh(jpgGeometry, transparentMaterial);
+const binNav = new THREE.Mesh(binGeometry, transparentMaterial);
+
+robotNav.position.set(-7.5, 20.7, 19); 
+userNav.position.set(-10, 34, 18.4); 
+notesNav.position.set(-10, 34, 15.2); 
+projectsNav.position.set(-9.5, 30.8, 18.1); 
+creditsNav.position.set(-10, 34, 0.3); 
+photosNav.position.set(-10, 34, -3); 
+projectDocNav.position.set(-9.5, 31, -2.8); 
+jpgNav.position.set(-9, 27.9, 18.1); 
+binNav.position.set(-8, 24, -3);
+
+robotNav.quaternion.copy(combinedQuaternion);
+userNav.quaternion.copy(combinedQuaternion);
+notesNav.quaternion.copy(combinedQuaternion);
+projectsNav.quaternion.copy(combinedQuaternion);
+creditsNav.quaternion.copy(combinedQuaternion);
+photosNav.quaternion.copy(combinedQuaternion);
+projectDocNav.quaternion.copy(combinedQuaternion);
+jpgNav.quaternion.copy(combinedQuaternion);
+binNav.quaternion.copy(combinedQuaternion);
+
+scene.add(robotNav);
+scene.add(userNav);
+scene.add(notesNav);
+scene.add(projectsNav);
+scene.add(creditsNav);
+scene.add(photosNav);
+scene.add(projectDocNav)
+scene.add(jpgNav)
+scene.add(binNav)
+
 
 
 // Test cude for holographic
@@ -404,10 +424,18 @@ const objectsToTest = []
 
 console.log(objectsToTest)
 
-
 const screenStartMaterial = new THREE.MeshBasicMaterial({ map: screens.screenStart });
-const screenRobottMaterial = new THREE.MeshBasicMaterial({ map: screens.screenRobot });
+const screenRobotMaterial = new THREE.MeshBasicMaterial({ map: screens.screenRobot });
 const screenProjectsMaterial = new THREE.MeshBasicMaterial({ map: screens.screenProjects });
+const screenProjectMaterial = new THREE.MeshBasicMaterial({ map: screens.screenProject });
+const screenUserMaterial = new THREE.MeshBasicMaterial({ map: screens.screenUser });
+const screenNotesMaterial = new THREE.MeshBasicMaterial({ map: screens.screenNotes });
+const screenYoshiMaterial = new THREE.MeshBasicMaterial({ map: screens.screenYoshi });
+const screenCreditsMaterial = new THREE.MeshBasicMaterial({ map: screens.screenCredits });
+const screenPhotosMaterial = new THREE.MeshBasicMaterial({ map: screens.screenPhotos });
+const screenPhotoMaterial = new THREE.MeshBasicMaterial({ map: screens.screenPhoto });
+const screenBinMaterial = new THREE.MeshBasicMaterial({ map: screens.screenBin });
+const screenBinDocMaterial = new THREE.MeshBasicMaterial({ map: screens.screenBinDoc });
 
 const originalMaterials = new Map();
 
@@ -453,6 +481,16 @@ window.addEventListener('click', () => {
     if (intersects.length) {
         const clickedObject = intersects[0].object;
         const index = objectsToTest.indexOf(clickedObject);
+
+        scene.add(robotNav);
+scene.add(userNav);
+scene.add(notesNav);
+scene.add(projectsNav);
+scene.add(creditsNav);
+scene.add(photosNav);
+scene.add(projectDocNav)
+scene.add(jpgNav)
+scene.add(binNav)
         
         switch (index) {
             case 0:
@@ -469,13 +507,15 @@ window.addEventListener('click', () => {
                 break;
             case 2:
                 console.log('click on robot');
-                screenCube.material = screenRobottMaterial;
+                screenCube.material = screenRobotMaterial;
                 break;
             case 3:
                 console.log('click on user');
+                screenCube.material = screenUserMaterial;
                 break;
             case 4:
                 console.log('click on notes');
+                screenCube.material = screenNotesMaterial;
                 break;
             case 5:
                 console.log('click on projects');
@@ -483,18 +523,22 @@ window.addEventListener('click', () => {
                 break;
             case 6:
                 console.log('click on credits');
+                screenCube.material = screenCreditsMaterial;
                 break;
             case 7:
                 console.log('click on photos');
+                screenCube.material = screenPhotosMaterial;
                 break;
             case 8:
                 console.log('click on projectsDoc');
                 break;
             case 9:
                 console.log('click on jpg');
+                screenCube.material = screenYoshiMaterial;
                 break;
             case 10:
                 console.log('click on bin');
+                screenCube.material = screenBinMaterial;
                 break;
         }
     } else {

@@ -22,7 +22,7 @@ loadingManager.onLoad = () => {
 
     setTimeout(() => {
         overlay.style.display = 'none';
-    }, remainingTime); // Wait for remaining time if loading was fast
+    }, remainingTime); 
 };
 
 export { loadingManager };
