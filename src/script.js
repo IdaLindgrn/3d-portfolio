@@ -171,16 +171,6 @@ projectDocNav.quaternion.copy(combinedQuaternion);
 jpgNav.quaternion.copy(combinedQuaternion);
 binNav.quaternion.copy(combinedQuaternion);
 
-scene.add(robotNav);
-scene.add(userNav);
-scene.add(notesNav);
-scene.add(projectsNav);
-scene.add(creditsNav);
-scene.add(photosNav);
-scene.add(projectDocNav)
-scene.add(jpgNav)
-scene.add(binNav)
-
 
 
 // Test cude for holographic
@@ -472,7 +462,35 @@ const cameraPositions = {
     screen: { positionOffset: { x: 25, y: 5, z: 0 }, targetOffset: { x: 0, y: 0, z: 0 } },
 };
 
+function updateRaycastTargets(addObjects) {
+    if (addObjects) {
+        // Add objects to the scene when true
+        scene.add(robotNav);
+        scene.add(userNav);
+        scene.add(notesNav);
+        scene.add(projectsNav);
+        scene.add(creditsNav);
+        scene.add(photosNav);
+        scene.add(projectDocNav);
+        scene.add(jpgNav);
+        scene.add(binNav);
+    } else {
+        // Remove objects from the scene when false
+        scene.remove(robotNav);
+        scene.remove(userNav);
+        scene.remove(notesNav);
+        scene.remove(projectsNav);
+        scene.remove(creditsNav);
+        scene.remove(photosNav);
+        scene.remove(projectDocNav);
+        scene.remove(jpgNav);
+        scene.remove(binNav);
+    }
+}
+
+
 let cameraMoved = false;
+
 
 window.addEventListener('click', () => {
     raycaster.setFromCamera(mouse, camera);
@@ -481,16 +499,6 @@ window.addEventListener('click', () => {
     if (intersects.length) {
         const clickedObject = intersects[0].object;
         const index = objectsToTest.indexOf(clickedObject);
-
-        scene.add(robotNav);
-scene.add(userNav);
-scene.add(notesNav);
-scene.add(projectsNav);
-scene.add(creditsNav);
-scene.add(photosNav);
-scene.add(projectDocNav)
-scene.add(jpgNav)
-scene.add(binNav)
         
         switch (index) {
             case 0:
@@ -504,6 +512,7 @@ scene.add(binNav)
                 clickedObject.material = screenStartMaterial;
                 animateCamera(clickedObject.position, 1.5, cameraPositions.screen);
                 cameraMoved = true;
+                updateRaycastTargets(true);
                 break;
             case 2:
                 console.log('click on robot');
@@ -546,6 +555,7 @@ scene.add(binNav)
             screenCube.material = greenGlow;
             resetCamera(1.5);
             cameraMoved = false; 
+            updateRaycastTargets(false);
         }
     }
 });
