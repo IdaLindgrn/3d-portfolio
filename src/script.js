@@ -499,11 +499,13 @@ function updateRaycastTargets(addObjects) {
 }
 
 const navPopupMappings = {
+    2: [robotNav],
     3: [userNav, userPopupNav],
     4: [notesNav, notesPopupNav],
     5: [projectsNav, projectsPopupNav],
     6: [creditsNav, creditsPopupNav],
     7: [photosNav, photosPopupNav],
+    8: [projectDocNav],
     9: [jpgNav, jpgPopupNav],
     10: [binNav, binPopupNav]
 };
