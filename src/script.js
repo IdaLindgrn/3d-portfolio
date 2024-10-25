@@ -4,7 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createSmokeEffect } from './smokeEffect.js';
 import { loadFont } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
-import { loadingManager } from './loadingManager.js'; 
+// import { loadingManager } from './loadingManager.js'; 
 import GUI from 'lil-gui';
 import { gsap } from 'gsap';
 
@@ -18,7 +18,7 @@ const canvas = document.querySelector('canvas.webgl');
 
 const scene = new THREE.Scene();
 
-// const loadingManager = new THREE.LoadingManager()  
+const loadingManager = new THREE.LoadingManager()  
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
 const gltfLoader = new GLTFLoader();
@@ -97,7 +97,7 @@ const string = new THREE.MeshBasicMaterial({ color: 0xa4a3a3 });
 const text = new THREE.MeshBasicMaterial({ color: 0x863f0c });
 
 const transparentMaterial = new THREE.MeshBasicMaterial({
-    color: 0xffffff,  
+    color: 0x000,  
     transparent: true,
     opacity: 0.5    
 });
@@ -130,46 +130,73 @@ scene.add(screenCube);
 
 // screen nav
 
-// const robotGeometry = new THREE.BoxGeometry(3, 2.3, 3)
 const robotGeometry = new THREE.PlaneGeometry(3, 2.3)
-const userGeometry = new THREE.PlaneGeometry(2.5, 2.5)
-const notesGeometry = new THREE.PlaneGeometry(2.5, 2.5)
-const projectsGeometry = new THREE.PlaneGeometry(2.5, 2.7)
-const creditsGeometry = new THREE.PlaneGeometry(2.5, 2.5)
-const photosGeometry = new THREE.PlaneGeometry(2.5, 2.7)
-const projectDocGeometry = new THREE.PlaneGeometry(2.5, 2.7)
-const jpgGeometry = new THREE.PlaneGeometry(2.5, 2.7)
-const binGeometry = new THREE.PlaneGeometry(3, 3)
+const userGeometry = new THREE.PlaneGeometry(2.5, 2.8)
+const userPopupGeometry = new THREE.PlaneGeometry(10.6, 9.71)
+const notesGeometry = new THREE.PlaneGeometry(2.5, 2.9)
+const notesPopupGeometry = new THREE.PlaneGeometry(8.7, 7.35)
+const projectsGeometry = new THREE.PlaneGeometry(2.7, 2.9)
+const projectsPopupGeometry = new THREE.PlaneGeometry(13.8, 8.2)
+const creditsGeometry = new THREE.PlaneGeometry(2.5, 2.7)
+const creditsPopupGeometry = new THREE.PlaneGeometry(10.74, 6.72)
+const photosGeometry = new THREE.PlaneGeometry(2.9, 2.7)
+const photosPopupGeometry = new THREE.PlaneGeometry(13.67, 8.16)
+const projectDocGeometry = new THREE.PlaneGeometry(3.3, 2.7)
+const jpgGeometry = new THREE.PlaneGeometry(3.2, 2.8)
+const jpgPopupGeometry = new THREE.PlaneGeometry(8.9, 6.5)
+const binGeometry = new THREE.PlaneGeometry(3.5, 3)
+const binPopupGeometry = new THREE.PlaneGeometry(13.7, 8.2)
 
 const robotNav = new THREE.Mesh(robotGeometry, transparentMaterial);
 const userNav = new THREE.Mesh(userGeometry, transparentMaterial);
+const userPopupNav = new THREE.Mesh(userPopupGeometry, transparentMaterial);
 const notesNav = new THREE.Mesh(notesGeometry, transparentMaterial);
+const notesPopupNav = new THREE.Mesh(notesPopupGeometry, transparentMaterial);
 const projectsNav = new THREE.Mesh(projectsGeometry, transparentMaterial);
+const projectsPopupNav = new THREE.Mesh(projectsPopupGeometry, transparentMaterial);
 const creditsNav = new THREE.Mesh(creditsGeometry, transparentMaterial);
+const creditsPopupNav = new THREE.Mesh(creditsPopupGeometry, transparentMaterial);
 const photosNav = new THREE.Mesh(photosGeometry, transparentMaterial);
+const photosPopupNav = new THREE.Mesh(photosPopupGeometry, transparentMaterial);
 const projectDocNav = new THREE.Mesh(projectDocGeometry, transparentMaterial);
 const jpgNav = new THREE.Mesh(jpgGeometry, transparentMaterial);
+const jpgPopupNav = new THREE.Mesh(jpgPopupGeometry, transparentMaterial);
 const binNav = new THREE.Mesh(binGeometry, transparentMaterial);
+const binPopupNav = new THREE.Mesh(binPopupGeometry, transparentMaterial);
 
-robotNav.position.set(-7.5, 20.7, 19); 
-userNav.position.set(-10, 34, 18.4); 
-notesNav.position.set(-10, 34, 15.2); 
-projectsNav.position.set(-9.5, 30.8, 18.1); 
-creditsNav.position.set(-10, 34, 0.3); 
-photosNav.position.set(-10, 34, -3); 
-projectDocNav.position.set(-9.5, 31, -2.8); 
-jpgNav.position.set(-9, 27.9, 18.1); 
-binNav.position.set(-8, 24, -3);
+robotNav.position.set(-7.5, 20.6, 19); 
+userNav.position.set(-10, 33.9, 18.4); 
+userPopupNav.position.set(-5, 29.5, 7.75);
+notesNav.position.set(-10, 33.85, 15.3); 
+notesPopupNav.position.set(-5, 31.2, 3.8); 
+projectsNav.position.set(-9.5, 30.7, 18.2); 
+projectsPopupNav.position.set(-5, 28.9, 9.6);
+creditsNav.position.set(-10, 33.9, 0.3); 
+creditsPopupNav.position.set(-5, 28, 7.7);
+photosNav.position.set(-10, 33.9, -3);
+photosPopupNav.position.set(-5, 29.9, 7);  
+projectDocNav.position.set(-9.5, 30.9, -2.8); 
+jpgNav.position.set(-8.8, 27.6, 18.2); 
+jpgPopupNav.position.set(-5, 28.7, 9.1);
+binNav.position.set(-8, 24, -2.9);
+binPopupNav.position.set(-5, 29.9, 7);
 
 robotNav.quaternion.copy(combinedQuaternion);
 userNav.quaternion.copy(combinedQuaternion);
+userPopupNav.quaternion.copy(combinedQuaternion);
 notesNav.quaternion.copy(combinedQuaternion);
+notesPopupNav.quaternion.copy(combinedQuaternion);
 projectsNav.quaternion.copy(combinedQuaternion);
+projectsPopupNav.quaternion.copy(combinedQuaternion);
 creditsNav.quaternion.copy(combinedQuaternion);
+creditsPopupNav.quaternion.copy(combinedQuaternion);
 photosNav.quaternion.copy(combinedQuaternion);
+photosPopupNav.quaternion.copy(combinedQuaternion);
 projectDocNav.quaternion.copy(combinedQuaternion);
 jpgNav.quaternion.copy(combinedQuaternion);
+jpgPopupNav.quaternion.copy(combinedQuaternion);
 binNav.quaternion.copy(combinedQuaternion);
+binPopupNav.quaternion.copy(combinedQuaternion);
 
 
 
@@ -343,8 +370,6 @@ gltfLoader.load(
 );
 
 loadFont(scene);
-
-
 particles(scene);
 
 
@@ -384,7 +409,7 @@ controls.enableDamping = true;
 controls.maxDistance = 170;
 controls.minDistance = 1;
 
-const initialCameraPosition = camera.position.clone(); // Store initial position
+const initialCameraPosition = camera.position.clone(); 
 const initialControlTarget = controls.target.clone(); 
 
 
@@ -463,34 +488,59 @@ const cameraPositions = {
 };
 
 function updateRaycastTargets(addObjects) {
-    if (addObjects) {
-        // Add objects to the scene when true
-        scene.add(robotNav);
-        scene.add(userNav);
-        scene.add(notesNav);
-        scene.add(projectsNav);
-        scene.add(creditsNav);
-        scene.add(photosNav);
-        scene.add(projectDocNav);
-        scene.add(jpgNav);
-        scene.add(binNav);
-    } else {
-        // Remove objects from the scene when false
-        scene.remove(robotNav);
-        scene.remove(userNav);
-        scene.remove(notesNav);
-        scene.remove(projectsNav);
-        scene.remove(creditsNav);
-        scene.remove(photosNav);
-        scene.remove(projectDocNav);
-        scene.remove(jpgNav);
-        scene.remove(binNav);
-    }
+    Object.values(navPopupMappings).forEach(([nav, popup]) => {
+        if (addObjects) {
+            scene.add(nav);
+        } else {
+            scene.remove(nav);
+            scene.remove(popup);  // Ensure both Nav and Popup are removed when hiding
+        }
+    });
 }
 
+const navPopupMappings = {
+    3: [userNav, userPopupNav],
+    4: [notesNav, notesPopupNav],
+    5: [projectsNav, projectsPopupNav],
+    6: [creditsNav, creditsPopupNav],
+    7: [photosNav, photosPopupNav],
+    9: [jpgNav, jpgPopupNav],
+    10: [binNav, binPopupNav]
+};
 
+const screenMaterials = {
+    3: screenUserMaterial,
+    4: screenNotesMaterial,
+    5: screenProjectsMaterial,
+    6: screenCreditsMaterial,
+    7: screenPhotosMaterial,
+    9: screenYoshiMaterial,
+    10: screenBinMaterial
+};
+
+
+let activePopup = null;
 let cameraMoved = false;
 
+function managePopup(caseIndex) {
+    const [_, popupToShow] = navPopupMappings[caseIndex] || [];
+    const newMaterial = screenMaterials[caseIndex];
+
+    if (activePopup) {
+        scene.remove(activePopup);
+        objectsToTest.pop();
+        activePopup = null;
+    }
+
+    if (popupToShow) {
+        scene.add(popupToShow);
+        objectsToTest.push(popupToShow)
+        activePopup = popupToShow;
+    }
+    if (newMaterial) {
+        screenCube.material = newMaterial;
+    }
+}
 
 window.addEventListener('click', () => {
     raycaster.setFromCamera(mouse, camera);
@@ -513,41 +563,25 @@ window.addEventListener('click', () => {
                 animateCamera(clickedObject.position, 1.5, cameraPositions.screen);
                 cameraMoved = true;
                 updateRaycastTargets(true);
+                managePopup(null);
                 break;
             case 2:
                 console.log('click on robot');
                 screenCube.material = screenRobotMaterial;
-                break;
-            case 3:
-                console.log('click on user');
-                screenCube.material = screenUserMaterial;
-                break;
-            case 4:
-                console.log('click on notes');
-                screenCube.material = screenNotesMaterial;
-                break;
-            case 5:
-                console.log('click on projects');
-                screenCube.material = screenProjectsMaterial;
-                break;
-            case 6:
-                console.log('click on credits');
-                screenCube.material = screenCreditsMaterial;
-                break;
-            case 7:
-                console.log('click on photos');
-                screenCube.material = screenPhotosMaterial;
+                managePopup(null);
                 break;
             case 8:
                 console.log('click on projectsDoc');
+                managePopup(null);
                 break;
-            case 9:
-                console.log('click on jpg');
-                screenCube.material = screenYoshiMaterial;
+                case 11:
+                console.log('click on popup');
+ 
                 break;
-            case 10:
-                console.log('click on bin');
-                screenCube.material = screenBinMaterial;
+            default:
+                if (navPopupMappings[index]) {
+                    managePopup(index);
+                }
                 break;
         }
     } else {
@@ -556,6 +590,7 @@ window.addEventListener('click', () => {
             resetCamera(1.5);
             cameraMoved = false; 
             updateRaycastTargets(false);
+            managePopup(null);
         }
     }
 });
