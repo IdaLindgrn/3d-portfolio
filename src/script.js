@@ -566,14 +566,14 @@ function updateRaycastTargets(addObjects) {
         } else {
             scene.remove(nav);
             scene.remove(popup);  
-            scene.add(close);
-            scene.add(extra1);
-            scene.add(extra2);
-            scene.add(extra3);
-            scene.add(extra4);
-            scene.add(extra5);
-            scene.add(extra6);
-            scene.add(extra7); 
+            scene.remove(close);
+            scene.remove(extra1);
+            scene.remove(extra2);
+            scene.remove(extra3);
+            scene.remove(extra4);
+            scene.remove(extra5);
+            scene.remove(extra6);
+            scene.remove(extra7); 
         }
     });
 }
@@ -602,27 +602,39 @@ const screenMaterials = {
 
 
 let activePopup = null;
+let activeClose = null;
 let cameraMoved = false;
 
 function managePopup(caseIndex) {
-    const [_, popupToShow] = navPopupMappings[caseIndex] || [];
+    const [_, popupToShow, closePopup] = navPopupMappings[caseIndex] || [];
     const newMaterial = screenMaterials[caseIndex];
 
     if (activePopup) {
         scene.remove(activePopup);
-        objectsToTest.pop();
+        scene.remove(activeClose);
+        objectsToTest.splice(11, 8);
         activePopup = null;
-    }
+        activeClose = null;
+        console.log(objectsToTest)
 
+    }
     if (popupToShow) {
         scene.add(popupToShow);
         objectsToTest.push(popupToShow)
         activePopup = popupToShow;
     }
+    if (closePopup) {
+        scene.add(closePopup);
+        objectsToTest.push(closePopup)
+        
+        activeClose = closePopup;
+    }
+    
     if (newMaterial) {
         screenCube.material = newMaterial;
     }
 }
+
 
 window.addEventListener('click', () => {
     raycaster.setFromCamera(mouse, camera);
@@ -654,10 +666,14 @@ window.addEventListener('click', () => {
                 break;
             case 8:
                 console.log('click on projectsDoc');
-                managePopup(null);
                 break;
-                case 11:
+            case 11:
                 console.log('click on popup');
+                break;
+            case 12:
+                console.log('click on close');
+                screenCube.material = screenStartMaterial;
+                managePopup(null);
                 break;
             default:
                 if (navPopupMappings[index]) {
