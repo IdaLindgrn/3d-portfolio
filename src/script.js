@@ -130,73 +130,145 @@ scene.add(screenCube);
 
 // screen nav
 
-const robotGeometry = new THREE.PlaneGeometry(3, 2.3)
-const userGeometry = new THREE.PlaneGeometry(2.5, 2.8)
-const userPopupGeometry = new THREE.PlaneGeometry(10.6, 9.71)
-const notesGeometry = new THREE.PlaneGeometry(2.5, 2.9)
-const notesPopupGeometry = new THREE.PlaneGeometry(8.7, 7.35)
-const projectsGeometry = new THREE.PlaneGeometry(2.7, 2.9)
-const projectsPopupGeometry = new THREE.PlaneGeometry(13.8, 8.2)
-const creditsGeometry = new THREE.PlaneGeometry(2.5, 2.7)
-const creditsPopupGeometry = new THREE.PlaneGeometry(10.74, 6.72)
-const photosGeometry = new THREE.PlaneGeometry(2.9, 2.7)
-const photosPopupGeometry = new THREE.PlaneGeometry(13.67, 8.16)
-const projectDocGeometry = new THREE.PlaneGeometry(3.3, 2.7)
-const jpgGeometry = new THREE.PlaneGeometry(3.2, 2.8)
-const jpgPopupGeometry = new THREE.PlaneGeometry(8.9, 6.5)
-const binGeometry = new THREE.PlaneGeometry(3.5, 3)
-const binPopupGeometry = new THREE.PlaneGeometry(13.7, 8.2)
+const robotGeometry = new THREE.PlaneGeometry(3, 2.3);
+const userGeometry = new THREE.PlaneGeometry(2.5, 2.8);
+const userPopupGeometry = new THREE.PlaneGeometry(10.6, 9.71);
+const notesGeometry = new THREE.PlaneGeometry(2.5, 2.9);
+const notesPopupGeometry = new THREE.PlaneGeometry(8.7, 7.35);
+const projectsGeometry = new THREE.PlaneGeometry(2.7, 2.9);
+const projectsPopupGeometry = new THREE.PlaneGeometry(13.8, 8.2);
+const creditsGeometry = new THREE.PlaneGeometry(2.5, 2.7);
+const creditsPopupGeometry = new THREE.PlaneGeometry(10.74, 6.72);
+const photosGeometry = new THREE.PlaneGeometry(2.9, 2.7);
+const photosPopupGeometry = new THREE.PlaneGeometry(13.67, 8.16);
+const projectDocGeometry = new THREE.PlaneGeometry(3.3, 2.7);
+const jpgGeometry = new THREE.PlaneGeometry(3.2, 2.8);
+const jpgPopupGeometry = new THREE.PlaneGeometry(8.9, 6.5);
+const binGeometry = new THREE.PlaneGeometry(3.5, 3);
+const binPopupGeometry = new THREE.PlaneGeometry(13.7, 8.2);
+const closeGeometry = new THREE.PlaneGeometry(0.5, 0.5);
+const linksGeometry = new THREE.PlaneGeometry(0.8, 0.8);
+const projectsFolderGeometry = new THREE.PlaneGeometry(1.7, 1.9);
+const openImageGeometry = new THREE.PlaneGeometry(2.2, 1.8);
+const binDocGeometry = new THREE.PlaneGeometry(2, 2.2);
+ 
 
 const robotNav = new THREE.Mesh(robotGeometry, transparentMaterial);
 const userNav = new THREE.Mesh(userGeometry, transparentMaterial);
 const userPopupNav = new THREE.Mesh(userPopupGeometry, transparentMaterial);
+const userCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
+const userGithubNav = new THREE.Mesh(linksGeometry, transparentMaterial);
+const userLinkedinNav = new THREE.Mesh(linksGeometry, transparentMaterial);
+const userMediumNav = new THREE.Mesh(linksGeometry, transparentMaterial);
+const userMailNav = new THREE.Mesh(linksGeometry, transparentMaterial);
 const notesNav = new THREE.Mesh(notesGeometry, transparentMaterial);
 const notesPopupNav = new THREE.Mesh(notesPopupGeometry, transparentMaterial);
+const notesCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
 const projectsNav = new THREE.Mesh(projectsGeometry, transparentMaterial);
 const projectsPopupNav = new THREE.Mesh(projectsPopupGeometry, transparentMaterial);
+const projectsCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
+const projectsGameboyNav = new THREE.Mesh(projectsFolderGeometry, transparentMaterial);
+const projectsMobileAppNav = new THREE.Mesh(projectsFolderGeometry, transparentMaterial);
+const projectsBrowserExtensionNav = new THREE.Mesh(projectsFolderGeometry, transparentMaterial);
+const projectsRHGNav = new THREE.Mesh(projectsFolderGeometry, transparentMaterial);
+const projectsReactPortfolioNav = new THREE.Mesh(projectsFolderGeometry, transparentMaterial);
+const projectsFlexboxGameNav = new THREE.Mesh(projectsFolderGeometry, transparentMaterial);
+const projectsTictactoeNav = new THREE.Mesh(projectsFolderGeometry, transparentMaterial);
 const creditsNav = new THREE.Mesh(creditsGeometry, transparentMaterial);
 const creditsPopupNav = new THREE.Mesh(creditsPopupGeometry, transparentMaterial);
+const creditsCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
 const photosNav = new THREE.Mesh(photosGeometry, transparentMaterial);
 const photosPopupNav = new THREE.Mesh(photosPopupGeometry, transparentMaterial);
+const photosCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
+const photos1Nav = new THREE.Mesh(openImageGeometry, transparentMaterial);
+const photos2Nav = new THREE.Mesh(openImageGeometry, transparentMaterial);
+const photos3Nav = new THREE.Mesh(openImageGeometry, transparentMaterial);
 const projectDocNav = new THREE.Mesh(projectDocGeometry, transparentMaterial);
 const jpgNav = new THREE.Mesh(jpgGeometry, transparentMaterial);
 const jpgPopupNav = new THREE.Mesh(jpgPopupGeometry, transparentMaterial);
+const jpgCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
 const binNav = new THREE.Mesh(binGeometry, transparentMaterial);
 const binPopupNav = new THREE.Mesh(binPopupGeometry, transparentMaterial);
+const binCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
+const binDocNav = new THREE.Mesh(binDocGeometry, transparentMaterial);
 
 robotNav.position.set(-7.5, 20.6, 19); 
 userNav.position.set(-10, 33.9, 18.4); 
 userPopupNav.position.set(-5, 29.5, 7.75);
+userCloseNav.position.set(-4, 33.82, 3.275);
+userGithubNav.position.set(-4, 25.65, 11.9);
+userLinkedinNav.position.set(-4, 25.65, 10.9);
+userMediumNav.position.set(-4, 25.65, 9.85);
+userMailNav.position.set(-4, 25.65, 8.83);
 notesNav.position.set(-10, 33.85, 15.3); 
 notesPopupNav.position.set(-5, 31.2, 3.8); 
+notesCloseNav.position.set(-4, 34.37, 0.47);
 projectsNav.position.set(-9.5, 30.7, 18.2); 
 projectsPopupNav.position.set(-5, 28.9, 9.6);
+projectsCloseNav.position.set(-4, 32.54, 3.51);
+projectsGameboyNav.position.set(-4, 29.5, 14.06);
+projectsMobileAppNav.position.set(-4, 29.5, 11.4);
+projectsBrowserExtensionNav.position.set(-4, 29.5, 8.75);
+projectsRHGNav.position.set(-4, 29.5, 6.1);
+projectsReactPortfolioNav.position.set(-4, 27.3, 14.2);
+projectsFlexboxGameNav.position.set(-4, 27.3, 11.5);
+projectsTictactoeNav.position.set(-4, 27.3, 8.75);
 creditsNav.position.set(-10, 33.9, 0.3); 
 creditsPopupNav.position.set(-5, 28, 7.7);
+creditsCloseNav.position.set(-4, 31, 3.15);
 photosNav.position.set(-10, 33.9, -3);
 photosPopupNav.position.set(-5, 29.9, 7);  
+photosCloseNav.position.set(-4, 33.4, 1.17);  
+photos1Nav.position.set(-4, 30.3, 11.4);  
+photos2Nav.position.set(-4, 30.3, 8.8);  
+photos3Nav.position.set(-4, 30.3, 6.1);  
 projectDocNav.position.set(-9.5, 30.9, -2.8); 
 jpgNav.position.set(-8.8, 27.6, 18.2); 
 jpgPopupNav.position.set(-5, 28.7, 9.1);
+jpgCloseNav.position.set(-4, 31.6, 5.285);
 binNav.position.set(-8, 24, -2.9);
 binPopupNav.position.set(-5, 29.9, 7);
+binCloseNav.position.set(-4, 33.41, 1.17);
+binDocNav.position.set(-4, 30.2, 11.65);
 
 robotNav.quaternion.copy(combinedQuaternion);
 userNav.quaternion.copy(combinedQuaternion);
 userPopupNav.quaternion.copy(combinedQuaternion);
+userCloseNav.quaternion.copy(combinedQuaternion);
+userGithubNav.quaternion.copy(combinedQuaternion);
+userLinkedinNav.quaternion.copy(combinedQuaternion);
+userMediumNav.quaternion.copy(combinedQuaternion);
+userMailNav.quaternion.copy(combinedQuaternion);
 notesNav.quaternion.copy(combinedQuaternion);
 notesPopupNav.quaternion.copy(combinedQuaternion);
+notesCloseNav.quaternion.copy(combinedQuaternion);
 projectsNav.quaternion.copy(combinedQuaternion);
 projectsPopupNav.quaternion.copy(combinedQuaternion);
+projectsCloseNav.quaternion.copy(combinedQuaternion);
+projectsGameboyNav.quaternion.copy(combinedQuaternion);
+projectsMobileAppNav.quaternion.copy(combinedQuaternion);
+projectsBrowserExtensionNav.quaternion.copy(combinedQuaternion);
+projectsRHGNav.quaternion.copy(combinedQuaternion);
+projectsReactPortfolioNav.quaternion.copy(combinedQuaternion);
+projectsFlexboxGameNav.quaternion.copy(combinedQuaternion);
+projectsTictactoeNav.quaternion.copy(combinedQuaternion);
 creditsNav.quaternion.copy(combinedQuaternion);
 creditsPopupNav.quaternion.copy(combinedQuaternion);
+creditsCloseNav.quaternion.copy(combinedQuaternion);
 photosNav.quaternion.copy(combinedQuaternion);
 photosPopupNav.quaternion.copy(combinedQuaternion);
+photosCloseNav.quaternion.copy(combinedQuaternion);
+photos1Nav.quaternion.copy(combinedQuaternion);
+photos2Nav.quaternion.copy(combinedQuaternion);
+photos3Nav.quaternion.copy(combinedQuaternion);
 projectDocNav.quaternion.copy(combinedQuaternion);
 jpgNav.quaternion.copy(combinedQuaternion);
 jpgPopupNav.quaternion.copy(combinedQuaternion);
+jpgCloseNav.quaternion.copy(combinedQuaternion);
 binNav.quaternion.copy(combinedQuaternion);
 binPopupNav.quaternion.copy(combinedQuaternion);
+binCloseNav.quaternion.copy(combinedQuaternion);
+binDocNav.quaternion.copy(combinedQuaternion);
 
 
 
@@ -488,26 +560,34 @@ const cameraPositions = {
 };
 
 function updateRaycastTargets(addObjects) {
-    Object.values(navPopupMappings).forEach(([nav, popup]) => {
+    Object.values(navPopupMappings).forEach(([nav, popup, close, extra1, extra2, extra3, extra4, extra5, extra6, extra7]) => {
         if (addObjects) {
             scene.add(nav);
         } else {
             scene.remove(nav);
-            scene.remove(popup);  // Ensure both Nav and Popup are removed when hiding
+            scene.remove(popup);  
+            scene.add(close);
+            scene.add(extra1);
+            scene.add(extra2);
+            scene.add(extra3);
+            scene.add(extra4);
+            scene.add(extra5);
+            scene.add(extra6);
+            scene.add(extra7); 
         }
     });
 }
 
 const navPopupMappings = {
     2: [robotNav],
-    3: [userNav, userPopupNav],
-    4: [notesNav, notesPopupNav],
-    5: [projectsNav, projectsPopupNav],
-    6: [creditsNav, creditsPopupNav],
-    7: [photosNav, photosPopupNav],
+    3: [userNav, userPopupNav, userCloseNav, userGithubNav, userLinkedinNav, userMediumNav, userMailNav],
+    4: [notesNav, notesPopupNav, notesCloseNav],
+    5: [projectsNav, projectsPopupNav, projectsCloseNav, projectsGameboyNav, projectsMobileAppNav, projectsBrowserExtensionNav, projectsRHGNav, projectsReactPortfolioNav, projectsFlexboxGameNav, projectsTictactoeNav],
+    6: [creditsNav, creditsPopupNav, creditsCloseNav],
+    7: [photosNav, photosPopupNav, photosCloseNav, photos1Nav, photos2Nav, photos3Nav],
     8: [projectDocNav],
-    9: [jpgNav, jpgPopupNav],
-    10: [binNav, binPopupNav]
+    9: [jpgNav, jpgPopupNav, jpgCloseNav],
+    10: [binNav, binPopupNav, binCloseNav, binDocNav]
 };
 
 const screenMaterials = {
@@ -578,7 +658,6 @@ window.addEventListener('click', () => {
                 break;
                 case 11:
                 console.log('click on popup');
- 
                 break;
             default:
                 if (navPopupMappings[index]) {
