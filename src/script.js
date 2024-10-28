@@ -137,10 +137,12 @@ const notesGeometry = new THREE.PlaneGeometry(2.5, 2.9);
 const notesPopupGeometry = new THREE.PlaneGeometry(8.7, 7.35);
 const projectsGeometry = new THREE.PlaneGeometry(2.7, 2.9);
 const projectsPopupGeometry = new THREE.PlaneGeometry(13.8, 8.2);
+const projectPopupGeometry = new THREE.PlaneGeometry(9.1, 9.2);
 const creditsGeometry = new THREE.PlaneGeometry(2.5, 2.7);
 const creditsPopupGeometry = new THREE.PlaneGeometry(10.74, 6.72);
 const photosGeometry = new THREE.PlaneGeometry(2.9, 2.7);
 const photosPopupGeometry = new THREE.PlaneGeometry(13.67, 8.16);
+const photoPopupGeometry = new THREE.PlaneGeometry(7.8, 5.7);
 const projectDocGeometry = new THREE.PlaneGeometry(3.3, 2.7);
 const jpgGeometry = new THREE.PlaneGeometry(3.2, 2.8);
 const jpgPopupGeometry = new THREE.PlaneGeometry(8.9, 6.5);
@@ -151,6 +153,7 @@ const linksGeometry = new THREE.PlaneGeometry(0.8, 0.8);
 const projectsFolderGeometry = new THREE.PlaneGeometry(1.7, 1.9);
 const openImageGeometry = new THREE.PlaneGeometry(2.2, 1.8);
 const binDocGeometry = new THREE.PlaneGeometry(2, 2.2);
+const binDocPopupGeometry = new THREE.PlaneGeometry(8.65, 6.1);
  
 
 const robotNav = new THREE.Mesh(robotGeometry, transparentMaterial);
@@ -174,6 +177,8 @@ const projectsRHGNav = new THREE.Mesh(projectsFolderGeometry, transparentMateria
 const projectsReactPortfolioNav = new THREE.Mesh(projectsFolderGeometry, transparentMaterial);
 const projectsFlexboxGameNav = new THREE.Mesh(projectsFolderGeometry, transparentMaterial);
 const projectsTictactoeNav = new THREE.Mesh(projectsFolderGeometry, transparentMaterial);
+const projectPopupNav = new THREE.Mesh(projectPopupGeometry, transparentMaterial);
+const projectPopupCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
 const creditsNav = new THREE.Mesh(creditsGeometry, transparentMaterial);
 const creditsPopupNav = new THREE.Mesh(creditsPopupGeometry, transparentMaterial);
 const creditsCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
@@ -183,6 +188,8 @@ const photosCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
 const photos1Nav = new THREE.Mesh(openImageGeometry, transparentMaterial);
 const photos2Nav = new THREE.Mesh(openImageGeometry, transparentMaterial);
 const photos3Nav = new THREE.Mesh(openImageGeometry, transparentMaterial);
+const photoPopupNav = new THREE.Mesh(photoPopupGeometry, transparentMaterial);
+const photoPopupCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
 const projectDocNav = new THREE.Mesh(projectDocGeometry, transparentMaterial);
 const jpgNav = new THREE.Mesh(jpgGeometry, transparentMaterial);
 const jpgPopupNav = new THREE.Mesh(jpgPopupGeometry, transparentMaterial);
@@ -191,6 +198,8 @@ const binNav = new THREE.Mesh(binGeometry, transparentMaterial);
 const binPopupNav = new THREE.Mesh(binPopupGeometry, transparentMaterial);
 const binCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
 const binDocNav = new THREE.Mesh(binDocGeometry, transparentMaterial);
+const binDocPopupNav = new THREE.Mesh(binDocPopupGeometry, transparentMaterial);
+const binDocPopupCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
 
 robotNav.position.set(-7.5, 20.6, 19); 
 userNav.position.set(-10, 33.9, 18.4); 
@@ -213,6 +222,8 @@ projectsRHGNav.position.set(-4, 29.5, 6.1);
 projectsReactPortfolioNav.position.set(-4, 27.3, 14.2);
 projectsFlexboxGameNav.position.set(-4, 27.3, 11.5);
 projectsTictactoeNav.position.set(-4, 27.3, 8.75);
+projectPopupNav.position.set(-3, 29.7, 5.3);
+projectPopupCloseNav.position.set(-2, 33.76, 1.69);
 creditsNav.position.set(-10, 33.9, 0.3); 
 creditsPopupNav.position.set(-5, 28, 7.7);
 creditsCloseNav.position.set(-4, 31, 3.15);
@@ -222,6 +233,8 @@ photosCloseNav.position.set(-4, 33.4, 1.17);
 photos1Nav.position.set(-4, 30.3, 11.4);  
 photos2Nav.position.set(-4, 30.3, 8.8);  
 photos3Nav.position.set(-4, 30.3, 6.1);  
+photoPopupNav.position.set(-3, 31.55, 4.64);
+photoPopupCloseNav.position.set(-2, 33.95, 1.6);
 projectDocNav.position.set(-9.5, 30.9, -2.8); 
 jpgNav.position.set(-8.8, 27.6, 18.2); 
 jpgPopupNav.position.set(-5, 28.7, 9.1);
@@ -230,6 +243,8 @@ binNav.position.set(-8, 24, -2.9);
 binPopupNav.position.set(-5, 29.9, 7);
 binCloseNav.position.set(-4, 33.41, 1.17);
 binDocNav.position.set(-4, 30.2, 11.65);
+binDocPopupNav.position.set(-3, 28.35, 4.21);
+binDocPopupCloseNav.position.set(-2, 31.07, 0.82);
 
 robotNav.quaternion.copy(combinedQuaternion);
 userNav.quaternion.copy(combinedQuaternion);
@@ -252,6 +267,8 @@ projectsRHGNav.quaternion.copy(combinedQuaternion);
 projectsReactPortfolioNav.quaternion.copy(combinedQuaternion);
 projectsFlexboxGameNav.quaternion.copy(combinedQuaternion);
 projectsTictactoeNav.quaternion.copy(combinedQuaternion);
+projectPopupNav.quaternion.copy(combinedQuaternion);
+projectPopupCloseNav.quaternion.copy(combinedQuaternion);
 creditsNav.quaternion.copy(combinedQuaternion);
 creditsPopupNav.quaternion.copy(combinedQuaternion);
 creditsCloseNav.quaternion.copy(combinedQuaternion);
@@ -261,6 +278,8 @@ photosCloseNav.quaternion.copy(combinedQuaternion);
 photos1Nav.quaternion.copy(combinedQuaternion);
 photos2Nav.quaternion.copy(combinedQuaternion);
 photos3Nav.quaternion.copy(combinedQuaternion);
+photoPopupNav.quaternion.copy(combinedQuaternion);
+photoPopupCloseNav.quaternion.copy(combinedQuaternion);
 projectDocNav.quaternion.copy(combinedQuaternion);
 jpgNav.quaternion.copy(combinedQuaternion);
 jpgPopupNav.quaternion.copy(combinedQuaternion);
@@ -269,6 +288,8 @@ binNav.quaternion.copy(combinedQuaternion);
 binPopupNav.quaternion.copy(combinedQuaternion);
 binCloseNav.quaternion.copy(combinedQuaternion);
 binDocNav.quaternion.copy(combinedQuaternion);
+binDocPopupNav.quaternion.copy(combinedQuaternion);
+binDocPopupCloseNav.quaternion.copy(combinedQuaternion);
 
 
 
@@ -582,12 +603,12 @@ const navPopupMappings = {
     2: [robotNav],
     3: [userNav, userPopupNav, userCloseNav, userGithubNav, userLinkedinNav, userMediumNav, userMailNav],
     4: [notesNav, notesPopupNav, notesCloseNav],
-    5: [projectsNav, projectsPopupNav, projectsCloseNav, projectsGameboyNav, projectsMobileAppNav, projectsBrowserExtensionNav, projectsRHGNav, projectsReactPortfolioNav, projectsFlexboxGameNav, projectsTictactoeNav],
+    5: [projectsNav, projectsPopupNav, projectsCloseNav, projectsGameboyNav, projectsMobileAppNav, projectsBrowserExtensionNav, projectsRHGNav, projectsReactPortfolioNav, projectsFlexboxGameNav, projectsTictactoeNav, projectPopupNav, projectPopupCloseNav],
     6: [creditsNav, creditsPopupNav, creditsCloseNav],
-    7: [photosNav, photosPopupNav, photosCloseNav, photos1Nav, photos2Nav, photos3Nav],
+    7: [photosNav, photosPopupNav, photosCloseNav, photos1Nav, photos2Nav, photos3Nav, photoPopupNav, photoPopupCloseNav],
     8: [projectDocNav],
     9: [jpgNav, jpgPopupNav, jpgCloseNav],
-    10: [binNav, binPopupNav, binCloseNav, binDocNav]
+    10: [binNav, binPopupNav, binCloseNav, binDocNav, binDocPopupNav, binDocPopupCloseNav]
 };
 
 const screenMaterials = {
@@ -603,18 +624,47 @@ const screenMaterials = {
 
 let activePopup = null;
 let activeClose = null;
+let activeExtra1 = null;
+let activeExtra2 = null;
+let activeExtra3 = null;
+let activeExtra4 = null;
+let activeExtra5 = null;
+let activeExtra6 = null;
+let activeExtra7 = null;
+let activeExtra8 = null;
+let activeExtra9 = null;
 let cameraMoved = false;
 
+let active = false;
+
 function managePopup(caseIndex) {
-    const [_, popupToShow, closePopup] = navPopupMappings[caseIndex] || [];
+    const [_, popupToShow, closePopup, extra1Popup, extra2Popup, extra3Popup, extra4Popup, extra5Popup, extra6Popup, extra7Popup, extra8Popup, extra9Popup] = navPopupMappings[caseIndex] || [];
     const newMaterial = screenMaterials[caseIndex];
 
     if (activePopup) {
         scene.remove(activePopup);
         scene.remove(activeClose);
-        objectsToTest.splice(11, 8);
+        scene.remove(activeExtra1);
+        scene.remove(activeExtra2);
+        scene.remove(activeExtra3);
+        scene.remove(activeExtra4);
+        scene.remove(activeExtra5);
+        scene.remove(activeExtra6);
+        scene.remove(activeExtra7);
+        scene.remove(activeExtra8);
+        scene.remove(activeExtra9);
         activePopup = null;
         activeClose = null;
+        activeExtra1 = null;
+        activeExtra2 = null;
+        activeExtra3 = null;
+        activeExtra4 = null;
+        activeExtra5 = null;
+        activeExtra6 = null;
+        activeExtra7 = null;
+        activeExtra8 = null;
+        activeExtra9 = null;
+        objectsToTest.splice(11, 11);
         console.log(objectsToTest)
 
     }
@@ -625,9 +675,87 @@ function managePopup(caseIndex) {
     }
     if (closePopup) {
         scene.add(closePopup);
-        objectsToTest.push(closePopup)
-        
+        objectsToTest.push(closePopup) 
         activeClose = closePopup;
+    }
+    if (extra1Popup) {
+        scene.add(extra1Popup);
+        objectsToTest.push(extra1Popup) 
+        activeExtra1 = extra1Popup;
+    }
+    if (extra2Popup) {
+        if(caseIndex === 10) {
+            if(active === true) {
+                scene.add(extra2Popup);
+                objectsToTest.push(extra2Popup) 
+                activeExtra2 = extra2Popup;
+            }
+        } else {
+            scene.add(extra2Popup);
+            objectsToTest.push(extra2Popup) 
+            activeExtra2 = extra2Popup;
+        }
+    }
+    if (extra3Popup) {
+        if(caseIndex === 10) {
+            if(active === true) {
+                scene.add(extra3Popup);
+                objectsToTest.push(extra3Popup) 
+                activeExtra3 = extra3Popup;
+            }
+        } else {
+            scene.add(extra3Popup);
+            objectsToTest.push(extra3Popup) 
+            activeExtra3 = extra3Popup;
+        }
+    }
+    if (extra4Popup) {
+        if(caseIndex === 7) {
+            if(active === true) {
+                scene.add(extra4Popup);
+                objectsToTest.push(extra4Popup) 
+                activeExtra4 = extra4Popup;
+            }
+        } else {
+            scene.add(extra4Popup);
+            objectsToTest.push(extra4Popup) 
+            activeExtra4 = extra4Popup;
+        }
+       
+    }
+    if (extra5Popup) {
+        if(caseIndex === 7) {
+            if(active === true) {
+                scene.add(extra5Popup);
+                objectsToTest.push(extra5Popup) 
+                activeExtra5 = extra5Popup;
+            }
+        } else {
+            scene.add(extra5Popup);
+            objectsToTest.push(extra5Popup) 
+            activeExtra5 = extra5Popup;
+        }
+     
+    }
+    if (extra6Popup) {
+        scene.add(extra6Popup);
+        objectsToTest.push(extra6Popup) 
+        activeExtra6 = extra6Popup;
+    }
+    if (extra7Popup) {
+        scene.add(extra7Popup);
+        objectsToTest.push(extra7Popup) 
+        activeExtra7 = extra7Popup;
+    }
+    if (extra8Popup && active === true) {
+        scene.add(extra8Popup);
+        objectsToTest.push(extra8Popup) 
+        activeExtra8 = extra8Popup;
+    }
+    if (extra9Popup && active === true) {
+        scene.add(extra9Popup);
+        objectsToTest.push(extra9Popup) 
+        activeExtra9 = extra9Popup;
     }
     
     if (newMaterial) {
@@ -643,6 +771,14 @@ window.addEventListener('click', () => {
     if (intersects.length) {
         const clickedObject = intersects[0].object;
         const index = objectsToTest.indexOf(clickedObject);
+
+        let caseIndex = null;
+        for (const [key, value] of Object.entries(navPopupMappings)) {
+            if (value.includes(clickedObject)) {
+                caseIndex = parseInt(key);
+                break;
+            }
+        }
         
         switch (index) {
             case 0:
@@ -657,27 +793,167 @@ window.addEventListener('click', () => {
                 animateCamera(clickedObject.position, 1.5, cameraPositions.screen);
                 cameraMoved = true;
                 updateRaycastTargets(true);
+                active = false;
                 managePopup(null);
                 break;
             case 2:
                 console.log('click on robot');
                 screenCube.material = screenRobotMaterial;
+                active = false;
                 managePopup(null);
                 break;
             case 8:
                 console.log('click on projectsDoc');
+                window.open('https://medium.com/@ida-lindgren', '_blank'); 
                 break;
             case 11:
                 console.log('click on popup');
+                active = false;
+                managePopup(caseIndex);
                 break;
             case 12:
                 console.log('click on close');
                 screenCube.material = screenStartMaterial;
+                active = false;
                 managePopup(null);
+                break;
+            case 13:
+                if (caseIndex === 3) {
+                    console.log('click on Github');
+                    window.open('https://github.com/IdaLindgrn', '_blank');
+                }
+                if (caseIndex === 5) {
+                    console.log('click on Gameboy');
+                    active = true;
+                    managePopup(caseIndex);
+                    screenCube.material = screenProjectMaterial;
+                }
+                if (caseIndex === 7) {
+                    console.log('click on Photo 1');
+                    active = true;
+                    managePopup(caseIndex);
+                    screenCube.material = screenPhotoMaterial;
+                    
+                }
+                if (caseIndex === 10) {
+                    console.log('click on binDoc');  
+                    active = true;
+                    managePopup(caseIndex);
+                    screenCube.material = screenBinDocMaterial; 
+                    
+                    
+                }
+                break;
+            case 14:
+                if (caseIndex === 3) {
+                    console.log('click on Linkedin');
+                    window.open('https://www.linkedin.com/in/idalindgren/', '_blank');       
+                }
+                if (caseIndex === 5) {
+                    console.log('click on MobileApp');
+                    active = true;
+                    managePopup(caseIndex);
+                    screenCube.material = screenProjectMaterial;       
+                }
+                if (caseIndex === 7) {
+                    console.log('click on Photo 2');
+                    active = true;
+                    managePopup(caseIndex);
+                    screenCube.material = screenPhotoMaterial;     
+                }
+                if (caseIndex === 10) {
+                    console.log('click on binDocPopup'); 
+                }
+                break;
+            case 15:
+                if (caseIndex === 3) {
+                    console.log('click on Medium');
+                    window.open('https://medium.com/@ida-lindgren', '_blank');        
+                }
+                if (caseIndex === 5) {
+                    console.log('click on BrowserExtension');
+                    active = true;
+                    managePopup(caseIndex);
+                    screenCube.material = screenProjectMaterial;            
+                }
+                if (caseIndex === 7) {
+                    console.log('click on Photo 3');
+                    active = true;
+                    managePopup(caseIndex);
+                    screenCube.material = screenPhotoMaterial;       
+                }
+                if (caseIndex === 10) {
+                    console.log('click on binDocClosePopup'); 
+                    active = false;
+                    managePopup(caseIndex);
+                    screenCube.material = screenBinMaterial;
+                }
+                break;
+            case 16:
+                if (caseIndex === 3) {
+                    console.log('click on Mail');
+                    window.location.href = 'mailto:ida-lindgren@hotmail.com';       
+                }
+                if (caseIndex === 5) {
+                    console.log('click on RHG');
+                    active = true;
+                    managePopup(caseIndex);
+                    screenCube.material = screenProjectMaterial;               
+                }
+                if (caseIndex === 7) {
+                    console.log('click on Photo opened');                            
+                }
+                break;
+            case 17:
+                if (caseIndex === 5) {
+                    console.log('click on React Portolio');
+                    active = true;
+                    managePopup(caseIndex);
+                    screenCube.material = screenProjectMaterial;             
+                }
+                if (caseIndex === 7) {
+                    console.log('click on Photo close');
+                    active = false;
+                    managePopup(caseIndex);
+                    screenCube.material = screenPhotosMaterial;
+                            
+                }
+                break;
+            case 18:
+                if (caseIndex === 5) {
+                    console.log('click on Flexbox Game');
+                    active = true;
+                    managePopup(caseIndex);
+                    screenCube.material = screenProjectMaterial;
+                                                                  
+                }
+                break;
+            case 19:
+                if (caseIndex === 5) {
+                    console.log('click on Tictactoe');
+                    active = true;
+                    managePopup(caseIndex);
+                    screenCube.material = screenProjectMaterial;                         
+                }
+                break;
+            case 20:
+                if (caseIndex === 5) {
+                    console.log('click on opened project');
+                        
+                }
+                break;
+            case 21:
+                if (caseIndex === 5) {
+                    console.log('click on close project');
+                    screenCube.material = screenProjectsMaterial;
+                    active = false;                    
+                    managePopup(caseIndex);
+                }
                 break;
             default:
                 if (navPopupMappings[index]) {
-                    managePopup(index);
+                    active = false;
+                    managePopup(caseIndex);
                 }
                 break;
         }
