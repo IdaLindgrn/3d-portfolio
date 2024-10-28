@@ -7,8 +7,8 @@ const textureLoader = new THREE.TextureLoader();
 
 export function createSmokeEffect() {
     // Create smoke geometry
-    const smokeGeometry = new THREE.PlaneGeometry(1, 1, 16, 68);
-    smokeGeometry.translate(0, 0.5, 0);
+    const smokeGeometry = new THREE.PlaneGeometry(5, 5, 16, 68);
+    smokeGeometry.translate(0, 3.7, 0);
     smokeGeometry.scale(1.5, 4, 1.5);    
 
     // Perlin texture

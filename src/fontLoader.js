@@ -9,8 +9,8 @@ export function loadFont(scene) {
     loader.load('./fonts/BrownMedium_Regular.json', (font) => {
         const geometry = new TextGeometry('DO NOT PRESS!', {
             font: font,
-            size: 3,
-            height: 2,
+            size: 2.5,
+            depth: 1,
         });
 
         const textMesh = new THREE.Mesh(geometry, [
