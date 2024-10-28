@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { createSmokeEffect } from './smokeEffect.js';
+import { createSmokeEffect } from './smokeEffect.js'
 import { loadFont } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
 // import { loadingManager } from './loadingManager.js'; 
@@ -313,6 +313,13 @@ gltfLoader.load(
             child.material = bakedMaterials.material4; 
         });
 
+        
+        const parts2Cylinder = gltf.scene.children.filter(child => child.name === 'Parts2_Cylinder003');
+        parts2Cylinder.forEach(child => {
+            const smoke = createSmokeEffect();
+            child.add(smoke); 
+        });
+
         const cordMeshes = ['cords', 'GP_Layer001', 'GP_Layer'];
         const pipeMeshes = ['NurbsPath', 'NurbsPath002'];
         const textMeshes = ['text_idas_gameboy', 'Text'];
@@ -338,15 +345,6 @@ gltfLoader.load(
         stringMesh.forEach(child => {
             child.material = string;
         });
-
-
-        const parts2Cylinder = gltf.scene.children.filter(child => child.name === 'Parts2_Cylinder003');
-        parts2Cylinder.forEach(child => {
-            const smoke = createSmokeEffect();
-            child.add(smoke); 
-        });
-
-  
 
         const button = gltf.scene.children.filter(child => child.name === 'Parts2_Cube066');
         button.forEach(child => {
