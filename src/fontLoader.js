@@ -6,11 +6,11 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 export function loadFont(scene) {
     const loader = new FontLoader();
 
-    loader.load('./fonts/BrownMedium_Regular.json', (font) => {
+    loader.load('./fonts/3Dfonts/BrownMedium_Regular.json', (font) => {
         const geometry = new TextGeometry('DO NOT PRESS!', {
             font: font,
             size: 2.5,
-            depth: 1,
+            depth: 0.5,
         });
 
         const textMesh = new THREE.Mesh(geometry, [
