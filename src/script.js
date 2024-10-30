@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createSmokeEffect } from './smokeEffect.js'
 import { loadFont } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
+import { createBunnyVirusPopup, showBunnyVirus } from './bunnyVirus.js'
 // import { loadingManager } from './loadingManager.js'; 
 import GUI from 'lil-gui';
 import { gsap } from 'gsap';
@@ -97,9 +98,8 @@ const string = new THREE.MeshBasicMaterial({ color: 0xa4a3a3 });
 const text = new THREE.MeshBasicMaterial({ color: 0x863f0c });
 
 const transparentMaterial = new THREE.MeshBasicMaterial({
-    color: 0x000,  
     transparent: true,
-    opacity: 0.5    
+    opacity: 0    
 });
 
 // screen 
@@ -553,25 +553,8 @@ function storeOriginalMaterials(scene) {
     });
 }
 
-function changeMaterials(scene, newMaterial, duration) {
-    scene.traverse((child) => {
-        if (child.isMesh) {
-            if (!originalMaterials.has(child)) {
-                originalMaterials.set(child, child.material);
-            }
-            child.material = newMaterial;
-        }
-    });
-
-    setTimeout(() => {
-        scene.traverse((child) => {
-            if (child.isMesh && originalMaterials.has(child)) {
-                child.material = originalMaterials.get(child);  
-            }
-        });
-    }, duration * 1000); 
-}
-
+let clickCount = 0; 
+createBunnyVirusPopup();
 
 const cameraPositions = {
     button: { positionOffset: { x: -25, y: 5, z: -10 }, targetOffset: { x: 0, y: -5, z: 0 } },
@@ -782,8 +765,11 @@ window.addEventListener('click', () => {
             case 0:
                 console.log('click on button');
                 animateCamera(clickedObject.position, 1.5, cameraPositions.button);
-                changeMaterials(scene, redGlow, 2);
+                clickCount++;
                 cameraMoved = true;
+                if (clickCount === 2) {
+                    showBunnyVirus(); 
+                } 
                 break;
             case 1:
                 console.log('click on screen');
@@ -961,6 +947,7 @@ window.addEventListener('click', () => {
             resetCamera(1.5);
             cameraMoved = false; 
             updateRaycastTargets(false);
+            clickCount = 0; 
             managePopup(null);
         }
     }
