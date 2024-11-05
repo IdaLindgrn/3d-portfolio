@@ -506,10 +506,14 @@ scene.add(camera);
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.maxDistance = 170;
-controls.minDistance = 1;
+controls.minDistance = 80;
 
 controls.minPolarAngle = Math.PI / 4; 
 controls.maxPolarAngle = Math.PI / 2.2;
+
+function setMinDistance(distance) {
+    controls.minDistance = distance;
+}
 
 
 const initialCameraPosition = camera.position.clone(); 
@@ -779,6 +783,7 @@ export function resetGameState() {
     virusGame = false;          
     objectsToTest = [...originalObjectsToTest]; 
     console.log("resetGameState called");
+    setMinDistance(80);
 
     screenCube.material = greenGlow;
             resetCamera(1.5);
@@ -810,6 +815,7 @@ window.addEventListener('click', () => {
                 animateCamera(clickedObject.position, 1.5, cameraPositions.button);
                 clickCount++;
                 cameraMoved = true;
+                setMinDistance(0);
                 if (clickCount === 2) { 
                     storeOriginalObjects(); 
                     virusGame = true;
@@ -819,7 +825,7 @@ window.addEventListener('click', () => {
                     clickCount = 0; 
                     managePopup(null);
                     objectsToTest = [];
-                    showBunnyVirus();    
+                    showBunnyVirus();   
                 } 
                 break;
             case 1:
@@ -831,6 +837,7 @@ window.addEventListener('click', () => {
                 updateRaycastTargets(true);
                 active = false;
                 managePopup(null);
+                setMinDistance(0);
                 break;
             case 2:
                 console.log('click on robot');
@@ -1025,6 +1032,7 @@ function resetCamera(duration) {
             if (virusGame) return;
             else {
                 console.log("hello")
+                setMinDistance(80);
                 controls.enableRotate = true; 
                 controls.enableZoom = true;
                 controls.update();
