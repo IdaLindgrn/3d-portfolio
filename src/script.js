@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createSmokeEffect } from './smokeEffect.js'
-import { loadFont } from './fontLoader.js'
+import { loadFont, loadClockTexts } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
 import { createBunnyVirusPopup, showBunnyVirus } from './bunnyVirus.js'
 // import { loadingManager } from './loadingManager.js'; 
@@ -45,13 +45,21 @@ const screens = {
     screenStart: textureLoader.load('./textures/startScreen.jpg'),
     screenRobot: textureLoader.load('./textures/robotScreen.jpg'),
     screenProjects: textureLoader.load('./textures/projectsScreen.jpg'),
-    screenProject: textureLoader.load('./textures/projectScreen.jpg'),
+    screen3DPortfolio: textureLoader.load('./textures/project3DPortfolioScreen.jpg'),
+    screenMobileApp: textureLoader.load('./textures/projectMobileAppScreen.jpg'),
+    screenBrowserExt: textureLoader.load('./textures/projectBrowserExtScreen.jpg'),
+    screenRHG: textureLoader.load('./textures/projectRHGScreen.jpg'),
+    screenReactPortfolio: textureLoader.load('./textures/projectRHGScreen.jpg'),
+    screenFlexboxGame: textureLoader.load('./textures/projectFlexboxGameScreen.jpg'),
+    screenTicTacToe: textureLoader.load('./textures/projectTicTacToeScreen.jpg'),
     screenUser: textureLoader.load('./textures/userScreen.jpg'),
     screenNotes: textureLoader.load('./textures/notesScreen.jpg'),
     screenCredits: textureLoader.load('./textures/creditsScreen.jpg'),
     screenPhotos: textureLoader.load('./textures/photosScreen.jpg'),
-    screenPhoto: textureLoader.load('./textures/photoScreen.jpg'),
+    screenEevee: textureLoader.load('./textures/eeveeScreen.jpg'),
+    screenEevee2: textureLoader.load('./textures/eeveeScreen2.jpg'),
     screenYoshi: textureLoader.load('./textures/yoshiScreen.jpg'),
+    screenYoshi2: textureLoader.load('./textures/yoshiScreen2.jpg'),
     screenBin: textureLoader.load('./textures/binScreen.jpg'),
     screenBinDoc: textureLoader.load('./textures/binDocScreen.jpg'),
 };
@@ -526,19 +534,29 @@ window.addEventListener('mousemove', (event) =>
 
 
 let currentIntersect = null;
-const objectsToTest = []
+let objectsToTest = []
 
 console.log(objectsToTest)
 
 const screenStartMaterial = new THREE.MeshBasicMaterial({ map: screens.screenStart });
 const screenRobotMaterial = new THREE.MeshBasicMaterial({ map: screens.screenRobot });
 const screenProjectsMaterial = new THREE.MeshBasicMaterial({ map: screens.screenProjects });
+const screenProject3DPortfolioMaterial = new THREE.MeshBasicMaterial({ map: screens.screen3DPortfolio });
+const screenProjectMobileAppMaterial = new THREE.MeshBasicMaterial({ map: screens.screenMobileApp });
+const screenProjectBrowserExtensionMaterial = new THREE.MeshBasicMaterial({ map: screens.screenBrowserExt });
+const screenProjectRHGMaterial = new THREE.MeshBasicMaterial({ map: screens.screenRHG });
+const screenProjectReactPortfolioMaterial = new THREE.MeshBasicMaterial({ map: screens.screenReactPortfolio });
+const screenProjectFlexboxGameMaterial = new THREE.MeshBasicMaterial({ map: screens.screenFlexboxGame });
+const screenProjectTicTacToeMaterial = new THREE.MeshBasicMaterial({ map: screens.screenTicTacToe });
 const screenProjectMaterial = new THREE.MeshBasicMaterial({ map: screens.screenProject });
 const screenUserMaterial = new THREE.MeshBasicMaterial({ map: screens.screenUser });
 const screenNotesMaterial = new THREE.MeshBasicMaterial({ map: screens.screenNotes });
-const screenYoshiMaterial = new THREE.MeshBasicMaterial({ map: screens.screenYoshi });
 const screenCreditsMaterial = new THREE.MeshBasicMaterial({ map: screens.screenCredits });
 const screenPhotosMaterial = new THREE.MeshBasicMaterial({ map: screens.screenPhotos });
+const screenEeveeMaterial = new THREE.MeshBasicMaterial({ map: screens.screenEevee });
+const screenEevee2Material = new THREE.MeshBasicMaterial({ map: screens.screenEevee2 });
+const screenYoshiMaterial = new THREE.MeshBasicMaterial({ map: screens.screenYoshi });
+const screenYoshi2Material = new THREE.MeshBasicMaterial({ map: screens.screenYoshi2 });
 const screenPhotoMaterial = new THREE.MeshBasicMaterial({ map: screens.screenPhoto });
 const screenBinMaterial = new THREE.MeshBasicMaterial({ map: screens.screenBin });
 const screenBinDocMaterial = new THREE.MeshBasicMaterial({ map: screens.screenBinDoc });
@@ -550,7 +568,7 @@ function storeOriginalMaterials(scene) {
         if (child.isMesh) {
             originalMaterials.set(child, child.material);  
         }
-    });
+    }); 
 }
 
 let clickCount = 0; 
@@ -744,6 +762,27 @@ function managePopup(caseIndex) {
     }
 }
 
+let virusGame = false;
+
+let originalObjectsToTest = [];
+
+function storeOriginalObjects() {
+    originalObjectsToTest = [...objectsToTest];
+    console.log("storeObjects", originalObjectsToTest)
+}
+
+export function resetGameState() {
+    virusGame = false;          
+    objectsToTest = [...originalObjectsToTest]; 
+    console.log("resetGameState called");
+
+    screenCube.material = greenGlow;
+            resetCamera(1.5);
+            cameraMoved = false; 
+            updateRaycastTargets(false);
+            clickCount = 0; 
+            managePopup(null);
+}
 
 window.addEventListener('click', () => {
     raycaster.setFromCamera(mouse, camera);
@@ -767,12 +806,21 @@ window.addEventListener('click', () => {
                 animateCamera(clickedObject.position, 1.5, cameraPositions.button);
                 clickCount++;
                 cameraMoved = true;
-                if (clickCount === 2) {
-                    showBunnyVirus(); 
+                if (clickCount === 2) { 
+                    storeOriginalObjects(); 
+                    virusGame = true;
+                    resetCamera(1.5);
+                    cameraMoved = false; 
+                    updateRaycastTargets(false);
+                    clickCount = 0; 
+                    managePopup(null);
+                    objectsToTest = [];
+                    showBunnyVirus();    
                 } 
                 break;
             case 1:
                 console.log('click on screen');
+                loadClockTexts(scene);
                 clickedObject.material = screenStartMaterial;
                 animateCamera(clickedObject.position, 1.5, cameraPositions.screen);
                 cameraMoved = true;
@@ -810,22 +858,20 @@ window.addEventListener('click', () => {
                     console.log('click on Gameboy');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;
+                    screenCube.material = screenProject3DPortfolioMaterial;
                 }
                 if (caseIndex === 7) {
                     console.log('click on Photo 1');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenPhotoMaterial;
+                    screenCube.material = screenEeveeMaterial;
                     
                 }
                 if (caseIndex === 10) {
                     console.log('click on binDoc');  
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenBinDocMaterial; 
-                    
-                    
+                    screenCube.material = screenBinDocMaterial;  
                 }
                 break;
             case 14:
@@ -837,13 +883,13 @@ window.addEventListener('click', () => {
                     console.log('click on MobileApp');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;       
+                    screenCube.material = screenProjectMobileAppMaterial;       
                 }
                 if (caseIndex === 7) {
                     console.log('click on Photo 2');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenPhotoMaterial;     
+                    screenCube.material = screenYoshi2Material;     
                 }
                 if (caseIndex === 10) {
                     console.log('click on binDocPopup'); 
@@ -858,13 +904,13 @@ window.addEventListener('click', () => {
                     console.log('click on BrowserExtension');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;            
+                    screenCube.material = screenProjectBrowserExtensionMaterial;            
                 }
                 if (caseIndex === 7) {
                     console.log('click on Photo 3');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenPhotoMaterial;       
+                    screenCube.material = screenEevee2Material;       
                 }
                 if (caseIndex === 10) {
                     console.log('click on binDocClosePopup'); 
@@ -882,7 +928,7 @@ window.addEventListener('click', () => {
                     console.log('click on RHG');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;               
+                    screenCube.material = screenProjectRHGMaterial;               
                 }
                 if (caseIndex === 7) {
                     console.log('click on Photo opened');                            
@@ -893,7 +939,7 @@ window.addEventListener('click', () => {
                     console.log('click on React Portolio');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;             
+                    screenCube.material = screenProjectReactPortfolioMaterial;             
                 }
                 if (caseIndex === 7) {
                     console.log('click on Photo close');
@@ -908,7 +954,7 @@ window.addEventListener('click', () => {
                     console.log('click on Flexbox Game');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;
+                    screenCube.material = screenProjectFlexboxGameMaterial;
                                                                   
                 }
                 break;
@@ -917,7 +963,7 @@ window.addEventListener('click', () => {
                     console.log('click on Tictactoe');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;                         
+                    screenCube.material = screenProjectTicTacToeMaterial;                         
                 }
                 break;
             case 20:
@@ -944,6 +990,7 @@ window.addEventListener('click', () => {
     } else {
         if (cameraMoved) {
             screenCube.material = greenGlow;
+            // removeClockTexts(scene);
             resetCamera(1.5);
             cameraMoved = false; 
             updateRaycastTargets(false);
@@ -971,9 +1018,13 @@ function resetCamera(duration) {
         z: initialControlTarget.z,
         ease: 'power1.inOut',
         onComplete: () => {
-            controls.enableRotate = true; 
-            controls.enableZoom = true;
-            controls.update();
+            if (virusGame) return;
+            else {
+                console.log("hello")
+                controls.enableRotate = true; 
+                controls.enableZoom = true;
+                controls.update();
+            }
         }
     });
 }
