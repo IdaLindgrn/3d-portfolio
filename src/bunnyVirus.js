@@ -1,6 +1,8 @@
+import { resetGameState } from './script.js';
+
 export function createBunnyVirusPopup() {
     // Popup HTML
-    const popupHtml = `
+    const popupHtml = ` 
     <div id="bunny-popup" class="popup hidden">
         <h1>WARNING</h1>
         <img src="./bunnyVirusWarning.png" class="popup-image"/>
@@ -12,8 +14,16 @@ export function createBunnyVirusPopup() {
     </div>
     <div id="message" class="hidden message"></div>
     <div id="success-modal" class="modal hidden">
-        <span id="close-success-modal" class="close">&times;</span>
-        <h2>You did it! All bunnies are gone!</h2>
+        <div class="success-header">
+            <span id="close-success-modal" class="close fas fa-times"/>
+        </div>
+        <div class="success-popup-body">
+        <img src="./bunnyVirusDefeated.png" class="virus-defeated-image" />
+        <div class="success-text">
+            <h2 class="success-title">Success!</h2>
+            <h3>The bunny Virus has been deleted and your system is now back to normal.</h3>
+        </div>
+        </div>
     </div>
     <div id="bluescreen-overlay" class="bluescreen-overlay hidden">
         <h1 class="sad-smile">:(</h1>
@@ -117,8 +127,8 @@ export function createBunnyVirusPopup() {
 
         .bunny {
             position: absolute;
-            width: 50px; /* Size of the bunny image */
-            height: auto; /* Size of the bunny image */
+            width: 50px; 
+            height: auto; 
             cursor: pointer;
             transition: transform 0.2s ease; /* Add some animation */
             user-select: none; /* Prevent text selection on bunny */
@@ -133,9 +143,41 @@ export function createBunnyVirusPopup() {
             display: none;
             font-family: 'BrownMedium_Regular', sans-serif;
         }
+
         .message { font-size: 30px; color: #fff; background: rgba(0, 0, 0, 0.7); padding: 10px; width: 80vw; text-align: center; }
-        .modal { background: #222; color: #fff; padding: 20px; width: 300px; border-radius: 8px; }
-        .close { position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 20px; }
+        .modal { background: #fff; color: #898989; width: 340px; height: 130px; flex-direction: column; font-family: 'BrownLight_Regular', sans-serif; }
+        .close { position: absolute; color: #fff; top: 3px; right: 6px; cursor: pointer; font-size: 15px; background-color: #E14242; padding: 3px 6px; border-radius: 30px;}
+
+        .success-popup-body {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .success-header {
+            background-color: #D9D9D9;
+            padding: 14px;
+
+        }
+
+        .virus-defeated-image {
+            width: 55px;
+            padding-left: 5px;
+        }
+
+        .success-text {
+            padding-left: 15px;
+            font-size: 12px;
+            display: flex; 
+            flex-direction: column;
+        }
+
+        .success-title {
+            padding-bottom: 7px;
+            font-size: 18px;
+            color: #707070;
+        }
 
         /* Blue screen overlay */
         .bluescreen-overlay {
@@ -186,10 +228,11 @@ export function createBunnyVirusPopup() {
         }, 3000); 
     });
 
-    // Event listener for closing success modal
     document.getElementById('close-success-modal').addEventListener('click', () => {
         const modal = document.getElementById('success-modal');
         modal.classList.add('hidden');
+        modal.style.display = 'none'; 
+
     });
 }
 
@@ -229,7 +272,7 @@ function spawnBunnies() {
             bunny.style.left = rect.left + vx + 'px';
             bunny.style.top = rect.top + vy + 'px';
 
-            const viewportWidth = document.documentElement.clientWidth;
+            const viewportWidth = docusment.documentElement.clientWidth;
             const viewportHeight = document.documentElement.clientHeight;
 
             if (rect.left <= 0 || rect.right >= viewportWidth) {
@@ -262,6 +305,7 @@ function showSuccessModal() {
     if (successModal) {
         successModal.classList.remove('hidden');
         successModal.style.display = 'block'; 
+        removeGame();
     }
 }
 
@@ -272,7 +316,8 @@ function showBlueScreen() {
     setTimeout(() => {
         blueScreen.classList.add('hidden');
         blueScreen.style.display = 'none'; 
-    }, 60000);
+        removeGame();
+    }, 4000);
 }
 
 export function showBunnyVirus() {
@@ -280,4 +325,8 @@ export function showBunnyVirus() {
     if (popup) {
         popup.classList.remove('hidden'); 
     }
+}
+
+export function removeGame() {
+    resetGameState();
 }
