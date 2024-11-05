@@ -4,7 +4,6 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'; 
 import { getCurrentTime } from './clock.js';
 
-
 export function loadFont(scene) {
     const loader = new FontLoader();
 
@@ -32,11 +31,17 @@ const clockTextMeshes = {
     date: null,
 };
 
+
 export function loadClockTexts(scene) {
+    if (clockTextMeshes.time || clockTextMeshes.date) {
+        clockTextMeshes.time.visible = true;
+        clockTextMeshes.date.visible = true;
+        return;
+    }
+    
     const { formattedTime, formattedDate } = getCurrentTime();
     const loader = new FontLoader();
 
-    
     const yAxis = new THREE.Vector3(0, 1, 0);
     const yRot = Math.PI / 2; 
     const yQuaternion = new THREE.Quaternion();
@@ -65,6 +70,7 @@ export function loadClockTexts(scene) {
     
     clockTextMeshes.time.position.set(-7.5, 21, -2.6); 
     clockTextMeshes.time.quaternion.copy(combinedQuaternion);
+    clockTextMeshes.time.visible = true; 
 
     scene.add(clockTextMeshes.time);
 
@@ -104,28 +110,18 @@ export function loadClockTexts(scene) {
     //     clockTextMeshes.date.geometry = new TextGeometry(formattedDate, {
     //         font: font,
     //         size: 0.4,
-    //         depth: 0.1,
+    //         depth: 0.05,
     //     });
     // }, 1000); // Update every second
 })
 }
 
-// export function removeClockTexts(scene) {
-//     if (clockTextMeshes.time) {
-//         scene.remove(clockTextMeshes.time); // Remove time text from scene
-//         if (clockTextMeshes.time.geometry) {
-//             clockTextMeshes.time.geometry.dispose(); 
-//         }
-//         clockTextMeshes.time = null; // Clear reference
-//         console.log('Removed time text mesh');
-//     }
+export function removeClockTexts(scene) {
+    if (clockTextMeshes.time) {
+        clockTextMeshes.time.visible = false;
+    }
 
-//     if (clockTextMeshes.date) {
-//         scene.remove(clockTextMeshes.date); // Remove date text from scene
-//         if (clockTextMeshes.date.geometry) {
-//             clockTextMeshes.date.geometry.dispose(); 
-//         }
-//         clockTextMeshes.date = null; // Clear reference
-//         console.log('Removed date text mesh');
-//     }
-// }
+    if (clockTextMeshes.date) {
+        clockTextMeshes.date.visible = false; 
+    }
+}

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createSmokeEffect } from './smokeEffect.js'
-import { loadFont, loadClockTexts } from './fontLoader.js'
+import { loadFont, loadClockTexts, removeClockTexts } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
 import { createBunnyVirusPopup, showBunnyVirus } from './bunnyVirus.js'
 // import { loadingManager } from './loadingManager.js'; 
@@ -990,7 +990,7 @@ window.addEventListener('click', () => {
     } else {
         if (cameraMoved) {
             screenCube.material = greenGlow;
-            // removeClockTexts(scene);
+            removeClockTexts(scene);
             resetCamera(1.5);
             cameraMoved = false; 
             updateRaycastTargets(false);
