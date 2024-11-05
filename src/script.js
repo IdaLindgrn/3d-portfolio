@@ -508,6 +508,10 @@ controls.enableDamping = true;
 controls.maxDistance = 170;
 controls.minDistance = 1;
 
+controls.minPolarAngle = Math.PI / 4; 
+controls.maxPolarAngle = Math.PI / 2.2;
+
+
 const initialCameraPosition = camera.position.clone(); 
 const initialControlTarget = controls.target.clone(); 
 
