@@ -1,4 +1,3 @@
-// fontLoader.js
 import * as THREE from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'; 
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'; 
@@ -31,7 +30,9 @@ const clockTextMeshes = {
     date: null,
 };
 
-// Load the initial clock texts
+let previousTime = '';
+let previousDate = '';
+
 export function loadClockTexts(scene) {
     if (clockTextMeshes.time || clockTextMeshes.date) {
         clockTextMeshes.time.visible = true;
@@ -40,6 +41,9 @@ export function loadClockTexts(scene) {
     }
 
     const { formattedTime, formattedDate } = getCurrentTime();
+    previousTime = formattedTime;
+    previousDate = formattedDate;
+
     const loader = new FontLoader();
 
     const yAxis = new THREE.Vector3(0, 1, 0);
@@ -53,7 +57,6 @@ export function loadClockTexts(scene) {
     const combinedQuaternion = new THREE.Quaternion().multiplyQuaternions(yQuaternion, xQuaternion);
 
     loader.load('./fonts/3Dfonts/BrownLight_Regular.json', (font) => {
-        // Time Text
         const timeGeometry = new TextGeometry(formattedTime, {
             font: font,
             size: 0.4,
@@ -69,7 +72,6 @@ export function loadClockTexts(scene) {
         clockTextMeshes.time.quaternion.copy(combinedQuaternion);
         scene.add(clockTextMeshes.time);
 
-        // Date Text
         const dateGeometry = new TextGeometry(formattedDate, {
             font: font,
             size: 0.4,
@@ -85,17 +87,15 @@ export function loadClockTexts(scene) {
         clockTextMeshes.date.quaternion.copy(combinedQuaternion);
         scene.add(clockTextMeshes.date);
 
-        // Update time and date every second
-        setInterval(() => updateClockTexts(font), 1000);
+        requestAnimationFrame(() => checkForTimeUpdate(font));
     });
 }
 
-// Update clock text geometries each second
-function updateClockTexts(font) {
+function checkForTimeUpdate(font) {
     const { formattedTime, formattedDate } = getCurrentTime();
 
-    // Update time text
-    if (clockTextMeshes.time) {
+    if (formattedTime !== previousTime) {
+        previousTime = formattedTime;
         clockTextMeshes.time.geometry.dispose();
         clockTextMeshes.time.geometry = new TextGeometry(formattedTime, {
             font: font,
@@ -104,8 +104,8 @@ function updateClockTexts(font) {
         });
     }
 
-    // Update date text
-    if (clockTextMeshes.date) {
+    if (formattedDate !== previousDate) {
+        previousDate = formattedDate;
         clockTextMeshes.date.geometry.dispose();
         clockTextMeshes.date.geometry = new TextGeometry(formattedDate, {
             font: font,
@@ -113,9 +113,10 @@ function updateClockTexts(font) {
             depth: 0.05,
         });
     }
+
+    requestAnimationFrame(() => checkForTimeUpdate(font));
 }
 
-// Hide clock texts if needed
 export function removeClockTexts(scene) {
     if (clockTextMeshes.time) clockTextMeshes.time.visible = false;
     if (clockTextMeshes.date) clockTextMeshes.date.visible = false;
