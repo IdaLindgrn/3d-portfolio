@@ -5,25 +5,25 @@ import { createSmokeEffect } from './smokeEffect.js'
 import { loadFont, loadClockTexts, removeClockTexts } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
 import { createBunnyVirusPopup, showBunnyVirus } from './bunnyVirus.js'
-// import { loadingManager } from './loadingManager.js'; 
+import { loadingManager } from './loadingManager/loadingManager.js'; 
 import GUI from 'lil-gui';
 import { gsap } from 'gsap';
+
 
 
 // const gui = new GUI({
 //     width: 400
 // });
 
+// videos
+
 
 const canvas = document.querySelector('canvas.webgl');
 
 const scene = new THREE.Scene();
 
-const loadingManager = new THREE.LoadingManager()  
-
 const textureLoader = new THREE.TextureLoader(loadingManager);
-const gltfLoader = new GLTFLoader();
-
+const gltfLoader = new GLTFLoader(loadingManager)
 
 /**
  * Texturesa
@@ -107,15 +107,32 @@ const text = new THREE.MeshBasicMaterial({ color: 0x863f0c });
 
 const transparentMaterial = new THREE.MeshBasicMaterial({
     transparent: true,
-    opacity: 0    
+    opacity:  0.3,  
 });
 
 // screen 
 
-const cubeGeometry = new THREE.PlaneGeometry(26, 17);  
+const robotVideo = document.createElement('video');
+robotVideo.src = './videos/robot.mp4';
+robotVideo.loop = true;
+robotVideo.muted = true;
+robotVideo.playsInline = true;
+robotVideo.autoplay = true; 
+robotVideo.load();
 
+const robotVideoTexture = new THREE.VideoTexture(robotVideo);
 
-const screenCube = new THREE.Mesh(cubeGeometry, greenGlow);
+const cubeGeometry = new THREE.PlaneGeometry(26, 17); 
+
+robotVideoTexture.colorSpace = THREE.SRGBColorSpace; 
+
+const cubeScreenMaterial = new THREE.MeshBasicMaterial({
+    map: robotVideoTexture, 
+    side: THREE.FrontSide, 
+    toneMapped: false
+  });
+
+const screenCube = new THREE.Mesh(cubeGeometry, cubeScreenMaterial);
 
 screenCube.position.set(-9, 27.8, 7.7);  
 
@@ -135,6 +152,83 @@ combinedQuaternion.multiplyQuaternions(yQuaternion, xQuaternion);
 screenCube.quaternion.copy(combinedQuaternion);
 
 scene.add(screenCube);
+robotVideo.play();
+
+
+// smaller screen
+
+// const waveVideo = document.getElementById('video1');
+// const waveVideoTexture = new THREE.VideoTexture(waveVideo);
+
+// const smallScreenGeometry = new THREE.PlaneGeometry(6.5, 2.4);  
+
+// const smallScreenMaterial = new THREE.MeshBasicMaterial({
+//     map: waveVideoTexture, 
+//     side: THREE.FrontSide, 
+//     toneMapped: false
+//   });
+
+
+// const smallScreenCube = new THREE.Mesh(smallScreenGeometry, smallScreenMaterial);
+// smallScreenCube.position.set(-6.85, 16.1, 7.6);  
+// smallScreenCube.quaternion.copy(combinedQuaternion);
+// scene.add(smallScreenCube);
+
+// mini screens
+
+// const heartVideo = document.getElementById('video2');
+// const heartVideoTexture = new THREE.VideoTexture(heartVideo);
+
+// const miniScreenGeometry = new THREE.PlaneGeometry(3.2, 2.3);  
+// const miniScreenMaterial = new THREE.MeshBasicMaterial({
+//     map: heartVideoTexture, 
+//     side: THREE.FrontSide, 
+//     toneMapped: false
+//   });
+
+
+// const miniScreenCube = new THREE.Mesh(miniScreenGeometry, miniScreenMaterial);
+// miniScreenCube.position.set(-17.5, 24.2, -44);  
+// miniScreenCube.rotation.y = (65 * Math.PI) / 180;
+// scene.add(miniScreenCube);
+
+
+// const miniRobotVideo = document.getElementById('video4');
+// const miniRobotVideoTexture = new THREE.VideoTexture(miniRobotVideo);
+
+// miniRobotVideoTexture.colorSpace = THREE.SRGBColorSpace; 
+
+// const mini2ScreenMaterial = new THREE.MeshBasicMaterial({
+//     map: miniRobotVideoTexture, 
+//     side: THREE.FrontSide, 
+//     toneMapped: false
+//   });
+
+// const mini2ScreenCube = new THREE.Mesh(miniScreenGeometry, mini2ScreenMaterial);
+// mini2ScreenCube.position.set(-15.6, 30.8, -47.85);  
+// mini2ScreenCube.rotation.y = (34.5 * Math.PI) / 180;
+// scene.add(mini2ScreenCube);
+
+//medium screen
+
+// const shortVideo = document.getElementById('video5');
+// const shortVideoTexture = new THREE.VideoTexture(shortVideo);
+
+// shortVideoTexture.colorSpace = THREE.SRGBColorSpace; 
+
+// const shortScreenMaterial = new THREE.MeshBasicMaterial({
+//     map: shortVideoTexture, 
+//     side: THREE.FrontSide, 
+//     toneMapped: false
+//   });
+
+  
+// const shortScreenGeometry = new THREE.PlaneGeometry(12, 7.5); 
+// const shortScreenCube = new THREE.Mesh(shortScreenGeometry, shortScreenMaterial);
+// shortScreenCube.position.set(-17.2, 35.2, -30.85);  
+// shortScreenCube.rotation.y = (63.5 * Math.PI) / 180;
+// scene.add(shortScreenCube);
+
 
 // screen nav
 
@@ -1006,7 +1100,7 @@ window.addEventListener('click', () => {
             cameraMoved = false; 
             updateRaycastTargets(false);
             clickCount = 0; 
-            managePopup(null);
+            managePopup(null)
         }
     }
 });
