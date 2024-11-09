@@ -614,6 +614,7 @@ controls.minPolarAngle = Math.PI / 4;
 controls.maxPolarAngle = Math.PI / 2.2;
 
 controls.enablePan = false;
+controls.enableTouch = true;
 
 function setMinDistance(distance) {
     controls.minDistance = distance;
