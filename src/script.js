@@ -239,9 +239,8 @@ const shortScreenCube = new THREE.Mesh(shortScreenGeometry, shortScreenMaterial)
 shortScreenCube.position.set(-17.2, 35.2, -30.85);  
 shortScreenCube.rotation.y = (63.5 * Math.PI) / 180;
 
-
 document.addEventListener('click', () => {
-    // scene.add(shortScreenCube);
+    scene.add(shortScreenCube);
     robotVideo.play();
     waveVideo.play();
     heartVideo.play();
@@ -644,6 +643,7 @@ window.addEventListener('mousemove', (event) => {
         mouse.x = (event.clientX / sizes.width) * 2 - 1
         mouse.y = - (event.clientY / sizes.height) * 2 + 1
     })
+
 
 let currentIntersect = null;
 let objectsToTest = []
