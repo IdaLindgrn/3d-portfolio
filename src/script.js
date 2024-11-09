@@ -6,17 +6,10 @@ import { loadFont, loadClockTexts, removeClockTexts } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
 import { createBunnyVirusPopup, showBunnyVirus } from './bunnyVirus.js'
 import { loadingManager } from './loadingManager/loadingManager.js'; 
-// import GUI from 'lil-gui';
 import { gsap } from 'gsap';
 
 
-
-// const gui = new GUI({
-//     width: 400
-// });
-
 // videos
-
 
 const canvas = document.querySelector('canvas.webgl');
 
@@ -26,7 +19,7 @@ const textureLoader = new THREE.TextureLoader(loadingManager);
 const gltfLoader = new GLTFLoader(loadingManager)
 
 /**
- * Texturesa
+ * Textures
  */
 
 const bakedTextures = {
