@@ -232,15 +232,20 @@ export function createBunnyVirusPopup() {
         const modal = document.getElementById('success-modal');
         modal.classList.add('hidden');
         modal.style.display = 'none'; 
-
+        removeGame();
     });
 }
 
+let bunnyInterval = null;
 let bunnies = [];
 let bunnyCount = 0;
 let gameActive = true;
 
 function spawnBunnies() {
+    if (bunnyInterval !== null) {
+        clearInterval(bunnyInterval);
+    }
+
     const spawnBunny = () => {
         if (!gameActive) return;
 
@@ -272,7 +277,7 @@ function spawnBunnies() {
             bunny.style.left = rect.left + vx + 'px';
             bunny.style.top = rect.top + vy + 'px';
 
-            const viewportWidth = docusment.documentElement.clientWidth;
+            const viewportWidth = document.documentElement.clientWidth;
             const viewportHeight = document.documentElement.clientHeight;
 
             if (rect.left <= 0 || rect.right >= viewportWidth) {
@@ -297,7 +302,7 @@ function spawnBunnies() {
             showBlueScreen();
         }
     };
-    const spawnInterval = setInterval(spawnBunny, 2000);  
+    bunnyInterval = setInterval(spawnBunny, 3000); 
 }
 
 function showSuccessModal() {
@@ -305,7 +310,6 @@ function showSuccessModal() {
     if (successModal) {
         successModal.classList.remove('hidden');
         successModal.style.display = 'block'; 
-        removeGame();
     }
 }
 
