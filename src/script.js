@@ -150,7 +150,6 @@ combinedQuaternion.multiplyQuaternions(yQuaternion, xQuaternion);
 screenCube.quaternion.copy(combinedQuaternion);
 
 scene.add(screenCube);
-robotVideo.play();
 
 
 // smaller screen
@@ -176,7 +175,6 @@ const smallScreenCube = new THREE.Mesh(smallScreenGeometry, smallScreenMaterial)
 smallScreenCube.position.set(-6.85, 16.1, 7.6);  
 smallScreenCube.quaternion.copy(combinedQuaternion);
 scene.add(smallScreenCube);
-waveVideo.play();
 
 // mini screens
 
@@ -200,8 +198,6 @@ const miniScreenCube = new THREE.Mesh(miniScreenGeometry, miniScreenMaterial);
 miniScreenCube.position.set(-17.5, 24.2, -44);  
 miniScreenCube.rotation.y = (65 * Math.PI) / 180;
 scene.add(miniScreenCube);
-heartVideo.play();
-
 
 const miniRobotVideo = document.createElement('video');
 miniRobotVideo.src = '/videos/robot.mp4';
@@ -225,7 +221,6 @@ const mini2ScreenCube = new THREE.Mesh(miniScreenGeometry, mini2ScreenMaterial);
 mini2ScreenCube.position.set(-15.6, 30.8, -47.85);  
 mini2ScreenCube.rotation.y = (34.5 * Math.PI) / 180;
 scene.add(mini2ScreenCube);
-miniRobotVideo.play();
 
 //medium screen
 
@@ -251,7 +246,14 @@ const shortScreenCube = new THREE.Mesh(shortScreenGeometry, shortScreenMaterial)
 shortScreenCube.position.set(-17.2, 35.2, -30.85);  
 shortScreenCube.rotation.y = (63.5 * Math.PI) / 180;
 scene.add(shortScreenCube);
-shortVideo.play();
+
+document.addEventListener('click', () => {
+    robotVideo.play();
+    waveVideo.play();
+    heartVideo.play();
+    miniRobotVideo.play();
+    shortVideo.play();
+}, { once: true }); 
 
 
 // screen nav
