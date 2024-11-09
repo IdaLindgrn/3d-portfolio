@@ -113,7 +113,7 @@ const transparentMaterial = new THREE.MeshBasicMaterial({
 // screen 
 
 const robotVideo = document.createElement('video');
-robotVideo.src = './videos/robot.mp4';
+robotVideo.src = '/videos/robot.mp4';
 robotVideo.loop = true;
 robotVideo.muted = true;
 robotVideo.playsInline = true;
@@ -156,7 +156,7 @@ robotVideo.play();
 // smaller screen
 
 const waveVideo = document.createElement('video');
-waveVideo.src = './videos/wave.mp4';
+waveVideo.src = '/videos/wave.mp4';
 waveVideo.loop = true;
 waveVideo.muted = true;
 waveVideo.playsInline = true;
@@ -181,7 +181,7 @@ waveVideo.play();
 // mini screens
 
 const heartVideo = document.createElement('video');
-heartVideo.src = './videos/heart.mp4';
+heartVideo.src = '/videos/heart.mp4';
 heartVideo.loop = true;
 heartVideo.muted = true;
 heartVideo.playsInline = true;
@@ -204,7 +204,7 @@ heartVideo.play();
 
 
 const miniRobotVideo = document.createElement('video');
-miniRobotVideo.src = './videos/robot.mp4';
+miniRobotVideo.src = '/videos/robot.mp4';
 miniRobotVideo.loop = true;
 miniRobotVideo.muted = true;
 miniRobotVideo.playsInline = true;
@@ -230,7 +230,7 @@ miniRobotVideo.play();
 //medium screen
 
 const shortVideo = document.createElement('video');
-shortVideo.src = './videos/shortVideo.mp4';
+shortVideo.src = '/videos/shortVideo.mp4';
 shortVideo.loop = true;
 shortVideo.muted = true;
 shortVideo.playsInline = true;
