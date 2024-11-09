@@ -620,6 +620,8 @@ controls.minDistance = 80;
 controls.minPolarAngle = Math.PI / 4; 
 controls.maxPolarAngle = Math.PI / 2.2;
 
+controls.enablePan = false;
+
 function setMinDistance(distance) {
     controls.minDistance = distance;
 }
