@@ -107,7 +107,7 @@ const text = new THREE.MeshBasicMaterial({ color: 0x863f0c });
 
 const transparentMaterial = new THREE.MeshBasicMaterial({
     transparent: true,
-    opacity:  0.3,  
+    opacity:  0,  
 });
 
 // screen 
@@ -418,17 +418,6 @@ binDocPopupNav.quaternion.copy(combinedQuaternion);
 binDocPopupCloseNav.quaternion.copy(combinedQuaternion);
 
 
-
-// Test cude for holographic
-
-// const testGeometry = new THREE.BoxGeometry(10, 10, 10);
-// const testCube = new THREE.Mesh(testGeometry, greenGlow);
-// testCube.position.set(40, 27.8, 7.7);
-// scene.add(testCube);  
-
-
-
-
 gltfLoader.load(
     'gameboy.glb',
     (gltf) => 
@@ -674,7 +663,6 @@ const screenProjectRHGMaterial = new THREE.MeshBasicMaterial({ map: screens.scre
 const screenProjectReactPortfolioMaterial = new THREE.MeshBasicMaterial({ map: screens.screenReactPortfolio });
 const screenProjectFlexboxGameMaterial = new THREE.MeshBasicMaterial({ map: screens.screenFlexboxGame });
 const screenProjectTicTacToeMaterial = new THREE.MeshBasicMaterial({ map: screens.screenTicTacToe });
-const screenProjectMaterial = new THREE.MeshBasicMaterial({ map: screens.screenProject });
 const screenUserMaterial = new THREE.MeshBasicMaterial({ map: screens.screenUser });
 const screenNotesMaterial = new THREE.MeshBasicMaterial({ map: screens.screenNotes });
 const screenCreditsMaterial = new THREE.MeshBasicMaterial({ map: screens.screenCredits });
@@ -683,7 +671,6 @@ const screenEeveeMaterial = new THREE.MeshBasicMaterial({ map: screens.screenEev
 const screenEevee2Material = new THREE.MeshBasicMaterial({ map: screens.screenEevee2 });
 const screenYoshiMaterial = new THREE.MeshBasicMaterial({ map: screens.screenYoshi });
 const screenYoshi2Material = new THREE.MeshBasicMaterial({ map: screens.screenYoshi2 });
-const screenPhotoMaterial = new THREE.MeshBasicMaterial({ map: screens.screenPhoto });
 const screenBinMaterial = new THREE.MeshBasicMaterial({ map: screens.screenBin });
 const screenBinDocMaterial = new THREE.MeshBasicMaterial({ map: screens.screenBinDoc });
 
@@ -898,17 +885,18 @@ function storeOriginalObjects() {
 }
 
 export function resetGameState() {
-    virusGame = false;          
-    objectsToTest = [...originalObjectsToTest]; 
-    console.log("resetGameState called");
-    setMinDistance(80);
+    location.reload();
+    // virusGame = false;          
+    // objectsToTest = [...originalObjectsToTest]; 
+    // console.log(objectsToTest);
+    // console.log("resetGameState called");
 
-    screenCube.material = greenGlow;
-            resetCamera(1.5);
-            cameraMoved = false; 
-            updateRaycastTargets(false);
-            clickCount = 0; 
-            managePopup(null);
+
+    //         resetCamera(1.5);
+    //         cameraMoved = false; 
+    //         updateRaycastTargets(false);
+    //         clickCount = 0; 
+    //         managePopup(null);
 }
 
 window.addEventListener('click', () => {
@@ -1118,7 +1106,7 @@ window.addEventListener('click', () => {
         }
     } else {
         if (cameraMoved) {
-            screenCube.material = greenGlow;
+            screenCube.material = cubeScreenMaterial;
             removeClockTexts(scene);
             resetCamera(1.5);
             cameraMoved = false; 
@@ -1147,10 +1135,11 @@ function resetCamera(duration) {
         z: initialControlTarget.z,
         ease: 'power1.inOut',
         onComplete: () => {
-            if (virusGame) return;
+            if (virusGame === true) return;
             else {
                 console.log("hello")
                 setMinDistance(80);
+                controls.reset();
                 controls.enableRotate = true; 
                 controls.enableZoom = true;
                 controls.update();
