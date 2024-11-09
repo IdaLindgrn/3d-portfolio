@@ -644,11 +644,19 @@ window.addEventListener('mousemove', (event) => {
         mouse.y = - (event.clientY / sizes.height) * 2 + 1
     })
 
-    window.addEventListener('touchmove', (event) => {
-        event.preventDefault(); // Prevent scrolling
+    window.addEventListener('touchstart', (event) => {
+        // event.preventDefault(); // Test by commenting out this line
         const touch = event.touches[0]; // Consider the first touch
         mouse.x = (touch.clientX / sizes.width) * 2 - 1;
         mouse.y = - (touch.clientY / sizes.height) * 2 + 1;
+    
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(objectsToTest);
+    
+        if (intersects.length) {
+            const clickedObject = intersects[0].object;
+            handleObjectClick(clickedObject);
+        }
     });
 
 let currentIntersect = null;
