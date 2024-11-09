@@ -614,7 +614,7 @@ controls.minPolarAngle = Math.PI / 4;
 controls.maxPolarAngle = Math.PI / 2.2;
 
 controls.enablePan = false;
-controls.enableTouch = true;
+// controls.enableTouch = true;
 
 function setMinDistance(distance) {
     controls.minDistance = distance;
@@ -641,9 +641,21 @@ const mouse = new THREE.Vector2();
 
 window.addEventListener('mousemove', (event) => 
     {
-        mouse.x = event.clientX / sizes.width * 2 - 1
+        mouse.x = (event.clientX / sizes.width) * 2 - 1
         mouse.y = - (event.clientY / sizes.height) * 2 + 1
     })
+
+    window.addEventListener('touchstart', (event) => {
+        const touch = event.touches[0];
+        mouse.x = (touch.clientX / sizes.width) * 2 - 1;
+        mouse.y = - (touch.clientY / sizes.height) * 2 + 1;
+    });
+    
+    window.addEventListener('touchmove', (event) => {
+        const touch = event.touches[0];
+        mouse.x = (touch.clientX / sizes.width) * 2 - 1;
+        mouse.y = - (touch.clientY / sizes.height) * 2 + 1;
+    });
 
 
 let currentIntersect = null;
