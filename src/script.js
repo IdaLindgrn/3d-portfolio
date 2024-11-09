@@ -639,12 +639,17 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-window.addEventListener('mousemove', (event) => 
-    {
+window.addEventListener('mousemove', (event) => {
         mouse.x = (event.clientX / sizes.width) * 2 - 1
         mouse.y = - (event.clientY / sizes.height) * 2 + 1
     })
 
+    window.addEventListener('touchmove', (event) => {
+        event.preventDefault(); // Prevent scrolling
+        const touch = event.touches[0]; // Consider the first touch
+        mouse.x = (touch.clientX / sizes.width) * 2 - 1;
+        mouse.y = - (touch.clientY / sizes.height) * 2 + 1;
+    });
 
 let currentIntersect = null;
 let objectsToTest = []
