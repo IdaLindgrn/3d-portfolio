@@ -645,18 +645,6 @@ window.addEventListener('mousemove', (event) =>
         mouse.y = - (event.clientY / sizes.height) * 2 + 1
     })
 
-    window.addEventListener('touchstart', (event) => {
-        const touch = event.touches[0];
-        mouse.x = (touch.clientX / sizes.width) * 2 - 1;
-        mouse.y = - (touch.clientY / sizes.height) * 2 + 1;
-    });
-    
-    window.addEventListener('touchmove', (event) => {
-        const touch = event.touches[0];
-        mouse.x = (touch.clientX / sizes.width) * 2 - 1;
-        mouse.y = - (touch.clientY / sizes.height) * 2 + 1;
-    });
-
 
 let currentIntersect = null;
 let objectsToTest = []
