@@ -21,8 +21,8 @@ body
 /* loading bar */
 
 @font-face {
-    font-family: 'BrownLight Regular';
-    src: url('./fonts/BrownLight-Regular.ttf') format('truetype');
+    font-family: 'BrownLightRegular';
+    src: url('./fonts/BrownLightRegular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -49,7 +49,7 @@ body
 }
 
 .progress-bar-container {
-    font-family: 'BrownLight Regular', sans-serif;
+    font-family: 'BrownLightRegular', sans-serif;
     margin: 0 auto;
     color: #fff;
     display: flex;
@@ -100,7 +100,7 @@ progress::-moz-progress-bar {
 }
 
 .start-button {
-    font-family: 'BrownLight Regular', sans-serif;
+    font-family: 'BrownLightRegular', sans-serif;
     font-size: 18px;
     padding: 10px 20px;
     color: #ffffff;
@@ -116,7 +116,7 @@ progress::-moz-progress-bar {
 }
 
 .read-header {
-    font-family: 'BrownLight Regular', sans-serif;
+    font-family: 'BrownLightRegular', sans-serif;
     color: #ffffff;
     font-size: 25px;
     letter-spacing: 1px;
@@ -128,7 +128,7 @@ progress::-moz-progress-bar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'BrownLight Regular', sans-serif;
+    font-family: 'BrownLightRegular', sans-serif;
     margin: 23px 0 20px 0;
 
     padding-left: 0;

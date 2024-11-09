@@ -48,8 +48,8 @@ export function createBunnyVirusPopup() {
 
         @font-face {
             font-family: 'BrownLight_Regular';
-            src: url('./fonts/BrownLight Regular.ttf') format('truetype'),
-                url('./fonts/BrownLight Regular.ttf') format('truetype');
+            src: url('./fonts/BrownLightRegular.ttf') format('truetype'),
+                url('./fonts/BrownLightRegular.ttf') format('truetype');
             font-weight: light;
             font-style: light;
         }

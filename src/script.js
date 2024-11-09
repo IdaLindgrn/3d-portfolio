@@ -6,7 +6,7 @@ import { loadFont, loadClockTexts, removeClockTexts } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
 import { createBunnyVirusPopup, showBunnyVirus } from './bunnyVirus.js'
 import { loadingManager } from './loadingManager/loadingManager.js'; 
-import GUI from 'lil-gui';
+// import GUI from 'lil-gui';
 import { gsap } from 'gsap';
 
 
