@@ -22,7 +22,7 @@ body
 
 @font-face {
     font-family: 'BrownLightRegular';
-    src: url('./fonts/BrownLightRegular.ttf') format('truetype');
+    src: url('/fonts/BrownLight Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

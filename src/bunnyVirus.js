@@ -40,14 +40,14 @@ export function createBunnyVirusPopup() {
     style.textContent = `
         @font-face {
             font-family: 'BrownMedium_Regular';
-            src: url('./fonts/BrownMedium Regular.ttf') format('truetype');
+            src: url('/fonts/BrownMedium Regular.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
 
         @font-face {
             font-family: 'BrownLight_Regular';
-            src: url('./fonts/BrownLightRegular.ttf') format('truetype');
+            src: url('/fonts/BrownLight Regular.ttf') format('truetype');
             font-weight: light;
             font-style: light;
         }
