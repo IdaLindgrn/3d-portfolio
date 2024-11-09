@@ -2,27 +2,28 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createSmokeEffect } from './smokeEffect.js'
-import { loadFont } from './fontLoader.js'
+import { loadFont, loadClockTexts, removeClockTexts } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
-// import { loadingManager } from './loadingManager.js'; 
+import { createBunnyVirusPopup, showBunnyVirus } from './bunnyVirus.js'
+import { loadingManager } from './loadingManager/loadingManager.js'; 
 import GUI from 'lil-gui';
 import { gsap } from 'gsap';
+
 
 
 // const gui = new GUI({
 //     width: 400
 // });
 
+// videos
+
 
 const canvas = document.querySelector('canvas.webgl');
 
 const scene = new THREE.Scene();
 
-const loadingManager = new THREE.LoadingManager()  
-
 const textureLoader = new THREE.TextureLoader(loadingManager);
-const gltfLoader = new GLTFLoader();
-
+const gltfLoader = new GLTFLoader(loadingManager)
 
 /**
  * Texturesa
@@ -44,13 +45,21 @@ const screens = {
     screenStart: textureLoader.load('./textures/startScreen.jpg'),
     screenRobot: textureLoader.load('./textures/robotScreen.jpg'),
     screenProjects: textureLoader.load('./textures/projectsScreen.jpg'),
-    screenProject: textureLoader.load('./textures/projectScreen.jpg'),
+    screen3DPortfolio: textureLoader.load('./textures/project3DPortfolioScreen.jpg'),
+    screenMobileApp: textureLoader.load('./textures/projectMobileAppScreen.jpg'),
+    screenBrowserExt: textureLoader.load('./textures/projectBrowserExtScreen.jpg'),
+    screenRHG: textureLoader.load('./textures/projectRHGScreen.jpg'),
+    screenReactPortfolio: textureLoader.load('./textures/projectRHGScreen.jpg'),
+    screenFlexboxGame: textureLoader.load('./textures/projectFlexboxGameScreen.jpg'),
+    screenTicTacToe: textureLoader.load('./textures/projectTicTacToeScreen.jpg'),
     screenUser: textureLoader.load('./textures/userScreen.jpg'),
     screenNotes: textureLoader.load('./textures/notesScreen.jpg'),
     screenCredits: textureLoader.load('./textures/creditsScreen.jpg'),
     screenPhotos: textureLoader.load('./textures/photosScreen.jpg'),
-    screenPhoto: textureLoader.load('./textures/photoScreen.jpg'),
+    screenEevee: textureLoader.load('./textures/eeveeScreen.jpg'),
+    screenEevee2: textureLoader.load('./textures/eeveeScreen2.jpg'),
     screenYoshi: textureLoader.load('./textures/yoshiScreen.jpg'),
+    screenYoshi2: textureLoader.load('./textures/yoshiScreen2.jpg'),
     screenBin: textureLoader.load('./textures/binScreen.jpg'),
     screenBinDoc: textureLoader.load('./textures/binDocScreen.jpg'),
 };
@@ -97,17 +106,31 @@ const string = new THREE.MeshBasicMaterial({ color: 0xa4a3a3 });
 const text = new THREE.MeshBasicMaterial({ color: 0x863f0c });
 
 const transparentMaterial = new THREE.MeshBasicMaterial({
-    color: 0x000,  
     transparent: true,
-    opacity: 0.5    
+    opacity:  0,  
 });
 
 // screen 
 
-const cubeGeometry = new THREE.PlaneGeometry(26, 17);  
+const robotVideo = document.createElement('video');
+robotVideo.src = './videos/robot.mp4';
+robotVideo.loop = true;
+robotVideo.muted = true;
+robotVideo.playsInline = true;
+robotVideo.autoplay = true; 
+robotVideo.load();
 
+const robotVideoTexture = new THREE.VideoTexture(robotVideo);
 
-const screenCube = new THREE.Mesh(cubeGeometry, greenGlow);
+const cubeGeometry = new THREE.PlaneGeometry(26, 17); 
+
+robotVideoTexture.colorSpace = THREE.SRGBColorSpace; 
+
+const cubeScreenMaterial = new THREE.MeshBasicMaterial({
+    map: robotVideoTexture, 
+  });
+
+const screenCube = new THREE.Mesh(cubeGeometry, cubeScreenMaterial);
 
 screenCube.position.set(-9, 27.8, 7.7);  
 
@@ -127,6 +150,109 @@ combinedQuaternion.multiplyQuaternions(yQuaternion, xQuaternion);
 screenCube.quaternion.copy(combinedQuaternion);
 
 scene.add(screenCube);
+robotVideo.play();
+
+
+// smaller screen
+
+const waveVideo = document.createElement('video');
+waveVideo.src = './videos/wave.mp4';
+waveVideo.loop = true;
+waveVideo.muted = true;
+waveVideo.playsInline = true;
+waveVideo.autoplay = true; 
+waveVideo.load();
+
+const waveVideoTexture = new THREE.VideoTexture(waveVideo);
+
+const smallScreenGeometry = new THREE.PlaneGeometry(6.5, 2.4);  
+
+const smallScreenMaterial = new THREE.MeshBasicMaterial({
+    map: waveVideoTexture, 
+  });
+
+
+const smallScreenCube = new THREE.Mesh(smallScreenGeometry, smallScreenMaterial);
+smallScreenCube.position.set(-6.85, 16.1, 7.6);  
+smallScreenCube.quaternion.copy(combinedQuaternion);
+scene.add(smallScreenCube);
+waveVideo.play();
+
+// mini screens
+
+const heartVideo = document.createElement('video');
+heartVideo.src = './videos/heart.mp4';
+heartVideo.loop = true;
+heartVideo.muted = true;
+heartVideo.playsInline = true;
+heartVideo.autoplay = true; 
+heartVideo.load();
+
+const heartVideoTexture = new THREE.VideoTexture(heartVideo);
+
+const miniScreenGeometry = new THREE.PlaneGeometry(3.2, 2.3);  
+const miniScreenMaterial = new THREE.MeshBasicMaterial({
+    map: heartVideoTexture, 
+  });
+
+
+const miniScreenCube = new THREE.Mesh(miniScreenGeometry, miniScreenMaterial);
+miniScreenCube.position.set(-17.5, 24.2, -44);  
+miniScreenCube.rotation.y = (65 * Math.PI) / 180;
+scene.add(miniScreenCube);
+heartVideo.play();
+
+
+const miniRobotVideo = document.createElement('video');
+miniRobotVideo.src = './videos/robot.mp4';
+miniRobotVideo.loop = true;
+miniRobotVideo.muted = true;
+miniRobotVideo.playsInline = true;
+miniRobotVideo.autoplay = true; 
+miniRobotVideo.load();
+
+const miniRobotVideoTexture = new THREE.VideoTexture(miniRobotVideo);
+
+miniRobotVideoTexture.colorSpace = THREE.SRGBColorSpace; 
+
+const mini2ScreenMaterial = new THREE.MeshBasicMaterial({
+    map: miniRobotVideoTexture, 
+    side: THREE.FrontSide, 
+    toneMapped: false
+  });
+
+const mini2ScreenCube = new THREE.Mesh(miniScreenGeometry, mini2ScreenMaterial);
+mini2ScreenCube.position.set(-15.6, 30.8, -47.85);  
+mini2ScreenCube.rotation.y = (34.5 * Math.PI) / 180;
+scene.add(mini2ScreenCube);
+miniRobotVideo.play();
+
+//medium screen
+
+const shortVideo = document.createElement('video');
+shortVideo.src = './videos/shortVideo.mp4';
+shortVideo.loop = true;
+shortVideo.muted = true;
+shortVideo.playsInline = true;
+shortVideo.autoplay = true; 
+shortVideo.load();
+
+const shortVideoTexture = new THREE.VideoTexture(shortVideo);
+
+shortVideoTexture.colorSpace = THREE.SRGBColorSpace; 
+
+const shortScreenMaterial = new THREE.MeshBasicMaterial({
+    map: shortVideoTexture, 
+  });
+
+  
+const shortScreenGeometry = new THREE.PlaneGeometry(12, 7.5); 
+const shortScreenCube = new THREE.Mesh(shortScreenGeometry, shortScreenMaterial);
+shortScreenCube.position.set(-17.2, 35.2, -30.85);  
+shortScreenCube.rotation.y = (63.5 * Math.PI) / 180;
+scene.add(shortScreenCube);
+shortVideo.play();
+
 
 // screen nav
 
@@ -290,17 +416,6 @@ binCloseNav.quaternion.copy(combinedQuaternion);
 binDocNav.quaternion.copy(combinedQuaternion);
 binDocPopupNav.quaternion.copy(combinedQuaternion);
 binDocPopupCloseNav.quaternion.copy(combinedQuaternion);
-
-
-
-// Test cude for holographic
-
-// const testGeometry = new THREE.BoxGeometry(10, 10, 10);
-// const testCube = new THREE.Mesh(testGeometry, greenGlow);
-// testCube.position.set(40, 27.8, 7.7);
-// scene.add(testCube);  
-
-
 
 
 gltfLoader.load(
@@ -498,7 +613,15 @@ scene.add(camera);
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.maxDistance = 170;
-controls.minDistance = 1;
+controls.minDistance = 80;
+
+controls.minPolarAngle = Math.PI / 4; 
+controls.maxPolarAngle = Math.PI / 2.2;
+
+function setMinDistance(distance) {
+    controls.minDistance = distance;
+}
+
 
 const initialCameraPosition = camera.position.clone(); 
 const initialControlTarget = controls.target.clone(); 
@@ -526,20 +649,28 @@ window.addEventListener('mousemove', (event) =>
 
 
 let currentIntersect = null;
-const objectsToTest = []
+let objectsToTest = []
 
 console.log(objectsToTest)
 
 const screenStartMaterial = new THREE.MeshBasicMaterial({ map: screens.screenStart });
 const screenRobotMaterial = new THREE.MeshBasicMaterial({ map: screens.screenRobot });
 const screenProjectsMaterial = new THREE.MeshBasicMaterial({ map: screens.screenProjects });
-const screenProjectMaterial = new THREE.MeshBasicMaterial({ map: screens.screenProject });
+const screenProject3DPortfolioMaterial = new THREE.MeshBasicMaterial({ map: screens.screen3DPortfolio });
+const screenProjectMobileAppMaterial = new THREE.MeshBasicMaterial({ map: screens.screenMobileApp });
+const screenProjectBrowserExtensionMaterial = new THREE.MeshBasicMaterial({ map: screens.screenBrowserExt });
+const screenProjectRHGMaterial = new THREE.MeshBasicMaterial({ map: screens.screenRHG });
+const screenProjectReactPortfolioMaterial = new THREE.MeshBasicMaterial({ map: screens.screenReactPortfolio });
+const screenProjectFlexboxGameMaterial = new THREE.MeshBasicMaterial({ map: screens.screenFlexboxGame });
+const screenProjectTicTacToeMaterial = new THREE.MeshBasicMaterial({ map: screens.screenTicTacToe });
 const screenUserMaterial = new THREE.MeshBasicMaterial({ map: screens.screenUser });
 const screenNotesMaterial = new THREE.MeshBasicMaterial({ map: screens.screenNotes });
-const screenYoshiMaterial = new THREE.MeshBasicMaterial({ map: screens.screenYoshi });
 const screenCreditsMaterial = new THREE.MeshBasicMaterial({ map: screens.screenCredits });
 const screenPhotosMaterial = new THREE.MeshBasicMaterial({ map: screens.screenPhotos });
-const screenPhotoMaterial = new THREE.MeshBasicMaterial({ map: screens.screenPhoto });
+const screenEeveeMaterial = new THREE.MeshBasicMaterial({ map: screens.screenEevee });
+const screenEevee2Material = new THREE.MeshBasicMaterial({ map: screens.screenEevee2 });
+const screenYoshiMaterial = new THREE.MeshBasicMaterial({ map: screens.screenYoshi });
+const screenYoshi2Material = new THREE.MeshBasicMaterial({ map: screens.screenYoshi2 });
 const screenBinMaterial = new THREE.MeshBasicMaterial({ map: screens.screenBin });
 const screenBinDocMaterial = new THREE.MeshBasicMaterial({ map: screens.screenBinDoc });
 
@@ -550,28 +681,11 @@ function storeOriginalMaterials(scene) {
         if (child.isMesh) {
             originalMaterials.set(child, child.material);  
         }
-    });
+    }); 
 }
 
-function changeMaterials(scene, newMaterial, duration) {
-    scene.traverse((child) => {
-        if (child.isMesh) {
-            if (!originalMaterials.has(child)) {
-                originalMaterials.set(child, child.material);
-            }
-            child.material = newMaterial;
-        }
-    });
-
-    setTimeout(() => {
-        scene.traverse((child) => {
-            if (child.isMesh && originalMaterials.has(child)) {
-                child.material = originalMaterials.get(child);  
-            }
-        });
-    }, duration * 1000); 
-}
-
+let clickCount = 0; 
+createBunnyVirusPopup();
 
 const cameraPositions = {
     button: { positionOffset: { x: -25, y: 5, z: -10 }, targetOffset: { x: 0, y: -5, z: 0 } },
@@ -761,6 +875,29 @@ function managePopup(caseIndex) {
     }
 }
 
+let virusGame = false;
+
+let originalObjectsToTest = [];
+
+function storeOriginalObjects() {
+    originalObjectsToTest = [...objectsToTest];
+    console.log("storeObjects", originalObjectsToTest)
+}
+
+export function resetGameState() {
+    location.reload();
+    // virusGame = false;          
+    // objectsToTest = [...originalObjectsToTest]; 
+    // console.log(objectsToTest);
+    // console.log("resetGameState called");
+
+
+    //         resetCamera(1.5);
+    //         cameraMoved = false; 
+    //         updateRaycastTargets(false);
+    //         clickCount = 0; 
+    //         managePopup(null);
+}
 
 window.addEventListener('click', () => {
     raycaster.setFromCamera(mouse, camera);
@@ -782,17 +919,31 @@ window.addEventListener('click', () => {
             case 0:
                 console.log('click on button');
                 animateCamera(clickedObject.position, 1.5, cameraPositions.button);
-                changeMaterials(scene, redGlow, 2);
+                clickCount++;
                 cameraMoved = true;
+                setMinDistance(0);
+                if (clickCount === 2) { 
+                    storeOriginalObjects(); 
+                    virusGame = true;
+                    resetCamera(1.5);
+                    cameraMoved = false; 
+                    updateRaycastTargets(false);
+                    clickCount = 0; 
+                    managePopup(null);
+                    objectsToTest = [];
+                    showBunnyVirus();   
+                } 
                 break;
             case 1:
                 console.log('click on screen');
+                loadClockTexts(scene);
                 clickedObject.material = screenStartMaterial;
                 animateCamera(clickedObject.position, 1.5, cameraPositions.screen);
                 cameraMoved = true;
                 updateRaycastTargets(true);
                 active = false;
                 managePopup(null);
+                setMinDistance(0);
                 break;
             case 2:
                 console.log('click on robot');
@@ -824,22 +975,20 @@ window.addEventListener('click', () => {
                     console.log('click on Gameboy');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;
+                    screenCube.material = screenProject3DPortfolioMaterial;
                 }
                 if (caseIndex === 7) {
                     console.log('click on Photo 1');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenPhotoMaterial;
+                    screenCube.material = screenEeveeMaterial;
                     
                 }
                 if (caseIndex === 10) {
                     console.log('click on binDoc');  
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenBinDocMaterial; 
-                    
-                    
+                    screenCube.material = screenBinDocMaterial;  
                 }
                 break;
             case 14:
@@ -851,13 +1000,13 @@ window.addEventListener('click', () => {
                     console.log('click on MobileApp');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;       
+                    screenCube.material = screenProjectMobileAppMaterial;       
                 }
                 if (caseIndex === 7) {
                     console.log('click on Photo 2');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenPhotoMaterial;     
+                    screenCube.material = screenYoshi2Material;     
                 }
                 if (caseIndex === 10) {
                     console.log('click on binDocPopup'); 
@@ -872,13 +1021,13 @@ window.addEventListener('click', () => {
                     console.log('click on BrowserExtension');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;            
+                    screenCube.material = screenProjectBrowserExtensionMaterial;            
                 }
                 if (caseIndex === 7) {
                     console.log('click on Photo 3');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenPhotoMaterial;       
+                    screenCube.material = screenEevee2Material;       
                 }
                 if (caseIndex === 10) {
                     console.log('click on binDocClosePopup'); 
@@ -896,7 +1045,7 @@ window.addEventListener('click', () => {
                     console.log('click on RHG');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;               
+                    screenCube.material = screenProjectRHGMaterial;               
                 }
                 if (caseIndex === 7) {
                     console.log('click on Photo opened');                            
@@ -907,7 +1056,7 @@ window.addEventListener('click', () => {
                     console.log('click on React Portolio');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;             
+                    screenCube.material = screenProjectReactPortfolioMaterial;             
                 }
                 if (caseIndex === 7) {
                     console.log('click on Photo close');
@@ -922,7 +1071,7 @@ window.addEventListener('click', () => {
                     console.log('click on Flexbox Game');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;
+                    screenCube.material = screenProjectFlexboxGameMaterial;
                                                                   
                 }
                 break;
@@ -931,7 +1080,7 @@ window.addEventListener('click', () => {
                     console.log('click on Tictactoe');
                     active = true;
                     managePopup(caseIndex);
-                    screenCube.material = screenProjectMaterial;                         
+                    screenCube.material = screenProjectTicTacToeMaterial;                         
                 }
                 break;
             case 20:
@@ -957,11 +1106,13 @@ window.addEventListener('click', () => {
         }
     } else {
         if (cameraMoved) {
-            screenCube.material = greenGlow;
+            screenCube.material = cubeScreenMaterial;
+            removeClockTexts(scene);
             resetCamera(1.5);
             cameraMoved = false; 
             updateRaycastTargets(false);
-            managePopup(null);
+            clickCount = 0; 
+            managePopup(null)
         }
     }
 });
@@ -984,9 +1135,15 @@ function resetCamera(duration) {
         z: initialControlTarget.z,
         ease: 'power1.inOut',
         onComplete: () => {
-            controls.enableRotate = true; 
-            controls.enableZoom = true;
-            controls.update();
+            if (virusGame === true) return;
+            else {
+                console.log("hello")
+                setMinDistance(80);
+                controls.reset();
+                controls.enableRotate = true; 
+                controls.enableZoom = true;
+                controls.update();
+            }
         }
     });
 }

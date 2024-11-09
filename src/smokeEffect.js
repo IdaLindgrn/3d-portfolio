@@ -31,7 +31,6 @@ export function createSmokeEffect() {
         },
     });
 
-    // Create smoke mesh
     const smoke = new THREE.Mesh(smokeGeometry, smokeMaterial);
     smoke.position.y = 1
 
@@ -39,6 +38,5 @@ export function createSmokeEffect() {
         smokeMaterial.uniforms.uTime.value = elapsedTime;
     };
     
-
     return smoke;
 }
