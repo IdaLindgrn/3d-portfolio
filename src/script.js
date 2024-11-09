@@ -238,9 +238,10 @@ const shortScreenGeometry = new THREE.PlaneGeometry(12, 7.5);
 const shortScreenCube = new THREE.Mesh(shortScreenGeometry, shortScreenMaterial);
 shortScreenCube.position.set(-17.2, 35.2, -30.85);  
 shortScreenCube.rotation.y = (63.5 * Math.PI) / 180;
-scene.add(shortScreenCube);
+
 
 document.addEventListener('click', () => {
+    // scene.add(shortScreenCube);
     robotVideo.play();
     waveVideo.play();
     heartVideo.play();
@@ -643,21 +644,6 @@ window.addEventListener('mousemove', (event) => {
         mouse.x = (event.clientX / sizes.width) * 2 - 1
         mouse.y = - (event.clientY / sizes.height) * 2 + 1
     })
-
-    window.addEventListener('touchstart', (event) => {
-        // event.preventDefault(); // Test by commenting out this line
-        const touch = event.touches[0]; // Consider the first touch
-        mouse.x = (touch.clientX / sizes.width) * 2 - 1;
-        mouse.y = - (touch.clientY / sizes.height) * 2 + 1;
-    
-        raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObjects(objectsToTest);
-    
-        if (intersects.length) {
-            const clickedObject = intersects[0].object;
-            handleObjectClick(clickedObject);
-        }
-    });
 
 let currentIntersect = null;
 let objectsToTest = []
