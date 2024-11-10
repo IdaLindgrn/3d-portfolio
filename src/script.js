@@ -238,9 +238,9 @@ const shortScreenGeometry = new THREE.PlaneGeometry(12, 7.5);
 const shortScreenCube = new THREE.Mesh(shortScreenGeometry, shortScreenMaterial);
 shortScreenCube.position.set(-17.2, 35.2, -30.85);  
 shortScreenCube.rotation.y = (63.5 * Math.PI) / 180;
+scene.add(shortScreenCube);
 
 document.addEventListener('click', () => {
-    scene.add(shortScreenCube);
     robotVideo.play();
     waveVideo.play();
     heartVideo.play();
