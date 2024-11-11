@@ -34,6 +34,8 @@ let previousTime = '';
 let previousDate = '';
 
 export function loadClockTexts(scene) {
+    const loader = new FontLoader();
+
     if (clockTextMeshes.time || clockTextMeshes.date) {
         clockTextMeshes.time.visible = true;
         clockTextMeshes.date.visible = true;
@@ -43,8 +45,6 @@ export function loadClockTexts(scene) {
     const { formattedTime, formattedDate } = getCurrentTime();
     previousTime = formattedTime;
     previousDate = formattedDate;
-
-    const loader = new FontLoader();
 
     const yAxis = new THREE.Vector3(0, 1, 0);
     const yRot = Math.PI / 2;
@@ -116,6 +116,7 @@ function checkForTimeUpdate(font) {
 
     requestAnimationFrame(() => checkForTimeUpdate(font));
 }
+
 
 export function removeClockTexts(scene) {
     if (clockTextMeshes.time) clockTextMeshes.time.visible = false;

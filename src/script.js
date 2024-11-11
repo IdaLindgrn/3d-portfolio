@@ -638,11 +638,36 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 //Raycaster:
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+let isTouchActive = false;
 
-window.addEventListener('mousemove', (event) => {
-        mouse.x = (event.clientX / sizes.width) * 2 - 1
-        mouse.y = - (event.clientY / sizes.height) * 2 + 1
-    })
+window.addEventListener('pointerdown', (event) => {
+    console.log("hhiii down")
+    isTouchActive = true;
+    updateMousePosition(event);
+});
+
+window.addEventListener('pointerup', () => {
+    console.log("hhiii up")
+    isTouchActive = false;
+});
+
+window.addEventListener('pointermove', (event) => {
+    if (isTouchActive) {
+        console.log("hiii move")
+        updateMousePosition(event);
+    }
+});
+
+function updateMousePosition(event) {
+    console.log("updated mouse position")
+    mouse.x = (event.clientX / sizes.width) * 2 - 1;
+    mouse.y = - (event.clientY / sizes.height) * 2 + 1;
+}
+
+// window.addEventListener('mousemove', (event) => {
+//         mouse.x = (event.clientX / sizes.width) * 2 - 1
+//         mouse.y = - (event.clientY / sizes.height) * 2 + 1
+//     })
 
 
 let currentIntersect = null;
@@ -897,6 +922,9 @@ export function resetGameState() {
 }
 
 window.addEventListener('click', () => {
+    console.log('1')
+if (!isTouchActive) {
+    console.log('2')
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(objectsToTest);
 
@@ -1112,7 +1140,7 @@ window.addEventListener('click', () => {
             managePopup(null)
         }
     }
-});
+}});
 
 function resetCamera(duration) {
     controls.enableRotate = false; 
@@ -1182,6 +1210,8 @@ const tick = () => {
 
     particlesMaterial.uniforms.uTime.value = elapsedTime;
 
+
+if (!isTouchActive) {
     raycaster.setFromCamera(mouse, camera)
     const intersects = raycaster.intersectObjects(objectsToTest)
 
@@ -1198,6 +1228,7 @@ const tick = () => {
         }
         currentIntersect = null
     }
+}
  
     controls.update();
 
