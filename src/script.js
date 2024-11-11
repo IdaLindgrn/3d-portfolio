@@ -632,10 +632,8 @@ function setMinDistance(distance) {
 const initialCameraPosition = camera.position.clone(); 
 const initialControlTarget = controls.target.clone(); 
 
+// Renderer
 
-/**
- * Renderer
- */
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true
@@ -667,6 +665,15 @@ window.addEventListener('pointermove', (event) => {
 });
 
 function updateMousePosition(event) {
+    let x, y;
+    if (event.touches) {
+        x = event.touches[0].clientX;
+        y = event.touches[0].clientY;
+    } else {
+        x = event.clientX;
+        y = event.clientY;
+    }
+    
     console.log("updated mouse position")
     mouse.x = (event.clientX / sizes.width) * 2 - 1;
     mouse.y = - (event.clientY / sizes.height) * 2 + 1;
