@@ -103,6 +103,8 @@ const transparentMaterial = new THREE.MeshBasicMaterial({
     opacity:  0,  
 });
 
+
+
 // screen 
 
 const robotVideo = document.createElement('video');
@@ -253,6 +255,23 @@ document.addEventListener('click', () => {
     miniRobotVideo.play();
     shortVideo.play();
 }, { once: true }); 
+
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+        robotVideo.pause();
+        waveVideo.pause();
+        heartVideo.pause();
+        miniRobotVideo.pause();
+        shortVideo.pause();
+    } else if (document.visibilityState === 'visible') {
+        robotVideo.play();
+        waveVideo.play();
+        heartVideo.play();
+        miniRobotVideo.play();
+        shortVideo.play();
+    }
+});
+
 
 
 // screen nav
