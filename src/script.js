@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createSmokeEffect } from './smokeEffect.js'
 import { loadFont, loadClockTexts, removeClockTexts } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
+import { createGlowingEdges } from './glowingEdges.js';
 import { createBunnyVirusPopup, showBunnyVirus } from './bunnyVirus.js'
 import { loadingManager } from './loadingManager/loadingManager.js'; 
 import { gsap } from 'gsap';
@@ -17,6 +18,9 @@ const scene = new THREE.Scene();
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
 const gltfLoader = new GLTFLoader(loadingManager)
+
+let screenCubeGlowingEdges;
+let buttonGlowingEdges;
 
 /**
  * Textures
@@ -126,7 +130,7 @@ const cubeScreenMaterial = new THREE.MeshBasicMaterial({
 
 const screenCube = new THREE.Mesh(cubeGeometry, cubeScreenMaterial);
 
-screenCube.position.set(-9, 27.8, 7.7);  
+screenCube.position.set(-9, 27.8, 7.7); 
 
 const yAxis = new THREE.Vector3(0, 1, 0);
 const yRot = Math.PI / 2; 
@@ -142,6 +146,11 @@ const combinedQuaternion = new THREE.Quaternion();
 combinedQuaternion.multiplyQuaternions(yQuaternion, xQuaternion);
 
 screenCube.quaternion.copy(combinedQuaternion);
+
+
+screenCubeGlowingEdges = createGlowingEdges(screenCube);
+screenCubeGlowingEdges.position.set(-8.7, 27.8, 7.7);
+scene.add(screenCubeGlowingEdges);
 
 scene.add(screenCube);
 
@@ -426,7 +435,6 @@ binDocNav.quaternion.copy(combinedQuaternion);
 binDocPopupNav.quaternion.copy(combinedQuaternion);
 binDocPopupCloseNav.quaternion.copy(combinedQuaternion);
 
-
 gltfLoader.load(
     'gameboy.glb',
     (gltf) => 
@@ -472,13 +480,10 @@ gltfLoader.load(
 
         const button = gltf.scene.children.filter(child => child.name === 'Parts2_Cube066');
         button.forEach(child => {
-            objectsToTest.push(child);  
+            objectsToTest.push(child);
+            buttonGlowingEdges = createGlowingEdges(child); 
+            scene.add(buttonGlowingEdges);
         });
-
-        // const buttonPressed = gltf.scene.children.filter(child => child.name === 'Parts2_Plane.009');
-        // buttonPressed.forEach(child => {
-        //     objectsToTest.push(child);  
-        // });
 
         objectsToTest.push(screenCube)
 
@@ -491,14 +496,6 @@ gltfLoader.load(
         objectsToTest.push(projectDocNav)
         objectsToTest.push(jpgNav)
         objectsToTest.push(binNav)
-
-
-        // const gameboyScreen = gltf.scene.children.filter(child => child.name === 'Green_gameboy_large_screen');
-        // gameboyScreen.forEach(child => {
-        //     objectsToTest.push(child);  // Add to the raycasting list
-        // });
-
-        // console.log(gameboyScreen)
 
         const calc = gltf.scene.children.filter(child => child.name.startsWith('Calc_'));
         calc.forEach(child => {
@@ -586,9 +583,6 @@ gltfLoader.load(
 
 loadFont(scene);
 particles(scene);
-
-
-
 
 // Resize event listener
 
@@ -936,9 +930,7 @@ export function resetGameState() {
 }
 
 window.addEventListener('click', () => {
-    console.log('1')
 if (!isTouchActive) {
-    console.log('2')
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(objectsToTest);
 
@@ -957,6 +949,7 @@ if (!isTouchActive) {
         switch (index) {
             case 0:
                 console.log('click on button');
+                buttonGlowingEdges.visible = false;
                 animateCamera(clickedObject.position, 1.5, cameraPositions.button);
                 clickCount++;
                 cameraMoved = true;
@@ -974,6 +967,7 @@ if (!isTouchActive) {
                 } 
                 break;
             case 1:
+                screenCubeGlowingEdges.visible = false;
                 console.log('click on screen');
                 loadClockTexts(scene);
                 clickedObject.material = screenStartMaterial;
@@ -1145,6 +1139,8 @@ if (!isTouchActive) {
         }
     } else {
         if (cameraMoved) {
+            buttonGlowingEdges.visible = true;
+            screenCubeGlowingEdges.visible = true;
             screenCube.material = cubeScreenMaterial;
             removeClockTexts(scene);
             resetCamera(1.5);
@@ -1224,6 +1220,12 @@ const tick = () => {
 
     particlesMaterial.uniforms.uTime.value = elapsedTime;
 
+    if (buttonGlowingEdges) {
+        buttonGlowingEdges.update(elapsedTime);
+    }
+    if (screenCubeGlowingEdges) {
+        screenCubeGlowingEdges.update(elapsedTime);
+    }
 
 if (!isTouchActive) {
     raycaster.setFromCamera(mouse, camera)
