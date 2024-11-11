@@ -646,23 +646,47 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 let isTouchActive = false;
 
-window.addEventListener('pointerdown', (event) => {
-    console.log("hhiii down")
+window.addEventListener('pointerdown', (event) => handlePointerDown(event));
+window.addEventListener('pointerup', (event) => handlePointerUp(event));
+window.addEventListener('pointermove', (event) => handlePointerMove(event));
+
+window.addEventListener('touchstart', (event) => handlePointerDown(event));
+window.addEventListener('touchend', (event) => handlePointerUp(event));
+window.addEventListener('touchmove', (event) => handlePointerMove(event));
+
+function handlePointerDown(event) {
     isTouchActive = true;
     updateMousePosition(event);
-});
+}
 
-window.addEventListener('pointerup', () => {
-    console.log("hhiii up")
+function handlePointerUp(event) {
     isTouchActive = false;
-});
+}
 
-window.addEventListener('pointermove', (event) => {
+function handlePointerMove(event) {
     if (isTouchActive) {
-        console.log("hiii move")
         updateMousePosition(event);
     }
-});
+}
+
+
+// window.addEventListener('pointerdown', (event) => {
+//     console.log("hhiii down")
+//     isTouchActive = true;
+//     updateMousePosition(event);
+// });
+
+// window.addEventListener('pointerup', () => {
+//     console.log("hhiii up")
+//     isTouchActive = false;
+// });
+
+// window.addEventListener('pointermove', (event) => {
+//     if (isTouchActive) {
+//         console.log("hiii move")
+//         updateMousePosition(event);
+//     }
+// });
 
 function updateMousePosition(event) {
     let x, y;
@@ -673,7 +697,7 @@ function updateMousePosition(event) {
         x = event.clientX;
         y = event.clientY;
     }
-    
+
     console.log("updated mouse position")
     mouse.x = (event.clientX / sizes.width) * 2 - 1;
     mouse.y = - (event.clientY / sizes.height) * 2 + 1;
