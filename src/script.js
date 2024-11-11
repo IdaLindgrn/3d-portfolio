@@ -605,6 +605,67 @@ window.addEventListener('resize', () => {
     }
 })
 
+// Function to log messages to the screen
+function logToScreen(message) {
+    const logElement = document.getElementById("debugLog");
+    if (!logElement) {
+        const logDiv = document.createElement("div");
+        logDiv.id = "debugLog";
+        logDiv.style.position = "absolute";
+        logDiv.style.top = "10px";
+        logDiv.style.left = "10px";
+        logDiv.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        logDiv.style.color = "white";
+        logDiv.style.padding = "10px";
+        logDiv.style.zIndex = "1000";
+        document.body.appendChild(logDiv);
+    }
+    document.getElementById("debugLog").innerText = message;
+}
+
+// Capture JavaScript errors globally and display them
+window.onerror = function (message, source, lineno, colno, error) {
+    const errorMessage = `Error: ${message} at ${source}:${lineno}:${colno}`;
+    logToScreen(errorMessage);  // Show the error message on the screen
+    return true;  // Prevent the default browser error handler (optional)
+};
+
+// Override console methods to log to the screen
+(function () {
+    const originalConsoleLog = console.log;
+    const originalConsoleWarn = console.warn;
+    const originalConsoleError = console.error;
+
+    // Override console.log
+    console.log = function (message) {
+        logToScreen(`LOG: ${message}`);  // Log the message to the screen
+        originalConsoleLog.apply(console, arguments);  // Call the original console.log
+    };
+
+    // Override console.warn
+    console.warn = function (message) {
+        logToScreen(`WARN: ${message}`);  // Log the warning to the screen
+        originalConsoleWarn.apply(console, arguments);  // Call the original console.warn
+    };
+
+    // Override console.error
+    console.error = function (message) {
+        logToScreen(`ERROR: ${message}`);  // Log the error to the screen
+        originalConsoleError.apply(console, arguments);  // Call the original console.error
+    };
+})();
+
+console.log("This is a log message");
+console.warn("This is a warning message");
+console.error("This is an error message");
+
+// Trigger an error
+setTimeout(() => {
+    throw new Error("This is a test error");
+}, 1000);
+
+
+
 /**
  * Camera
  */
@@ -646,58 +707,25 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 let isTouchActive = false;
 
-window.addEventListener('pointerdown', (event) => handlePointerDown(event));
-window.addEventListener('pointerup', (event) => handlePointerUp(event));
-window.addEventListener('pointermove', (event) => handlePointerMove(event));
-
-window.addEventListener('touchstart', (event) => handlePointerDown(event));
-window.addEventListener('touchend', (event) => handlePointerUp(event));
-window.addEventListener('touchmove', (event) => handlePointerMove(event));
-
-function handlePointerDown(event) {
+window.addEventListener('pointerdown', (event) => {
+    console.log("hhiii down")
     isTouchActive = true;
     updateMousePosition(event);
-}
+});
 
-function handlePointerUp(event) {
+window.addEventListener('pointerup', () => {
+    console.log("hhiii up")
     isTouchActive = false;
-}
+});
 
-function handlePointerMove(event) {
+window.addEventListener('pointermove', (event) => {
     if (isTouchActive) {
+        console.log("hiii move")
         updateMousePosition(event);
     }
-}
-
-
-// window.addEventListener('pointerdown', (event) => {
-//     console.log("hhiii down")
-//     isTouchActive = true;
-//     updateMousePosition(event);
-// });
-
-// window.addEventListener('pointerup', () => {
-//     console.log("hhiii up")
-//     isTouchActive = false;
-// });
-
-// window.addEventListener('pointermove', (event) => {
-//     if (isTouchActive) {
-//         console.log("hiii move")
-//         updateMousePosition(event);
-//     }
-// });
+});
 
 function updateMousePosition(event) {
-    let x, y;
-    if (event.touches) {
-        x = event.touches[0].clientX;
-        y = event.touches[0].clientY;
-    } else {
-        x = event.clientX;
-        y = event.clientY;
-    }
-
     console.log("updated mouse position")
     mouse.x = (event.clientX / sizes.width) * 2 - 1;
     mouse.y = - (event.clientY / sizes.height) * 2 + 1;
