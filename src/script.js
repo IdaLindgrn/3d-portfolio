@@ -973,7 +973,7 @@ if (!isTouchActive) {
         switch (index) {
             case 0:
                 clickCount++;
-                if (clickCount < 2) {
+                if (!cameraMoved && clickCount < 2) {
                     console.log('click on button');
                     buttonGlowingEdges.visible = false;
                     animateCamera(clickedObject.position, 1.5, cameraPositions.button);
