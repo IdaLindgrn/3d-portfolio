@@ -605,67 +605,6 @@ window.addEventListener('resize', () => {
     }
 })
 
-// Function to log messages to the screen
-function logToScreen(message) {
-    const logElement = document.getElementById("debugLog");
-    if (!logElement) {
-        const logDiv = document.createElement("div");
-        logDiv.id = "debugLog";
-        logDiv.style.position = "absolute";
-        logDiv.style.top = "10px";
-        logDiv.style.left = "10px";
-        logDiv.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-        logDiv.style.color = "white";
-        logDiv.style.padding = "10px";
-        logDiv.style.zIndex = "1000";
-        document.body.appendChild(logDiv);
-    }
-    document.getElementById("debugLog").innerText = message;
-}
-
-// Capture JavaScript errors globally and display them
-window.onerror = function (message, source, lineno, colno, error) {
-    const errorMessage = `Error: ${message} at ${source}:${lineno}:${colno}`;
-    logToScreen(errorMessage);  // Show the error message on the screen
-    return true;  // Prevent the default browser error handler (optional)
-};
-
-// Override console methods to log to the screen
-(function () {
-    const originalConsoleLog = console.log;
-    const originalConsoleWarn = console.warn;
-    const originalConsoleError = console.error;
-
-    // Override console.log
-    console.log = function (message) {
-        logToScreen(`LOG: ${message}`);  // Log the message to the screen
-        originalConsoleLog.apply(console, arguments);  // Call the original console.log
-    };
-
-    // Override console.warn
-    console.warn = function (message) {
-        logToScreen(`WARN: ${message}`);  // Log the warning to the screen
-        originalConsoleWarn.apply(console, arguments);  // Call the original console.warn
-    };
-
-    // Override console.error
-    console.error = function (message) {
-        logToScreen(`ERROR: ${message}`);  // Log the error to the screen
-        originalConsoleError.apply(console, arguments);  // Call the original console.error
-    };
-})();
-
-console.log("This is a log message");
-console.warn("This is a warning message");
-console.error("This is an error message");
-
-// Trigger an error
-setTimeout(() => {
-    throw new Error("This is a test error");
-}, 1000);
-
-
-
 /**
  * Camera
  */
@@ -726,7 +665,7 @@ window.addEventListener('pointermove', (event) => {
 });
 
 function updateMousePosition(event) {
-    console.log("updated mouse position")
+    console.log("Updated mouse position: ", event.clientX, event.clientY);
     mouse.x = (event.clientX / sizes.width) * 2 - 1;
     mouse.y = - (event.clientY / sizes.height) * 2 + 1;
 }
@@ -735,6 +674,27 @@ function updateMousePosition(event) {
 //         mouse.x = (event.clientX / sizes.width) * 2 - 1
 //         mouse.y = - (event.clientY / sizes.height) * 2 + 1
 //     })
+// Function to show console messages in the overlay
+function showConsoleMessage(message) {
+    const debugMessagesContainer = document.getElementById('debug-messages');
+    const newMessage = document.createElement('div');
+    newMessage.textContent = message;
+    debugMessagesContainer.appendChild(newMessage);
+
+    // Ensure the overlay is visible
+    const debugOverlay = document.getElementById('debug-overlay');
+    debugOverlay.style.display = 'block'; // Keep it always visible
+}
+
+// Temporarily replace console.log with showConsoleMessage for debugging
+const originalConsoleLog = console.log;
+console.log = function(...args) {
+    // Show the message in the overlay
+    args.forEach(arg => showConsoleMessage(arg));
+    // Call the original console.log for the browser console
+    originalConsoleLog.apply(console, args);
+};
+
 
 
 let currentIntersect = null;
@@ -992,6 +952,8 @@ export function resetGameState() {
 let isAnimatingCamera = false;
 
 window.addEventListener('click', () => {
+    console.log("Click event triggered");
+
 if (!isTouchActive) {
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(objectsToTest);
@@ -1000,6 +962,9 @@ if (!isTouchActive) {
         const clickedObject = intersects[0].object;
         const index = objectsToTest.indexOf(clickedObject);
 
+        console.log(`Clicked object index: ${index}`);
+        console.log(`Object position:`, clickedObject.position);
+
         let caseIndex = null;
         for (const [key, value] of Object.entries(navPopupMappings)) {
             if (value.includes(clickedObject)) {
@@ -1007,6 +972,8 @@ if (!isTouchActive) {
                 break;
             }
         }
+
+        console.log(`Case Index: ${caseIndex}`);
         
         switch (index) {
             case 0:
@@ -1254,8 +1221,15 @@ function resetCamera(duration) {
 }
 
 function animateCamera(targetPosition, duration, cameraSettings) {
+    console.log("animateCamera called");
+    console.log(`Target position:`, targetPosition);
+    console.log(`Duration: ${duration}`);
+    console.log(`Camera Settings:`, cameraSettings);
 
-    if (isAnimatingCamera) return;
+    if (isAnimatingCamera) {
+        console.log("Animation already in progress, returning early");
+        return;
+    }
 
     isAnimatingCamera = true;
 
@@ -1265,12 +1239,18 @@ function animateCamera(targetPosition, duration, cameraSettings) {
     const positionOffset = cameraSettings.positionOffset;
     const targetOffset = cameraSettings.targetOffset;
 
+    console.log(`Position Offset:`, positionOffset);
+    console.log(`Target Offset:`, targetOffset);
+
     gsap.to(camera.position, {
         duration: duration,
         x: targetPosition.x + positionOffset.x,
         y: targetPosition.y + positionOffset.y,
         z: targetPosition.z + positionOffset.z,
-        ease: 'power1.inOut'
+        ease: 'power1.inOut',
+        onUpdate: () => {
+            console.log("Camera position update:", camera.position);
+        }
     });
 
     gsap.to(controls.target, {
@@ -1279,7 +1259,11 @@ function animateCamera(targetPosition, duration, cameraSettings) {
         y: targetPosition.y + targetOffset.y,
         z: targetPosition.z + targetOffset.z,
         ease: 'power1.inOut',
+        onUpdate: () => {
+            console.log("Controls target update:", controls.target);
+        },
         onComplete: () => {
+            console.log("Camera animation complete");
             isAnimatingCamera = false;
             controls.enableRotate = false;
             controls.enableZoom = true;
