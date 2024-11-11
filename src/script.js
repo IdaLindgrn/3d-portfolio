@@ -951,7 +951,7 @@ export function resetGameState() {
 
 let isAnimatingCamera = false;
 
-window.addEventListener('click', () => {
+window.addEventListener('pointerup', () => {
     console.log("Click event triggered");
 
 if (!isTouchActive) {
@@ -1294,13 +1294,13 @@ if (!isTouchActive) {
 
     if (intersects.length) {
         if(currentIntersect === null) {
-            console.log('mouse enter')
+            console.log('Mouse enter:', intersects[0].object);
         }
         currentIntersect = intersects[0]
     }
     else {
         if(currentIntersect) {
-            console.log('mouse leave')
+            console.log('Mouse leave:', currentIntersect.object);
         }
         currentIntersect = null
     }
