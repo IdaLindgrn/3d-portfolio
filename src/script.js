@@ -670,30 +670,25 @@ function updateMousePosition(event) {
     mouse.y = - (event.clientY / sizes.height) * 2 + 1;
 }
 
-// window.addEventListener('mousemove', (event) => {
-//         mouse.x = (event.clientX / sizes.width) * 2 - 1
-//         mouse.y = - (event.clientY / sizes.height) * 2 + 1
-//     })
-// Function to show console messages in the overlay
-function showConsoleMessage(message) {
-    const debugMessagesContainer = document.getElementById('debug-messages');
-    const newMessage = document.createElement('div');
-    newMessage.textContent = message;
-    debugMessagesContainer.appendChild(newMessage);
+// function showConsoleMessage(message) {
+//     const debugMessagesContainer = document.getElementById('debug-messages');
+//     const newMessage = document.createElement('div');
+//     newMessage.textContent = message;
+//     debugMessagesContainer.appendChild(newMessage);
 
-    // Ensure the overlay is visible
-    const debugOverlay = document.getElementById('debug-overlay');
-    debugOverlay.style.display = 'block'; // Keep it always visible
-}
+//     // Ensure the overlay is visible
+//     const debugOverlay = document.getElementById('debug-overlay');
+//     debugOverlay.style.display = 'block'; // Keep it always visible
+// }
 
-// Temporarily replace console.log with showConsoleMessage for debugging
-const originalConsoleLog = console.log;
-console.log = function(...args) {
-    // Show the message in the overlay
-    args.forEach(arg => showConsoleMessage(arg));
-    // Call the original console.log for the browser console
-    originalConsoleLog.apply(console, args);
-};
+// // Temporarily replace console.log with showConsoleMessage for debugging
+// const originalConsoleLog = console.log;
+// console.log = function(...args) {
+//     // Show the message in the overlay
+//     args.forEach(arg => showConsoleMessage(arg));
+//     // Call the original console.log for the browser console
+//     originalConsoleLog.apply(console, args);
+// };
 
 
 
