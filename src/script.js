@@ -970,7 +970,7 @@ if (!isTouchActive) {
                 } 
                 break;
             case 1:
-                setMinDistance(0);
+                setMinDistance(20);
                 screenCubeGlowingEdges.visible = false;
                 console.log('click on screen');
                 loadClockTexts(scene);
