@@ -929,6 +929,9 @@ export function resetGameState() {
     //         managePopup(null);
 }
 
+
+let isAnimatingCamera = false;
+
 window.addEventListener('click', () => {
 if (!isTouchActive) {
     raycaster.setFromCamera(mouse, camera);
@@ -967,6 +970,7 @@ if (!isTouchActive) {
                 } 
                 break;
             case 1:
+                setMinDistance(0);
                 screenCubeGlowingEdges.visible = false;
                 console.log('click on screen');
                 loadClockTexts(scene);
@@ -976,7 +980,6 @@ if (!isTouchActive) {
                 updateRaycastTargets(true);
                 active = false;
                 managePopup(null);
-                setMinDistance(0);
                 break;
             case 2:
                 console.log('click on robot');
@@ -1139,6 +1142,8 @@ if (!isTouchActive) {
         }
     } else {
         if (cameraMoved) {
+            if (isAnimatingCamera) return;
+            else {
             buttonGlowingEdges.visible = true;
             screenCubeGlowingEdges.visible = true;
             screenCube.material = cubeScreenMaterial;
@@ -1148,11 +1153,15 @@ if (!isTouchActive) {
             updateRaycastTargets(false);
             clickCount = 0; 
             managePopup(null)
+            }
         }
     }
 }});
 
 function resetCamera(duration) {
+
+    if (isAnimatingCamera) return;
+    
     controls.enableRotate = false; 
 
     gsap.to(camera.position, {
@@ -1172,8 +1181,10 @@ function resetCamera(duration) {
         onComplete: () => {
             if (virusGame === true) return;
             else {
-                console.log("hello")
+                if (isAnimatingCamera) return;
+                
                 setMinDistance(80);
+                console.log("hello")
                 controls.reset();
                 controls.enableRotate = true; 
                 controls.enableZoom = true;
@@ -1184,6 +1195,11 @@ function resetCamera(duration) {
 }
 
 function animateCamera(targetPosition, duration, cameraSettings) {
+
+    if (isAnimatingCamera) return;
+
+    isAnimatingCamera = true;
+
     controls.enableRotate = false;
     controls.enableZoom = false;
 
@@ -1205,8 +1221,9 @@ function animateCamera(targetPosition, duration, cameraSettings) {
         z: targetPosition.z + targetOffset.z,
         ease: 'power1.inOut',
         onComplete: () => {
+            isAnimatingCamera = false;
             controls.enableRotate = false;
-            controls.enableZoom = false;
+            controls.enableZoom = true;
             controls.update();
         }
     });
