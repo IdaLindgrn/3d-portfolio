@@ -972,22 +972,23 @@ if (!isTouchActive) {
         
         switch (index) {
             case 0:
-                console.log('click on button');
-                buttonGlowingEdges.visible = false;
-                animateCamera(clickedObject.position, 1.5, cameraPositions.button);
                 clickCount++;
-                cameraMoved = true;
-                setMinDistance(0);
-                if (clickCount === 2) { 
+                if (clickCount < 2) {
+                    console.log('click on button');
+                    buttonGlowingEdges.visible = false;
+                    animateCamera(clickedObject.position, 1.5, cameraPositions.button);
+                    cameraMoved = true;
+                    setMinDistance(0);
+                } else if (clickCount === 2) { 
                     storeOriginalObjects(); 
                     virusGame = true;
-                    resetCamera(1.5);
-                    cameraMoved = false; 
+                    cameraMoved = false;
                     updateRaycastTargets(false);
                     clickCount = 0; 
                     managePopup(null);
                     objectsToTest = [];
-                    showBunnyVirus();   
+                    showBunnyVirus();  
+                    resetCamera(1.5);  
                 } 
                 break;
             case 1:
@@ -1180,10 +1181,13 @@ if (!isTouchActive) {
 }});
 
 function resetCamera(duration) {
+    console.log("hii")
 
     if (isAnimatingCamera) return;
     
     controls.enableRotate = false; 
+    console.log("hii")
+    
 
     gsap.to(camera.position, {
         duration: duration,

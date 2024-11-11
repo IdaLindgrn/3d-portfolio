@@ -196,7 +196,7 @@ export function createBunnyVirusPopup() {
         }
 
         .bluescreen-title {
-            font-size: 5vh;
+            font-size: 4.3vh;
             padding-bottom: 20px;
         }
 
