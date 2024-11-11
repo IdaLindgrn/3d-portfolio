@@ -33,6 +33,8 @@ const clockTextMeshes = {
 let previousTime = '';
 let previousDate = '';
 
+let cachedFont = null;
+
 export function loadClockTexts(scene) {
     const loader = new FontLoader();
 
@@ -56,7 +58,18 @@ export function loadClockTexts(scene) {
 
     const combinedQuaternion = new THREE.Quaternion().multiplyQuaternions(yQuaternion, xQuaternion);
 
-    loader.load('/fonts/3Dfonts/BrownLight_Regular.json', (font) => {
+    if (cachedFont) {
+        createClockTextMeshes(scene, cachedFont, formattedTime, formattedDate, combinedQuaternion);
+    } else {
+        loader.load('/fonts/3Dfonts/BrownLight_Regular.json', (font) => {
+            cachedFont = font;
+            createClockTextMeshes(scene, font, formattedTime, formattedDate, combinedQuaternion);
+        });
+    }
+}
+
+function createClockTextMeshes(scene, font, formattedTime, formattedDate, combinedQuaternion) {
+
         const timeGeometry = new TextGeometry(formattedTime, {
             font: font,
             size: 0.4,
@@ -88,8 +101,8 @@ export function loadClockTexts(scene) {
         scene.add(clockTextMeshes.date);
 
         requestAnimationFrame(() => checkForTimeUpdate(font));
-    });
-}
+    };
+
 
 function checkForTimeUpdate(font) {
     const { formattedTime, formattedDate } = getCurrentTime();
