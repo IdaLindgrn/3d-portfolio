@@ -756,7 +756,7 @@ function getDynamicPositions(width) {
     } else if (width >= breakpoints.tablet) {
         return { buttonPositionX: -32, screenPositionX: 40, buttonPositionY: 7, screenPositionY: 8, buttonTargetY: -5, screenTargetY: 0 };
     } else {
-        return { buttonPositionX: -40, screenPositionX: 60, buttonPositionY: 8, screenPositionY: 12, buttonTargetY: -7, screenTargetY: -5 };
+        return { buttonPositionX: -40, screenPositionX: 52, buttonPositionY: 8, screenPositionY: 12, buttonTargetY: -7, screenTargetY: -5 };
     }
 }
 
