@@ -591,6 +591,7 @@ const sizes = {
     height: window.innerHeight
 };
 
+
 window.addEventListener('resize', () => {
     sizes.width = window.innerWidth;
     sizes.height = window.innerHeight;
@@ -603,6 +604,9 @@ window.addEventListener('resize', () => {
     if (particlesMaterial) {
         particlesMaterial.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
     }
+
+    cameraPositions = updateCameraPositions();
+
 })
 
 /**
@@ -731,10 +735,33 @@ function storeOriginalMaterials(scene) {
 let clickCount = 0; 
 createBunnyVirusPopup();
 
-const cameraPositions = {
-    button: { positionOffset: { x: -25, y: 5, z: -10 }, targetOffset: { x: 0, y: -5, z: 0 } },
-    screen: { positionOffset: { x: 25, y: 5, z: 0 }, targetOffset: { x: 0, y: 0, z: 0 } },
+const breakpoints = {
+    desktop: 1224, 
+    tablet: 768    
 };
+
+function updateCameraPositions() {
+    const { buttonPositionX, screenPositionX, buttonPositionY, screenPositionY, buttonTargetY, screenTargetY } = getDynamicPositions(sizes.width);
+
+    return {
+        button: { positionOffset: { x: buttonPositionX, y: buttonPositionY, z: -10 }, targetOffset: { x: 0, y: buttonTargetY, z: 0 } },
+        screen: { positionOffset: { x: screenPositionX, y: screenPositionY, z: 0 }, targetOffset: { x: 0, y: screenTargetY, z: 0 } }
+    };
+}
+
+
+function getDynamicPositions(width) {
+    if (width >= breakpoints.desktop) {
+        return { buttonPositionX: -25, screenPositionX: 25, buttonPositionY: 5, screenPositionY: 5, buttonTargetY: -5, screenTargetY: 0 };
+    } else if (width >= breakpoints.tablet) {
+        return { buttonPositionX: -32, screenPositionX: 40, buttonPositionY: 7, screenPositionY: 8, buttonTargetY: -5, screenTargetY: 0 };
+    } else {
+        return { buttonPositionX: -40, screenPositionX: 60, buttonPositionY: 8, screenPositionY: 12, buttonTargetY: -7, screenTargetY: -5 };
+    }
+}
+
+let cameraPositions = updateCameraPositions();
+
 
 function updateRaycastTargets(addObjects) {
     Object.values(navPopupMappings).forEach(([nav, popup, close, extra1, extra2, extra3, extra4, extra5, extra6, extra7]) => {
