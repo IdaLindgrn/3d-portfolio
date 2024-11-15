@@ -46,7 +46,7 @@ const screens = {
     screenMobileApp: textureLoader.load('./textures/projectMobileAppScreen.jpg'),
     screenBrowserExt: textureLoader.load('./textures/projectBrowserExtScreen.jpg'),
     screenRHG: textureLoader.load('./textures/projectRHGScreen.jpg'),
-    screenReactPortfolio: textureLoader.load('./textures/projectRHGScreen.jpg'),
+    screenReactPortfolio: textureLoader.load('./textures/projectReactPortfolioScreen.jpg'),
     screenFlexboxGame: textureLoader.load('./textures/projectFlexboxGameScreen.jpg'),
     screenTicTacToe: textureLoader.load('./textures/projectTicTacToeScreen.jpg'),
     screenUser: textureLoader.load('./textures/userScreen.jpg'),
