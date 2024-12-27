@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import glowingEdgesVertexShader from './shaders/glowingEdges/vertex.glsl';
-import glowingEdgesfragmentShader from './shaders/glowingEdges/fragment.glsl';
+import glowingEdgesVertexShader from '/shaders/glowingEdges/vertex.glsl';
+import glowingEdgesfragmentShader from '/shaders/glowingEdges/fragment.glsl';
 
 export function createGlowingEdges(mesh) {
     const edgeGeometry = new THREE.EdgesGeometry(mesh.geometry);

@@ -1,7 +1,7 @@
 // smokeEffect.js
 import * as THREE from 'three';
-import teaSmokeVertexShader from './shaders/teaSmoke/vertex.glsl'
-import teaSmokeFragmentShader from './shaders/teaSmoke/fragment.glsl'
+import teaSmokeVertexShader from '/shaders/teaSmoke/vertex.glsl'
+import teaSmokeFragmentShader from '/shaders/teaSmoke/fragment.glsl'
 
 const textureLoader = new THREE.TextureLoader();
 

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import particlesVertexShader from './shaders/particles/vertex.glsl'
-import particlesFragmentShader from './shaders/particles/fragment.glsl'
+import particlesVertexShader from '/shaders/particles/vertex.glsl'
+import particlesFragmentShader from '/shaders/particles/fragment.glsl'
 
 export let particlesMaterial;
 

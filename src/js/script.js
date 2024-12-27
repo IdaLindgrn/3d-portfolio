@@ -6,7 +6,7 @@ import { loadFont, loadClockTexts, removeClockTexts } from './fontLoader.js'
 import { particles, particlesMaterial } from './particles.js'
 import { createGlowingEdges } from './glowingEdges.js';
 import { createBunnyVirusPopup, showBunnyVirus } from './bunnyVirus.js'
-import { loadingManager } from './loadingManager/loadingManager.js'; 
+import { loadingManager } from '../loadingManager/loadingManager.js'; 
 import { gsap } from 'gsap';
 
 
@@ -649,21 +649,28 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 let isTouchActive = false;
+let startX = 0;
+let startY = 0;
+let moveThreshold = 10;
 
 window.addEventListener('pointerdown', (event) => {
     console.log("hhiii down")
     isTouchActive = true;
+    startX = event.clientX;
+    startY = event.clientY;
     updateMousePosition(event);
-});
-
-window.addEventListener('pointerup', () => {
-    console.log("hhiii up")
-    isTouchActive = false;
 });
 
 window.addEventListener('pointermove', (event) => {
     if (isTouchActive) {
-        console.log("hiii move")
+        console.log("Pointer move");
+        // Check if movement exceeds threshold
+        const dx = Math.abs(event.clientX - startX);
+        const dy = Math.abs(event.clientY - startY);
+        if (dx > moveThreshold || dy > moveThreshold) {
+            // If movement exceeds threshold, stop treating it as a click
+            isTouchActive = false;
+        }
         updateMousePosition(event);
     }
 });
@@ -973,15 +980,20 @@ export function resetGameState() {
 
 let isAnimatingCamera = false;
 
-window.addEventListener('pointerup', () => {
+window.addEventListener('pointerup', (event) => {
+    console.log("Pointer up");
+
+if (isTouchActive) {
     console.log("Click event triggered");
 
-if (!isTouchActive) {
     raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(objectsToTest);
+    const intersects = raycaster.intersectObjects(scene.children, true);
 
     if (intersects.length) {
+        intersects.sort((a, b) => a.distance - b.distance);
         const clickedObject = intersects[0].object;
+    
+        if (objectsToTest.includes(clickedObject)) {
         const index = objectsToTest.indexOf(clickedObject);
 
         console.log(`Clicked object index: ${index}`);
@@ -993,7 +1005,7 @@ if (!isTouchActive) {
                 caseIndex = parseInt(key);
                 break;
             }
-        }
+    }
 
         console.log(`Case Index: ${caseIndex}`);
         
@@ -1189,7 +1201,8 @@ if (!isTouchActive) {
                 }
                 break;
         }
-    } else {
+    }
+    else {
         if (cameraMoved) {
             if (isAnimatingCamera) return;
             else {
@@ -1205,7 +1218,10 @@ if (!isTouchActive) {
             }
         }
     }
-}});
+}
+}
+isTouchActive = false;
+});
 
 function resetCamera(duration) {
     console.log("hii")
