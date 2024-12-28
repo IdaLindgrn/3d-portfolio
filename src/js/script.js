@@ -667,7 +667,7 @@ const mouse = new THREE.Vector2();
 let isTouchActive = false;
 let startX = 0;
 let startY = 0;
-let moveThreshold = 10;
+let moveThreshold = 20;
 
 window.addEventListener('pointerdown', (event) => {
     console.log("hhiii down")
@@ -980,17 +980,6 @@ function storeOriginalObjects() {
 
 export function resetGameState() {
     location.reload();
-    // virusGame = false;          
-    // objectsToTest = [...originalObjectsToTest]; 
-    // console.log(objectsToTest);
-    // console.log("resetGameState called");
-
-
-    //         resetCamera(1.5);
-    //         cameraMoved = false; 
-    //         updateRaycastTargets(false);
-    //         clickCount = 0; 
-    //         managePopup(null);
 }
 
 
@@ -1027,6 +1016,10 @@ if (isTouchActive) {
         
         switch (index) {
             case 0:
+            if (isAnimatingCamera) {
+                console.log("Camera animation in progress. Ignoring click.");
+                return; 
+            }
                 clickCount++;
                 if (!cameraMoved && clickCount < 2) {
                     console.log('click on button');
