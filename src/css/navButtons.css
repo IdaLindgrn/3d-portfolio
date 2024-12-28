@@ -1,0 +1,33 @@
+#menu-overlay {
+    position: fixed; 
+    right: 0; 
+    top: 0px;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .nav-button {
+    margin: 40px -35px;
+    padding: 10px 20px;
+    background-color: #555;
+  }
+
+  .nav-button:hover {
+    background-color: #777;
+  } 
+
+    @media screen and (min-width: 768px) {
+
+        #menu-overlay {
+            top: 60px;
+            flex-direction: column;
+          }
+        
+          .nav-button {
+            margin: 40px -35px;
+            padding: 10px 20px;
+            transform: rotate(-90deg);
+          }
+
+    }
