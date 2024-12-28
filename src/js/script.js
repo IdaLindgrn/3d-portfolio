@@ -621,7 +621,15 @@ window.addEventListener('resize', () => {
  * Camera
  */
 const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height, 10, 500);
-camera.position.set(110, 50, 40);
+
+const isMobile = window.innerWidth < 768;
+
+if (isMobile) {
+    camera.position.set(140, 80, 60);
+} else {
+    camera.position.set(110, 50, 40);
+}
+
 scene.add(camera);
 
 // Controls

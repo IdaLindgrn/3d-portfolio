@@ -14,14 +14,12 @@ export function createBunnyVirusPopup() {
     </div>
     <div id="message" class="hidden message"></div>
     <div id="success-modal" class="modal hidden">
-        <div class="success-header">
-            <span id="close-success-modal" class="close fas fa-times"/>
-        </div>
         <div class="success-popup-body">
-        <img src="./bunnyVirusDefeated.png" class="virus-defeated-image" />
+        <img src="./bunnyVirusVictory.jpg" class="virus-victory-image" />
         <div class="success-text">
-            <h2 class="success-title">Success!</h2>
-            <h3>The bunny Virus has been deleted and your system is now back to normal.</h3>
+            <h2 class="success-title">Congratulations</h2>
+            <h3>You defeted the virus!</h3>
+             <button id="close-success-modal">Continue</button>
         </div>
         </div>
     </div>
@@ -58,7 +56,7 @@ export function createBunnyVirusPopup() {
             left: 50%;
             transform: translate(-50%, -50%);
             width: 340px;
-            background-color: #E21414;
+            background: linear-gradient(to right,rgb(212, 48, 48), #E21414);
             color: #FFF;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
             z-index: 1;
@@ -142,38 +140,45 @@ export function createBunnyVirusPopup() {
         }
 
         .message { font-size: 30px; color: #fff; background: rgba(0, 0, 0, 0.7); padding: 10px; width: 80vw; text-align: center; }
-        .modal { background: #fff; color: #898989; width: 340px; height: 130px; flex-direction: column; font-family: 'BrownLight_Regular', sans-serif; }
+        .modal { background: #fff; color:rgb(28, 28, 28); width: 300px; height: 360px; font-family: 'BrownLight_Regular', sans-serif; border-radius: 15px; text-align: center;  letter-spacing: 1px; }
         .close { position: absolute; color: #fff; top: 3px; right: 6px; cursor: pointer; font-size: 15px; background-color: #E14242; padding: 3px 6px; border-radius: 30px;}
 
         .success-popup-body {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
             padding: 15px;
         }
 
-        .success-header {
-            background-color: #D9D9D9;
-            padding: 14px;
-
-        }
-
-        .virus-defeated-image {
-            width: 55px;
-            padding-left: 5px;
+        .virus-victory-image {
+            width: 250px;
+            margin: 10px 0;
         }
 
         .success-text {
             padding-left: 15px;
-            font-size: 12px;
-            display: flex; 
-            flex-direction: column;
+            font-size: 15px;
         }
 
         .success-title {
-            padding-bottom: 7px;
-            font-size: 18px;
-            color: #707070;
+            padding-bottom: 10px;
+            font-size: 28px;
+            color: #B15019;
+        }
+
+        #close-success-modal {
+            border: none;
+            background-color: #B15019;
+            padding: 10px 40px;
+            margin: 30px 0;
+            font-size: 20px;
+            border-radius: 5px;
+            color: #FFF;
+        }
+
+        #close-success-modal:hover {
+            background-color:rgb(146, 67, 20);
+            cursor: pointer;
         }
 
         /* Blue screen overlay */
