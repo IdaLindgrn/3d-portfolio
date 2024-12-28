@@ -2,7 +2,7 @@
 
 An interactive 3D portfolio modeled as a Gameboy! This project showcases my projects, profile, skills, and design interests in a unique and engaging way. The 3D model was created in Blender, and the interactive experience is powered by Three.js.
 
-![Project Screenshot](static/vectordesign.jpg)
+![Project Screenshot](static/gameboyScreenshot.jpg)
 
 ## Setup
 
