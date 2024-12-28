@@ -27,15 +27,17 @@ let buttonGlowingEdges;
  */
 
 const bakedTextures = {
-    texture1: textureLoader.load('./textures2/calc.jpg'),
-    texture2: textureLoader.load('./textures2/cup.jpg'),
-    texture3: textureLoader.load('./textures2/extra.jpg'),
-    texture4: textureLoader.load('./textures2/floor.jpg'),
-    texture5: textureLoader.load('./textures2/keyboard.jpg'),
-    texture6: textureLoader.load('./textures2/chassis.jpg'),
-    texture7: textureLoader.load('./textures2/testing.jpg'),
-    texture8: textureLoader.load('./textures2/parts.jpg'),
-    texture9: textureLoader.load('./textures2/small.jpg')
+    texture1: textureLoader.load('./textures3/calcBaked.jpg'),
+    texture2: textureLoader.load('./textures3/cupJoystickBaked.jpg'),
+    texture3: textureLoader.load('./textures3/extraSmallPartsBaked.jpg'),
+    texture4: textureLoader.load('./textures3/floorBaked.jpg'),
+    texture5: textureLoader.load('./textures3/keyboardBaked.jpg'),
+    texture6: textureLoader.load('./textures3/chassisBaked.jpg'),
+    texture7: textureLoader.load('./textures3/gameboyParts2Baked.jpg'),
+    texture8: textureLoader.load('./textures3/gameboyPartsBaked.jpg'),
+    texture9: textureLoader.load('./textures3/smallPartsBaked.jpg'),
+    texture10: textureLoader.load('./textures3/chassis2Baked.jpg'),
+    texture11: textureLoader.load('./textures3/cordsBaked.jpg')
 };
 
 const screens = {
@@ -85,7 +87,9 @@ const bakedMaterials = {
     material6: new THREE.MeshBasicMaterial({ map: bakedTextures.texture6 }),
     material7: new THREE.MeshBasicMaterial({ map: bakedTextures.texture7 }),
     material8: new THREE.MeshBasicMaterial({ map: bakedTextures.texture8 }),
-    material9: new THREE.MeshBasicMaterial({ map: bakedTextures.texture9 })
+    material9: new THREE.MeshBasicMaterial({ map: bakedTextures.texture9 }),
+    material10: new THREE.MeshBasicMaterial({ map: bakedTextures.texture10 }),
+    material11: new THREE.MeshBasicMaterial({ map: bakedTextures.texture11 })
 };
 
 const redGlow = new THREE.MeshBasicMaterial({ color: 0xffaa9f });
@@ -97,7 +101,7 @@ const purpleGlow = new THREE.MeshBasicMaterial({ color: 0xd2c2ef });
 const whiteGlow = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
 const whiteGlow2 = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
 
-const cords = new THREE.MeshBasicMaterial({ color: 0x181515 });
+// const cords = new THREE.MeshBasicMaterial({ color: 0x181515 });
 const pipes = new THREE.MeshBasicMaterial({ color: 0x0f0e0e });
 const string = new THREE.MeshBasicMaterial({ color: 0xa4a3a3 });
 const text = new THREE.MeshBasicMaterial({ color: 0x863f0c });
@@ -452,14 +456,8 @@ gltfLoader.load(
             child.add(smoke); 
         });
 
-        const cordMeshes = ['cords', 'GP_Layer001', 'GP_Layer'];
         const pipeMeshes = ['NurbsPath', 'NurbsPath002'];
         const textMeshes = ['text_idas_gameboy', 'Text'];
-
-        const cordMesh = gltf.scene.children.filter(child => cordMeshes.includes(child.name));
-        cordMesh.forEach(child => {
-            child.material = cords;
-        });
 
         const pipeMesh = gltf.scene.children.filter(child => pipeMeshes.includes(child.name));
         pipeMesh.forEach(child => {
@@ -522,6 +520,11 @@ gltfLoader.load(
             child.material = bakedMaterials.material6;
         });
 
+        const chassis2 = gltf.scene.children.filter(child => child.name.startsWith('Chassis2_'));
+        chassis2.forEach(child => {
+            child.material = bakedMaterials.material10;
+        });
+
         const parts2 = gltf.scene.children.filter(child => child.name.startsWith('Parts2_'));
         parts2.forEach(child => {
             child.material = bakedMaterials.material7;
@@ -530,6 +533,11 @@ gltfLoader.load(
         const parts = gltf.scene.children.filter(child => child.name.startsWith('Parts_'));
         parts.forEach(child => {
             child.material = bakedMaterials.material8;
+        });
+
+        const cordMesh = gltf.scene.children.filter(child => child.name.startsWith('Cords_'));
+        cordMesh.forEach(child => {
+            child.material = bakedMaterials.material11;
         });
 
         const small = gltf.scene.children.filter(child => child.name.startsWith('Small_'));
