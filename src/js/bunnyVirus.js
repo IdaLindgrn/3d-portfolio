@@ -254,8 +254,6 @@ function spawnBunnies() {
         const bunny = document.createElement('img');
         bunny.src = './bunnyVirus.png';
         bunny.className = 'bunny';
-        bunny.style.width = '60px';
-        bunny.style.height = 'auto';
         bunny.style.left = Math.random() * (window.innerWidth - 50) + 'px';
         bunny.style.top = Math.random() * (window.innerHeight - 50) + 'px'; 
 
