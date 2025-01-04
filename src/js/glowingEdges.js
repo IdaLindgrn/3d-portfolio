@@ -20,6 +20,8 @@ export function createGlowingEdges(mesh) {
     edgeMesh.rotation.copy(mesh.rotation);
     edgeMesh.scale.copy(mesh.scale);
 
+    edgeMesh.raycast = () => {};
+
     edgeMesh.update = (elapsedTime) => {
         edgeMaterial.uniforms.uTime.value = elapsedTime;
     };

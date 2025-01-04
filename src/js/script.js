@@ -469,8 +469,6 @@ gltfLoader.load(
             child.material = text;
         });
 
-        
-
         const stringMesh = gltf.scene.children.filter(child => child.name === 'tea_bag_string');
         stringMesh.forEach(child => {
             child.material = string;
@@ -482,6 +480,7 @@ gltfLoader.load(
             buttonGlowingEdges = createGlowingEdges(child); 
             scene.add(buttonGlowingEdges);
         });
+
 
         objectsToTest.push(screenCube)
 
@@ -667,7 +666,7 @@ const mouse = new THREE.Vector2();
 let isTouchActive = false;
 let startX = 0;
 let startY = 0;
-let moveThreshold = 10;
+let moveThreshold = 30;
 
 window.addEventListener('pointerdown', (event) => {
     console.log("hhiii down")
@@ -980,17 +979,6 @@ function storeOriginalObjects() {
 
 export function resetGameState() {
     location.reload();
-    // virusGame = false;          
-    // objectsToTest = [...originalObjectsToTest]; 
-    // console.log(objectsToTest);
-    // console.log("resetGameState called");
-
-
-    //         resetCamera(1.5);
-    //         cameraMoved = false; 
-    //         updateRaycastTargets(false);
-    //         clickCount = 0; 
-    //         managePopup(null);
 }
 
 
@@ -1008,9 +996,20 @@ if (isTouchActive) {
     if (intersects.length) {
         intersects.sort((a, b) => a.distance - b.distance);
         const clickedObject = intersects[0].object;
+
+        const specialMeshNames = [
+            "Parts2_Plane007",
+            "Parts2_Plane009",
+            "Plane006",
+            "Text001"
+        ];
     
-        if (objectsToTest.includes(clickedObject)) {
-        const index = objectsToTest.indexOf(clickedObject);
+        if (objectsToTest.includes(clickedObject) || specialMeshNames.includes(clickedObject.name)) {
+            console.log("Valid object clicked");
+
+            const index = objectsToTest.includes(clickedObject)
+            ? objectsToTest.indexOf(clickedObject)
+            : (specialMeshNames.includes(clickedObject.name) ? 0 : -1);
 
         console.log(`Clicked object index: ${index}`);
         console.log(`Object position:`, clickedObject.position);
@@ -1024,14 +1023,19 @@ if (isTouchActive) {
     }
 
         console.log(`Case Index: ${caseIndex}`);
+        const targetMesh = scene.getObjectByName("Parts2_Cube066");
         
         switch (index) {
             case 0:
+            if (isAnimatingCamera) {
+                console.log("Camera animation in progress. Ignoring click.");
+                return; 
+            }
                 clickCount++;
                 if (!cameraMoved && clickCount < 2) {
                     console.log('click on button');
                     buttonGlowingEdges.visible = false;
-                    animateCamera(clickedObject.position, 1.5, cameraPositions.button);
+                    animateCamera(targetMesh.position, 1.5, cameraPositions.button);
                     cameraMoved = true;
                     setMinDistance(0);
                 } else if (clickCount === 2) { 
@@ -1218,20 +1222,20 @@ if (isTouchActive) {
                 break;
         }
     }
-    else {
-        if (cameraMoved) {
-            if (isAnimatingCamera) return;
-            else {
-            buttonGlowingEdges.visible = true;
-            screenCubeGlowingEdges.visible = true;
-            screenCube.material = cubeScreenMaterial;
-            removeClockTexts(scene);
-            resetCamera(1.5);
-            cameraMoved = false; 
-            updateRaycastTargets(false);
-            clickCount = 0; 
-            managePopup(null)
-            }
+}
+else {
+    if (cameraMoved) {
+        if (isAnimatingCamera) return;
+        else {
+        buttonGlowingEdges.visible = true;
+        screenCubeGlowingEdges.visible = true;
+        screenCube.material = cubeScreenMaterial;
+        removeClockTexts(scene);
+        resetCamera(1.5);
+        cameraMoved = false; 
+        updateRaycastTargets(false);
+        clickCount = 0; 
+        managePopup(null)
         }
     }
 }
