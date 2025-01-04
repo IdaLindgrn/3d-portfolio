@@ -1222,20 +1222,20 @@ if (isTouchActive) {
                 break;
         }
     }
-    else {
-        if (cameraMoved) {
-            if (isAnimatingCamera) return;
-            else {
-            buttonGlowingEdges.visible = true;
-            screenCubeGlowingEdges.visible = true;
-            screenCube.material = cubeScreenMaterial;
-            removeClockTexts(scene);
-            resetCamera(1.5);
-            cameraMoved = false; 
-            updateRaycastTargets(false);
-            clickCount = 0; 
-            managePopup(null)
-            }
+}
+else {
+    if (cameraMoved) {
+        if (isAnimatingCamera) return;
+        else {
+        buttonGlowingEdges.visible = true;
+        screenCubeGlowingEdges.visible = true;
+        screenCube.material = cubeScreenMaterial;
+        removeClockTexts(scene);
+        resetCamera(1.5);
+        cameraMoved = false; 
+        updateRaycastTargets(false);
+        clickCount = 0; 
+        managePopup(null)
         }
     }
 }
