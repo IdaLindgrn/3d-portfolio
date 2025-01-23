@@ -6,7 +6,7 @@ import { getCurrentTime } from './clock.js';
 export function loadFont(scene) {
     const loader = new FontLoader();
 
-    loader.load('/fonts/3Dfonts/BrownMedium_Regular.json', (font) => {
+    loader.load('assets/fonts/3Dfonts/BrownMedium_Regular.json', (font) => {
         const geometry = new TextGeometry('DO NOT PRESS!', {
             font: font,
             size: 2.5,
@@ -61,7 +61,7 @@ export function loadClockTexts(scene) {
     if (cachedFont) {
         createClockTextMeshes(scene, cachedFont, formattedTime, formattedDate, combinedQuaternion);
     } else {
-        loader.load('/fonts/3Dfonts/BrownLight_Regular.json', (font) => {
+        loader.load('assets/fonts/3Dfonts/BrownLight_Regular.json', (font) => {
             cachedFont = font;
             createClockTextMeshes(scene, font, formattedTime, formattedDate, combinedQuaternion);
         });
