@@ -5,7 +5,7 @@
     z-index: 1;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
+    background-color: #373737;
 }
 
 .hidden {
@@ -17,7 +17,7 @@
     margin-bottom: 20px;
     font-size: 18px;
     font-family: Arial, sans-serif;
-    color: #333;
+    color: #fff;
 }
 
 #leave-site-popup button {
@@ -27,25 +27,27 @@
     font-size: 16px;
     font-family: Arial, sans-serif;
     cursor: pointer;
-    border: none;
+
 }
 
 #leave-site-button {
-    background-color: #007bff; 
-    color: #fff; 
+    background-color: #c9e4a2;
+    color: #373737; 
     border: none;
 }
 
 #stay-site-button {
-    background-color: #fff; 
-    color: #007bff; 
-    border: 2px solid #007bff; 
+    background-color: #373737; 
+    color: #c9e4a2; ;
+    border: 2px solid #c9e4a2;
 }
 
 #leave-site-button:hover {
-    background-color: #0056b3; 
+    background-color: #9cb181;
 }
 
 #stay-site-button:hover {
-    background-color: #e6f2ff; 
+    color: #9cb181;
+    border: 2px solid #9cb181;
+
 }
