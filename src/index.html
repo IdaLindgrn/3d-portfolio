@@ -35,12 +35,58 @@
         <img
           id="loading-image"
           width="200"
-          src="./vectordesign.jpg"
+          src="./assets/vectordesign.jpg"
           alt="Loading..."
         />
         <div class="progress-bar-container">
           <progress id="progress-bar" value="0" max="100"></progress>
           <label for="progress-bar">LOADING...</label>
+        </div>
+      </div>
+    </div>
+    <div id="bunny-popup" class="popup hidden">
+      <h1>WARNING</h1>
+      <img
+        src="./assets/bunnyVirusImages/bunnyVirusWarning.png"
+        class="popup-image"
+      />
+      <div id="bunny-popup-text">
+        <h2>Bunny Virus Alert!</h2>
+        <p>You've activated the Bunny Virus. Watch out for bouncing bunnies!</p>
+      </div>
+      <button id="close-popup-button">Clean Virus</button>
+    </div>
+    <div id="message" class="hidden message"></div>
+    <div id="success-modal" class="modal hidden">
+      <div class="success-popup-body">
+        <img
+          src="./assets/bunnyVirusImages/bunnyVirusVictory.jpg"
+          class="virus-victory-image"
+        />
+        <div class="success-text">
+          <h2 class="success-title">Congratulations</h2>
+          <h3>You defeted the virus!</h3>
+          <button id="close-success-modal">Continue</button>
+        </div>
+      </div>
+    </div>
+    <div id="bluescreen-overlay" class="bluescreen-overlay hidden">
+      <h1 class="sad-smile">:(</h1>
+      <h2 class="bluescreen-title">Bunny Virus Detected.</h2>
+      <h3 class="bluescreen-text">
+        Your system encountered an error and will restart to contain the
+        bunnies.
+      </h3>
+      <h3 class="bluescreen-text">ERROR_CODE: 0xBUNNY_RUN</h3>
+    </div>
+    <div id="leave-site-popup" class="leave hidden">
+      <div>
+        <div id="leave-site-popup-text">
+          <p>Are you sure you want to leave this site?</p>
+        </div>
+        <div style="display: flex; justify-content: center">
+          <button id="leave-site-button">Leave</button>
+          <button id="stay-site-button">Cancel</button>
         </div>
       </div>
     </div>

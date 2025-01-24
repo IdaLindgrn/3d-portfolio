@@ -12,7 +12,7 @@ export function createSmokeEffect() {
     smokeGeometry.scale(1.5, 4, 1.5);    
 
     // Perlin texture
-    const perlinTexture = textureLoader.load('./textures/perlin.png')
+    const perlinTexture = textureLoader.load('./assets/perlin.png')
     perlinTexture.wrapS = THREE.RepeatWrapping;
     perlinTexture.wrapT = THREE.RepeatWrapping;
 

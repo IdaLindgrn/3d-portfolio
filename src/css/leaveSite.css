@@ -1,0 +1,53 @@
+#leave-site-popup {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: #373737;
+}
+
+.hidden {
+    display: none;
+}
+
+#leave-site-popup-text {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+#leave-site-popup button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+
+}
+
+#leave-site-button {
+    background-color: #c9e4a2;
+    color: #373737; 
+    border: none;
+}
+
+#stay-site-button {
+    background-color: #373737; 
+    color: #c9e4a2; ;
+    border: 2px solid #c9e4a2;
+}
+
+#leave-site-button:hover {
+    background-color: #9cb181;
+}
+
+#stay-site-button:hover {
+    color: #9cb181;
+    border: 2px solid #9cb181;
+
+}

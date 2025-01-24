@@ -27,40 +27,40 @@ let buttonGlowingEdges;
  */
 
 const bakedTextures = {
-    texture1: textureLoader.load('./textures3/calcBaked.jpg'),
-    texture2: textureLoader.load('./textures3/cupJoystickBaked.jpg'),
-    texture3: textureLoader.load('./textures3/extraSmallPartsBaked.jpg'),
-    texture4: textureLoader.load('./textures3/floorBaked.jpg'),
-    texture5: textureLoader.load('./textures3/keyboardBaked.jpg'),
-    texture6: textureLoader.load('./textures3/chassisBaked.jpg'),
-    texture7: textureLoader.load('./textures3/gameboyParts2Baked.jpg'),
-    texture8: textureLoader.load('./textures3/gameboyPartsBaked.jpg'),
-    texture9: textureLoader.load('./textures3/smallPartsBaked.jpg'),
-    texture10: textureLoader.load('./textures3/chassis2Baked.jpg'),
-    texture11: textureLoader.load('./textures3/cordsBaked.jpg')
+    texture1: textureLoader.load('./assets/bakedImages/calcBaked.jpg'),
+    texture2: textureLoader.load('./assets/bakedImages/cupJoystickBaked.jpg'),
+    texture3: textureLoader.load('./assets/bakedImages/extraSmallPartsBaked.jpg'),
+    texture4: textureLoader.load('./assets/bakedImages/floorBaked.jpg'),
+    texture5: textureLoader.load('./assets/bakedImages/keyboardBaked.jpg'),
+    texture6: textureLoader.load('./assets/bakedImages/chassisBaked.jpg'),
+    texture7: textureLoader.load('./assets/bakedImages/gameboyParts2Baked.jpg'),
+    texture8: textureLoader.load('./assets/bakedImages/gameboyPartsBaked.jpg'),
+    texture9: textureLoader.load('./assets/bakedImages/smallPartsBaked.jpg'),
+    texture10: textureLoader.load('./assets/bakedImages/chassis2Baked.jpg'),
+    texture11: textureLoader.load('./assets/bakedImages/cordsBaked.jpg')
 };
 
 const screens = {
-    screenStart: textureLoader.load('./textures/startScreen.jpg'),
-    screenRobot: textureLoader.load('./textures/robotScreen.jpg'),
-    screenProjects: textureLoader.load('./textures/projectsScreen.jpg'),
-    screen3DPortfolio: textureLoader.load('./textures/project3DPortfolioScreen.jpg'),
-    screenMobileApp: textureLoader.load('./textures/projectMobileAppScreen.jpg'),
-    screenBrowserExt: textureLoader.load('./textures/projectBrowserExtScreen.jpg'),
-    screenRHG: textureLoader.load('./textures/projectRHGScreen.jpg'),
-    screenReactPortfolio: textureLoader.load('./textures/projectReactPortfolioScreen.jpg'),
-    screenFlexboxGame: textureLoader.load('./textures/projectFlexboxGameScreen.jpg'),
-    screenTicTacToe: textureLoader.load('./textures/projectTicTacToeScreen.jpg'),
-    screenUser: textureLoader.load('./textures/userScreen.jpg'),
-    screenNotes: textureLoader.load('./textures/notesScreen.jpg'),
-    screenCredits: textureLoader.load('./textures/creditsScreen.jpg'),
-    screenPhotos: textureLoader.load('./textures/photosScreen.jpg'),
-    screenEevee: textureLoader.load('./textures/eeveeScreen.jpg'),
-    screenEevee2: textureLoader.load('./textures/eeveeScreen2.jpg'),
-    screenYoshi: textureLoader.load('./textures/yoshiScreen.jpg'),
-    screenYoshi2: textureLoader.load('./textures/yoshiScreen2.jpg'),
-    screenBin: textureLoader.load('./textures/binScreen.jpg'),
-    screenBinDoc: textureLoader.load('./textures/binDocScreen.jpg'),
+    screenStart: textureLoader.load('./assets/screensImages/startScreen.jpg'),
+    screenRobot: textureLoader.load('./assets/screensImages/robotScreen.jpg'),
+    screenProjects: textureLoader.load('./assets/screensImages/projectsScreen.jpg'),
+    screen3DPortfolio: textureLoader.load('./assets/screensImages/project3DPortfolioScreen.jpg'),
+    screenMobileApp: textureLoader.load('./assets/screensImages/projectMobileAppScreen.jpg'),
+    screenBrowserExt: textureLoader.load('./assets/screensImages/projectBrowserExtScreen.jpg'),
+    screenRHG: textureLoader.load('./assets/screensImages/projectRHGScreen.jpg'),
+    screenReactPortfolio: textureLoader.load('./assets/screensImages/projectReactPortfolioScreen.jpg'),
+    screenFlexboxGame: textureLoader.load('./assets/screensImages/projectFlexboxGameScreen.jpg'),
+    screenTicTacToe: textureLoader.load('./assets/screensImages/projectTicTacToeScreen.jpg'),
+    screenUser: textureLoader.load('./assets/screensImages/userScreen.jpg'),
+    screenNotes: textureLoader.load('./assets/screensImages/notesScreen.jpg'),
+    screenCredits: textureLoader.load('./assets/screensImages/creditsScreen.jpg'),
+    screenPhotos: textureLoader.load('./assets/screensImages/photosScreen.jpg'),
+    screenEevee: textureLoader.load('./assets/screensImages/eeveeScreen.jpg'),
+    screenEevee2: textureLoader.load('./assets/screensImages/eeveeScreen2.jpg'),
+    screenYoshi: textureLoader.load('./assets/screensImages/yoshiScreen.jpg'),
+    screenYoshi2: textureLoader.load('./assets/screensImages/yoshiScreen2.jpg'),
+    screenBin: textureLoader.load('./assets/screensImages/binScreen.jpg'),
+    screenBinDoc: textureLoader.load('./assets/screensImages/binDocScreen.jpg'),
 };
 
 
@@ -101,7 +101,6 @@ const purpleGlow = new THREE.MeshBasicMaterial({ color: 0xd2c2ef });
 const whiteGlow = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
 const whiteGlow2 = new THREE.MeshBasicMaterial({ color: 0xffffe5 });
 
-// const cords = new THREE.MeshBasicMaterial({ color: 0x181515 });
 const pipes = new THREE.MeshBasicMaterial({ color: 0x0f0e0e });
 const string = new THREE.MeshBasicMaterial({ color: 0xa4a3a3 });
 const text = new THREE.MeshBasicMaterial({ color: 0x863f0c });
@@ -116,7 +115,7 @@ const transparentMaterial = new THREE.MeshBasicMaterial({
 // screen 
 
 const robotVideo = document.createElement('video');
-robotVideo.src = '/videos/robot.mp4';
+robotVideo.src = 'assets/videos/robot.mp4';
 robotVideo.loop = true;
 robotVideo.muted = true;
 robotVideo.playsInline = true;
@@ -161,7 +160,7 @@ scene.add(screenCube);
 // smaller screen
 
 const waveVideo = document.createElement('video');
-waveVideo.src = '/videos/wave.mp4';
+waveVideo.src = 'assets/videos/wave.mp4';
 waveVideo.loop = true;
 waveVideo.muted = true;
 waveVideo.playsInline = true;
@@ -184,7 +183,7 @@ scene.add(smallScreenCube);
 // mini screens
 
 const heartVideo = document.createElement('video');
-heartVideo.src = '/videos/heart.mp4';
+heartVideo.src = 'assets/videos/heart.mp4';
 heartVideo.loop = true;
 heartVideo.muted = true;
 heartVideo.playsInline = true;
@@ -205,7 +204,7 @@ scene.add(miniScreenCube);
 
 
 const miniRobotVideo = document.createElement('video');
-miniRobotVideo.src = '/videos/robot.mp4';
+miniRobotVideo.src = 'assets/videos/robot.mp4';
 miniRobotVideo.loop = true;
 miniRobotVideo.muted = true;
 miniRobotVideo.playsInline = true;
@@ -229,7 +228,7 @@ scene.add(mini2ScreenCube);
 //medium screen
 
 const shortVideo = document.createElement('video');
-shortVideo.src = '/videos/shortVideo.mp4';
+shortVideo.src = 'assets/videos/shortVideo.mp4';
 shortVideo.loop = true;
 shortVideo.muted = true;
 shortVideo.playsInline = true;
@@ -647,6 +646,10 @@ function setMinDistance(distance) {
     controls.minDistance = distance;
 }
 
+function setMaxDistance(distance) {
+    controls.maxDistance = distance;
+}
+
 
 const initialCameraPosition = camera.position.clone(); 
 const initialControlTarget = controls.target.clone(); 
@@ -981,13 +984,89 @@ export function resetGameState() {
     location.reload();
 }
 
-
 let isAnimatingCamera = false;
+
+let backArrow;
+
+function createBackArrow() {
+    backArrow = document.createElement("img");
+    backArrow.src = "assets/backArrow.png"; 
+    backArrow.style.position = "absolute";
+    backArrow.style.bottom = "30px";
+    backArrow.style.left = "30px";
+    backArrow.style.width = "auto"; 
+    backArrow.style.height = "50px";
+    backArrow.style.cursor = "pointer";
+    backArrow.style.display = "none"; 
+    document.body.appendChild(backArrow);
+    backArrow.id = "backArrow";
+}
+
+createBackArrow();
+
+backArrow.addEventListener("click", () => {
+    console.log("heyy")
+     if (cameraMoved) {
+        if (isAnimatingCamera) return;
+        else {
+        buttonGlowingEdges.visible = true;
+        screenCubeGlowingEdges.visible = true;
+        screenCube.material = cubeScreenMaterial;
+        removeClockTexts(scene);
+        resetCamera(1.5);
+        cameraMoved = false; 
+        updateRaycastTargets(false);
+        clickCount = 0; 
+        managePopup(null)
+        backArrow.style.display = "none";
+        }
+    }
+});
+
+
+function leaveSite(index) {
+    const leavePopup = document.getElementById('leave-site-popup');
+    
+    leavePopup.classList.remove('hidden');
+    leavePopup.style.display = 'flex'; 
+
+    console.log("heelo")
+
+
+    const urlMapping = {
+        8: 'https://medium.com/@ida-lindgren',
+        13: 'https://github.com/IdaLindgrn',
+        14: 'https://www.linkedin.com/in/idalindgren/',
+        15: 'https://medium.com/@ida-lindgren'
+    };
+
+    const resetState = () => {
+        leavePopup.classList.add('hidden');
+        leavePopup.style.display = 'none';
+        index = null;
+    };
+
+    document.getElementById('leave-site-button').addEventListener('click', () => {
+        if (urlMapping[index]) {
+            window.open(urlMapping[index], '_blank');
+        } else {
+            console.warn('No URL mapped for index:', index);
+        }
+        resetState();
+    });
+
+    document.getElementById('stay-site-button').addEventListener('click', () => {
+        resetState();
+    });
+};
+
 
 window.addEventListener('pointerup', (event) => {
     console.log("Pointer up");
 
 if (isTouchActive) {
+
+    
     console.log("Click event triggered");
 
     raycaster.setFromCamera(mouse, camera);
@@ -1037,7 +1116,14 @@ if (isTouchActive) {
                     buttonGlowingEdges.visible = false;
                     animateCamera(targetMesh.position, 1.5, cameraPositions.button);
                     cameraMoved = true;
-                    setMinDistance(0);
+                    setMinDistance(20);
+                    backArrow.style.display = "block";
+                    // let checkAnimationInterval = setInterval(() => {
+                    //     if (!isAnimatingCamera) {
+                    //         clearInterval(checkAnimationInterval); 
+                    //         setMaxDistance(50);
+                    //     }
+                    // }, 100);
                 } else if (clickCount === 2) { 
                     storeOriginalObjects(); 
                     virusGame = true;
@@ -1048,6 +1134,7 @@ if (isTouchActive) {
                     objectsToTest = [];
                     showBunnyVirus();  
                     resetCamera(1.5);  
+                    backArrow.style.display = "none";
                 } 
                 break;
             case 1:
@@ -1061,6 +1148,14 @@ if (isTouchActive) {
                 updateRaycastTargets(true);
                 active = false;
                 managePopup(null);
+                backArrow.style.display = "block";
+
+                // let checkAnimationInterval = setInterval(() => {
+                //     if (!isAnimatingCamera) {
+                //         clearInterval(checkAnimationInterval); 
+                //         setMaxDistance(55);
+                //     }
+                // }, 100);
                 break;
             case 2:
                 console.log('click on robot');
@@ -1070,7 +1165,7 @@ if (isTouchActive) {
                 break;
             case 8:
                 console.log('click on projectsDoc');
-                window.open('https://medium.com/@ida-lindgren', '_blank'); 
+                leaveSite(index);
                 break;
             case 11:
                 console.log('click on popup');
@@ -1086,7 +1181,7 @@ if (isTouchActive) {
             case 13:
                 if (caseIndex === 3) {
                     console.log('click on Github');
-                    window.open('https://github.com/IdaLindgrn', '_blank');
+                    leaveSite(index);
                 }
                 if (caseIndex === 5) {
                     console.log('click on Gameboy');
@@ -1110,8 +1205,8 @@ if (isTouchActive) {
                 break;
             case 14:
                 if (caseIndex === 3) {
-                    console.log('click on Linkedin');
-                    window.open('https://www.linkedin.com/in/idalindgren/', '_blank');       
+                    console.log('click on Linkedin');    
+                    leaveSite(index); 
                 }
                 if (caseIndex === 5) {
                     console.log('click on MobileApp');
@@ -1131,8 +1226,8 @@ if (isTouchActive) {
                 break;
             case 15:
                 if (caseIndex === 3) {
-                    console.log('click on Medium');
-                    window.open('https://medium.com/@ida-lindgren', '_blank');        
+                    console.log('click on Medium');  
+                    leaveSite(index);   
                 }
                 if (caseIndex === 5) {
                     console.log('click on BrowserExtension');
@@ -1220,22 +1315,6 @@ if (isTouchActive) {
                     managePopup(caseIndex);
                 }
                 break;
-        }
-    }
-}
-else {
-    if (cameraMoved) {
-        if (isAnimatingCamera) return;
-        else {
-        buttonGlowingEdges.visible = true;
-        screenCubeGlowingEdges.visible = true;
-        screenCube.material = cubeScreenMaterial;
-        removeClockTexts(scene);
-        resetCamera(1.5);
-        cameraMoved = false; 
-        updateRaycastTargets(false);
-        clickCount = 0; 
-        managePopup(null)
         }
     }
 }

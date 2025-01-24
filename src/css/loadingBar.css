@@ -1,0 +1,110 @@
+.overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #373737;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+#loading-image {
+    max-width: 150px;
+    margin-bottom: 30px;
+    margin-top: -100px;
+}
+
+.progress-bar-container {
+    font-family: 'BrownLightRegular', sans-serif;
+    margin: 0 auto;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+label {
+    margin-top: 40px;
+    position: absolute;
+    font-size: 17px;
+    animation: bounce 1s infinite alternate;
+    letter-spacing: 1px;
+}
+
+progress {
+    width: 300px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 2px;
+    background-color: #373737;
+    margin-bottom: 10px;
+}
+
+
+progress::-webkit-progress-bar {
+    background-color: #373737; 
+    border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+    background-color: #898989; 
+    border-radius: 10px;
+}
+
+progress::-moz-progress-bar {
+    background-color: #898989;  
+    border-radius: 10px;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(-3px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.start-button {
+    font-family: 'BrownLightRegular', sans-serif;
+    font-size: 18px;
+    padding: 10px 20px;
+    color: #ffffff;
+    background-color: #898989;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.start-button:hover {
+    background-color: #656565;
+}
+
+.read-header {
+    font-family: 'BrownLightRegular', sans-serif;
+    color: #ffffff;
+    font-size: 25px;
+    letter-spacing: 1px;
+}
+
+.instructions {
+    color: #e0e0e0;
+    font-size: 21px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'BrownLightRegular', sans-serif;
+    margin: 23px 0 20px 0;
+
+    padding-left: 0;
+}
+
+.instructions li {
+    margin: 5px 0;
+}
