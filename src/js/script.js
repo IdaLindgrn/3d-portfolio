@@ -1004,6 +1004,26 @@ function createBackArrow() {
 
 createBackArrow();
 
+backArrow.addEventListener("click", () => {
+    console.log("heyy")
+     if (cameraMoved) {
+        if (isAnimatingCamera) return;
+        else {
+        buttonGlowingEdges.visible = true;
+        screenCubeGlowingEdges.visible = true;
+        screenCube.material = cubeScreenMaterial;
+        removeClockTexts(scene);
+        resetCamera(1.5);
+        cameraMoved = false; 
+        updateRaycastTargets(false);
+        clickCount = 0; 
+        managePopup(null)
+        backArrow.style.display = "none";
+        }
+    }
+});
+
+
 function leaveSite(index) {
     const leavePopup = document.getElementById('leave-site-popup');
     
@@ -1045,6 +1065,8 @@ window.addEventListener('pointerup', (event) => {
     console.log("Pointer up");
 
 if (isTouchActive) {
+
+    
     console.log("Click event triggered");
 
     raycaster.setFromCamera(mouse, camera);
@@ -1096,12 +1118,12 @@ if (isTouchActive) {
                     cameraMoved = true;
                     setMinDistance(20);
                     backArrow.style.display = "block";
-                    let checkAnimationInterval = setInterval(() => {
-                        if (!isAnimatingCamera) {
-                            clearInterval(checkAnimationInterval); 
-                            setMaxDistance(50);
-                        }
-                    }, 100);
+                    // let checkAnimationInterval = setInterval(() => {
+                    //     if (!isAnimatingCamera) {
+                    //         clearInterval(checkAnimationInterval); 
+                    //         setMaxDistance(50);
+                    //     }
+                    // }, 100);
                 } else if (clickCount === 2) { 
                     storeOriginalObjects(); 
                     virusGame = true;
@@ -1128,12 +1150,12 @@ if (isTouchActive) {
                 managePopup(null);
                 backArrow.style.display = "block";
 
-                let checkAnimationInterval = setInterval(() => {
-                    if (!isAnimatingCamera) {
-                        clearInterval(checkAnimationInterval); 
-                        setMaxDistance(55);
-                    }
-                }, 100);
+                // let checkAnimationInterval = setInterval(() => {
+                //     if (!isAnimatingCamera) {
+                //         clearInterval(checkAnimationInterval); 
+                //         setMaxDistance(55);
+                //     }
+                // }, 100);
                 break;
             case 2:
                 console.log('click on robot');
@@ -1296,31 +1318,12 @@ if (isTouchActive) {
         }
     }
 }
-
-backArrow.addEventListener("pointerup", () => {
-     if (cameraMoved) {
-        if (isAnimatingCamera) return;
-        else {
-        buttonGlowingEdges.visible = true;
-        screenCubeGlowingEdges.visible = true;
-        screenCube.material = cubeScreenMaterial;
-        removeClockTexts(scene);
-        resetCamera(1.5);
-        cameraMoved = false; 
-        updateRaycastTargets(false);
-        clickCount = 0; 
-        managePopup(null)
-        backArrow.style.display = "none";
-        }
-    }
-});
 }
 isTouchActive = false;
 });
 
 function resetCamera(duration) {
     console.log("hii")
-    setMaxDistance(170);
 
     if (isAnimatingCamera) return;
     
