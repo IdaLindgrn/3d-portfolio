@@ -22,6 +22,16 @@ const gltfLoader = new GLTFLoader(loadingManager)
 let screenCubeGlowingEdges;
 let buttonGlowingEdges;
 
+
+document.getElementById('nav').addEventListener('click', () => {
+    const nav = document.getElementById('nav');
+    const navIcon = document.getElementById('nav-icon');
+    
+    nav.classList.toggle('open');
+    navIcon.classList.toggle('fa-bars');
+    navIcon.classList.toggle('fa-xmark');
+  });
+
 /**
  * Textures
  */
@@ -1019,6 +1029,7 @@ backArrow.addEventListener("click", () => {
         clickCount = 0; 
         managePopup(null)
         backArrow.style.display = "none";
+        document.getElementById('nav').style.display = 'flex';
         }
     }
 });
@@ -1085,6 +1096,7 @@ if (isTouchActive) {
     
         if (objectsToTest.includes(clickedObject) || specialMeshNames.includes(clickedObject.name)) {
             console.log("Valid object clicked");
+            document.getElementById('nav').style.display = 'none';
 
             const index = objectsToTest.includes(clickedObject)
             ? objectsToTest.indexOf(clickedObject)

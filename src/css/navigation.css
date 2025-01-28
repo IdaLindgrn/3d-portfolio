@@ -1,0 +1,68 @@
+#nav {
+    position: fixed; 
+    background-color: rgba(96, 96, 96, 0.3);
+    width: 35px;
+    border-radius: 50px;
+    color: #CEFFB8;
+    height: 50px;
+    display: none;
+    /* display: flex; */
+    align-items: center; 
+    justify-content: flex-start;
+    font-size: 20px;
+    padding-left: 17px;
+    left: 20px; 
+    bottom: 20px;
+    z-index: 1;
+    cursor: pointer;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+#nav:hover {
+    background-color: rgba(96, 96, 96, 0.5);
+}
+
+
+#nav .fa-xmark {
+  padding-left: 2px;
+  font-size: 22px; 
+  color: rgb(117, 117, 117); 
+  transition: font-size 0.3s, color 0.3s; 
+}
+
+#nav .fa-xmark:hover {
+  color: rgb(187, 187, 187); 
+}
+
+#menu-overlay {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
+  transition: opacity 0.3s ease, max-width 0.3s ease;
+}
+
+.nav-button {
+  background-color: transparent;
+  color: #CEFFB8;
+  border: none;
+  margin-left: 15px;
+  padding: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  color: #e4e4e4;
+}
+
+#nav.open {
+  background-color: rgba(96, 96, 96, 0.5);
+  width: 340px; 
+}
+
+#nav.open #menu-overlay {
+  opacity: 1;
+  max-width: 100%; 
+}
