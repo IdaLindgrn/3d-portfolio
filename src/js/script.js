@@ -1034,7 +1034,7 @@ function leaveSite(index) {
 
 
     const urlMapping = {
-        8: 'https://medium.com/@ida-lindgren',
+        8: 'https://medium.com/@ida-lindgren/from-inspiration-to-creation-how-i-built-my-3d-interactive-portfolio-856182f255c9',
         13: 'https://github.com/IdaLindgrn',
         14: 'https://www.linkedin.com/in/idalindgren/',
         15: 'https://medium.com/@ida-lindgren'
