@@ -41,6 +41,7 @@ loadingManager.onLoad = () => {
     const startButton = document.getElementById('start-button');
         startButton.addEventListener('click', () => {
             loadingOverlay.style.display = 'none';
+            document.getElementById('nav').style.display = 'flex';
         });
     }, remainingTime);
 };

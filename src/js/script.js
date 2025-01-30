@@ -22,6 +22,21 @@ const gltfLoader = new GLTFLoader(loadingManager)
 let screenCubeGlowingEdges;
 let buttonGlowingEdges;
 
+document.getElementById('nav').addEventListener('click', () => {
+    const nav = document.getElementById('nav');
+    const navIcon = document.getElementById('nav-icon');
+    
+    nav.classList.toggle('open');
+    navIcon.classList.toggle('fa-bars');
+    navIcon.classList.toggle('fa-xmark');
+});
+
+const projectButton = document.getElementById('projects');
+const aboutMeButton = document.getElementById('about-me');
+const creditsButton = document.getElementById('credits');
+
+
+
 /**
  * Textures
  */
@@ -279,28 +294,28 @@ document.addEventListener('visibilitychange', () => {
 
 const robotGeometry = new THREE.PlaneGeometry(3, 2.3);
 const userGeometry = new THREE.PlaneGeometry(2.5, 2.8);
-const userPopupGeometry = new THREE.PlaneGeometry(10.6, 9.71);
+const userPopupGeometry = new THREE.PlaneGeometry(12.6, 11.6);
 const notesGeometry = new THREE.PlaneGeometry(2.5, 2.9);
-const notesPopupGeometry = new THREE.PlaneGeometry(8.7, 7.35);
+const notesPopupGeometry = new THREE.PlaneGeometry(10.68, 8.98);
 const projectsGeometry = new THREE.PlaneGeometry(2.7, 2.9);
-const projectsPopupGeometry = new THREE.PlaneGeometry(13.8, 8.2);
-const projectPopupGeometry = new THREE.PlaneGeometry(9.1, 9.2);
+const projectsPopupGeometry = new THREE.PlaneGeometry(16.52, 9.72);
+const projectPopupGeometry = new THREE.PlaneGeometry(11.8, 11.8);
 const creditsGeometry = new THREE.PlaneGeometry(2.5, 2.7);
-const creditsPopupGeometry = new THREE.PlaneGeometry(10.74, 6.72);
+const creditsPopupGeometry = new THREE.PlaneGeometry(12.7, 7.9);
 const photosGeometry = new THREE.PlaneGeometry(2.9, 2.7);
-const photosPopupGeometry = new THREE.PlaneGeometry(13.67, 8.16);
-const photoPopupGeometry = new THREE.PlaneGeometry(7.8, 5.7);
+const photosPopupGeometry = new THREE.PlaneGeometry(16.25, 9.7);
+const photoPopupGeometry = new THREE.PlaneGeometry(10.35, 7.6);
 const projectDocGeometry = new THREE.PlaneGeometry(3.3, 2.7);
 const jpgGeometry = new THREE.PlaneGeometry(3.2, 2.8);
-const jpgPopupGeometry = new THREE.PlaneGeometry(8.9, 6.5);
+const jpgPopupGeometry = new THREE.PlaneGeometry(10.45, 7.58);
 const binGeometry = new THREE.PlaneGeometry(3.5, 3);
-const binPopupGeometry = new THREE.PlaneGeometry(13.7, 8.2);
+const binPopupGeometry = new THREE.PlaneGeometry(16.3, 9.75);
 const closeGeometry = new THREE.PlaneGeometry(0.5, 0.5);
 const linksGeometry = new THREE.PlaneGeometry(0.8, 0.8);
-const projectsFolderGeometry = new THREE.PlaneGeometry(1.7, 1.9);
-const openImageGeometry = new THREE.PlaneGeometry(2.2, 1.8);
-const binDocGeometry = new THREE.PlaneGeometry(2, 2.2);
-const binDocPopupGeometry = new THREE.PlaneGeometry(8.65, 6.1);
+const projectsFolderGeometry = new THREE.PlaneGeometry(2.5, 2.7);
+const openImageGeometry = new THREE.PlaneGeometry(2.85, 2.3);
+const binDocGeometry = new THREE.PlaneGeometry(2.2, 2.7);
+const binDocPopupGeometry = new THREE.PlaneGeometry(11.2, 7.8);
  
 
 const robotNav = new THREE.Mesh(robotGeometry, transparentMaterial);
@@ -350,48 +365,48 @@ const binDocPopupCloseNav = new THREE.Mesh(closeGeometry, transparentMaterial);
 
 robotNav.position.set(-7.5, 20.6, 19); 
 userNav.position.set(-10, 33.9, 18.4); 
-userPopupNav.position.set(-5, 29.5, 7.75);
-userCloseNav.position.set(-4, 33.82, 3.275);
-userGithubNav.position.set(-4, 25.65, 11.9);
-userLinkedinNav.position.set(-4, 25.65, 10.9);
-userMediumNav.position.set(-4, 25.65, 9.85);
-userMailNav.position.set(-4, 25.65, 8.83);
+userPopupNav.position.set(-9, 28.8, 7.75);
+userCloseNav.position.set(-9.9, 34.05, 1.97);
+userGithubNav.position.set(-8, 24.12, 12.75);
+userLinkedinNav.position.set(-8, 24.12, 11.58);
+userMediumNav.position.set(-8, 24.12, 10.257);
+userMailNav.position.set(-8, 24.12, 9.07);
 notesNav.position.set(-10, 33.85, 15.3); 
-notesPopupNav.position.set(-5, 31.2, 3.8); 
-notesCloseNav.position.set(-4, 34.37, 0.47);
+notesPopupNav.position.set(-9.4, 30.88, 2.94); 
+notesCloseNav.position.set(-9.8, 34.9, -1.65);
 projectsNav.position.set(-9.5, 30.7, 18.2); 
-projectsPopupNav.position.set(-5, 28.9, 9.6);
-projectsCloseNav.position.set(-4, 32.54, 3.51);
-projectsGameboyNav.position.set(-4, 29.5, 14.06);
-projectsMobileAppNav.position.set(-4, 29.5, 11.4);
-projectsBrowserExtensionNav.position.set(-4, 29.5, 8.75);
-projectsRHGNav.position.set(-4, 29.5, 6.1);
-projectsReactPortfolioNav.position.set(-4, 27.3, 14.2);
-projectsFlexboxGameNav.position.set(-4, 27.3, 11.5);
-projectsTictactoeNav.position.set(-4, 27.3, 8.75);
-projectPopupNav.position.set(-3, 29.7, 5.3);
-projectPopupCloseNav.position.set(-2, 33.76, 1.69);
+projectsPopupNav.position.set(-8.8, 28.15, 9.98);
+projectsCloseNav.position.set(-9.5, 32.51, 2.3);
+projectsGameboyNav.position.set(-8.8, 28.55, 15.6);
+projectsMobileAppNav.position.set(-8.8, 28.55, 12.3);
+projectsBrowserExtensionNav.position.set(-8.8, 28.55, 8.95);
+projectsRHGNav.position.set(-8.8, 28.55, 5.73);
+projectsReactPortfolioNav.position.set(-8, 25.9, 15.6);
+projectsFlexboxGameNav.position.set(-8, 25.9, 12.3);
+projectsTictactoeNav.position.set(-8, 25.9, 8.95);
+projectPopupNav.position.set(-8, 28.9, 4.55);
+projectPopupCloseNav.position.set(-8.5, 34.2, -0.66);
 creditsNav.position.set(-10, 33.9, 0.3); 
-creditsPopupNav.position.set(-5, 28, 7.7);
-creditsCloseNav.position.set(-4, 31, 3.15);
+creditsPopupNav.position.set(-8.7, 27.1, 7.75);
+creditsCloseNav.position.set(-9.5, 30.56, 1.95);
 photosNav.position.set(-10, 33.9, -3);
-photosPopupNav.position.set(-5, 29.9, 7);  
-photosCloseNav.position.set(-4, 33.4, 1.17);  
-photos1Nav.position.set(-4, 30.3, 11.4);  
-photos2Nav.position.set(-4, 30.3, 8.8);  
-photos3Nav.position.set(-4, 30.3, 6.1);  
-photoPopupNav.position.set(-3, 31.55, 4.64);
-photoPopupCloseNav.position.set(-2, 33.95, 1.6);
+photosPopupNav.position.set(-9, 29.3, 6.9);  
+photosCloseNav.position.set(-9.8, 33.63, -0.7);  
+photos1Nav.position.set(-9, 29.7, 12.4);  
+photos2Nav.position.set(-9, 29.7, 9.05);  
+photos3Nav.position.set(-9, 29.7, 5.65);  
+photoPopupNav.position.set(-9.2, 31.2, 3.67);
+photoPopupCloseNav.position.set(-9.5, 34.49, -0.95);
 projectDocNav.position.set(-9.5, 30.9, -2.8); 
 jpgNav.position.set(-8.8, 27.6, 18.2); 
-jpgPopupNav.position.set(-5, 28.7, 9.1);
-jpgCloseNav.position.set(-4, 31.6, 5.285);
+jpgPopupNav.position.set(-8.5, 28, 9.32);
+jpgCloseNav.position.set(-9, 31.35, 4.7);
 binNav.position.set(-8, 24, -2.9);
-binPopupNav.position.set(-5, 29.9, 7);
-binCloseNav.position.set(-4, 33.41, 1.17);
-binDocNav.position.set(-4, 30.2, 11.65);
-binDocPopupNav.position.set(-3, 28.35, 4.21);
-binDocPopupCloseNav.position.set(-2, 31.07, 0.82);
+binPopupNav.position.set(-9, 29.35, 6.9);
+binCloseNav.position.set(-9.75, 33.6, -0.71);
+binDocNav.position.set(-8.5, 29.6, 12.6);
+binDocPopupNav.position.set(-8.5, 27, 3.1);
+binDocPopupCloseNav.position.set(-9, 30.38, -1.85);
 
 robotNav.quaternion.copy(combinedQuaternion);
 userNav.quaternion.copy(combinedQuaternion);
@@ -682,11 +697,9 @@ window.addEventListener('pointerdown', (event) => {
 window.addEventListener('pointermove', (event) => {
     if (isTouchActive) {
         console.log("Pointer move");
-        // Check if movement exceeds threshold
         const dx = Math.abs(event.clientX - startX);
         const dy = Math.abs(event.clientY - startY);
         if (dx > moveThreshold || dy > moveThreshold) {
-            // If movement exceeds threshold, stop treating it as a click
             isTouchActive = false;
         }
         updateMousePosition(event);
@@ -1019,6 +1032,7 @@ backArrow.addEventListener("click", () => {
         clickCount = 0; 
         managePopup(null)
         backArrow.style.display = "none";
+        document.getElementById('nav').style.display = 'flex';
         }
     }
 });
@@ -1034,7 +1048,7 @@ function leaveSite(index) {
 
 
     const urlMapping = {
-        8: 'https://medium.com/@ida-lindgren',
+        8: 'https://medium.com/@ida-lindgren/from-inspiration-to-creation-how-i-built-my-3d-interactive-portfolio-856182f255c9',
         13: 'https://github.com/IdaLindgrn',
         14: 'https://www.linkedin.com/in/idalindgren/',
         15: 'https://medium.com/@ida-lindgren'
@@ -1066,7 +1080,6 @@ window.addEventListener('pointerup', (event) => {
 
 if (isTouchActive) {
 
-    
     console.log("Click event triggered");
 
     raycaster.setFromCamera(mouse, camera);
@@ -1082,13 +1095,62 @@ if (isTouchActive) {
             "Plane006",
             "Text001"
         ];
+
+        const targetButtonMesh = screenCube;
+
+        projectButton.addEventListener('click', () => {
+            document.getElementById('nav').style.display = 'none';
+            setMinDistance(20);
+            screenCubeGlowingEdges.visible = false;
+            console.log('click on screen');
+            loadClockTexts(scene);
+            targetButtonMesh.material = screenProjectsMaterial;  
+            animateCamera(targetButtonMesh.position, 1.5, cameraPositions.screen);
+            cameraMoved = true;
+            updateRaycastTargets(true);
+            active = false;
+            managePopup(5);
+            backArrow.style.display = "block";
+        });
+        
+        aboutMeButton.addEventListener('click', () => {
+            document.getElementById('nav').style.display = 'none';
+            setMinDistance(20);
+            screenCubeGlowingEdges.visible = false;
+            console.log('click on screen');
+            loadClockTexts(scene);
+            targetButtonMesh.material = screenUserMaterial;  
+            animateCamera(targetButtonMesh.position, 1.5, cameraPositions.screen);
+            cameraMoved = true;
+            updateRaycastTargets(true);
+            active = false;
+            managePopup(3);
+            backArrow.style.display = "block";
+        });
+        
+        creditsButton.addEventListener('click', () => {
+            document.getElementById('nav').style.display = 'none';
+            setMinDistance(20);
+            screenCubeGlowingEdges.visible = false;
+            console.log('click on screen');
+            loadClockTexts(scene);
+            targetButtonMesh.material = screenCreditsMaterial;  
+            animateCamera(targetButtonMesh.position, 1.5, cameraPositions.screen);
+            cameraMoved = true;
+            updateRaycastTargets(true);
+            active = false;
+            managePopup(6);
+            backArrow.style.display = "block";
+        });
     
         if (objectsToTest.includes(clickedObject) || specialMeshNames.includes(clickedObject.name)) {
             console.log("Valid object clicked");
+            document.getElementById('nav').style.display = 'none';
 
             const index = objectsToTest.includes(clickedObject)
             ? objectsToTest.indexOf(clickedObject)
             : (specialMeshNames.includes(clickedObject.name) ? 0 : -1);
+
 
         console.log(`Clicked object index: ${index}`);
         console.log(`Object position:`, clickedObject.position);

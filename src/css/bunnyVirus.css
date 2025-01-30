@@ -48,18 +48,18 @@ h1 {
     align-self: flex-start;
 }
 
-button {
-    border: none;
+#close-popup-button {
     background-color: #991111;
     padding: 5px 20px;
     margin: 10px;
-    font-size: 15px;
     border-radius: 3px;
     color: #FFF;
+    border: none;
+    font-size: 15px;
     font-family: 'BrownMedium_Regular', sans-serif;
 }
 
-button:hover {
+#close-popup-button:hover {
     background-color: #891111;
     cursor: pointer;
 }
@@ -73,8 +73,8 @@ button:hover {
     width: 50px; 
     height: auto; 
     cursor: pointer;
-    transition: transform 0.2s ease; /* Add some animation */
-    user-select: none; /* Prevent text selection on bunny */
+    transition: transform 0.2s ease; 
+    user-select: none; 
 }
 
 .message, .modal, .bluescreen-overlay {
@@ -129,7 +129,6 @@ button:hover {
     cursor: pointer;
 }
 
-/* Blue screen overlay */
 .bluescreen-overlay {
     width: 100vw;
     padding-left: 35vw;
