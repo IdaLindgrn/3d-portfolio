@@ -122,7 +122,7 @@ const text = new THREE.MeshBasicMaterial({ color: 0x863f0c });
 
 const transparentMaterial = new THREE.MeshBasicMaterial({
     transparent: true,
-    opacity:  0,  
+    opacity:  0.5,  
 });
 
 
@@ -310,7 +310,7 @@ const jpgGeometry = new THREE.PlaneGeometry(3.2, 2.8);
 const jpgPopupGeometry = new THREE.PlaneGeometry(10.45, 7.58);
 const binGeometry = new THREE.PlaneGeometry(3.5, 3);
 const binPopupGeometry = new THREE.PlaneGeometry(16.3, 9.75);
-const closeGeometry = new THREE.PlaneGeometry(0.5, 0.5);
+const closeGeometry = new THREE.PlaneGeometry(0.8, 0.8);
 const linksGeometry = new THREE.PlaneGeometry(0.8, 0.8);
 const projectsFolderGeometry = new THREE.PlaneGeometry(2.5, 2.7);
 const openImageGeometry = new THREE.PlaneGeometry(2.85, 2.3);
