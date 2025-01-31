@@ -121,8 +121,8 @@ const string = new THREE.MeshBasicMaterial({ color: 0xa4a3a3 });
 const text = new THREE.MeshBasicMaterial({ color: 0x863f0c });
 
 const transparentMaterial = new THREE.MeshBasicMaterial({
-    transparent: true,
-    opacity:  0.5,  
+    transparent: true, 
+    opacity: 0,
 });
 
 
@@ -388,7 +388,7 @@ projectPopupNav.position.set(-8, 28.9, 4.55);
 projectPopupCloseNav.position.set(-8.5, 34.2, -0.66);
 creditsNav.position.set(-10, 33.9, 0.3); 
 creditsPopupNav.position.set(-8.7, 27.1, 7.75);
-creditsCloseNav.position.set(-9.5, 30.56, 1.95);
+creditsCloseNav.position.set(-9.2, 30.56, 1.95);
 photosNav.position.set(-10, 33.9, -3);
 photosPopupNav.position.set(-9, 29.3, 6.9);  
 photosCloseNav.position.set(-9.8, 33.63, -0.7);  
