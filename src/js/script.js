@@ -121,8 +121,8 @@ const string = new THREE.MeshBasicMaterial({ color: 0xa4a3a3 });
 const text = new THREE.MeshBasicMaterial({ color: 0x863f0c });
 
 const transparentMaterial = new THREE.MeshBasicMaterial({
-    transparent: true,
-    opacity:  0,  
+    transparent: true, 
+    opacity: 0,
 });
 
 
@@ -310,7 +310,7 @@ const jpgGeometry = new THREE.PlaneGeometry(3.2, 2.8);
 const jpgPopupGeometry = new THREE.PlaneGeometry(10.45, 7.58);
 const binGeometry = new THREE.PlaneGeometry(3.5, 3);
 const binPopupGeometry = new THREE.PlaneGeometry(16.3, 9.75);
-const closeGeometry = new THREE.PlaneGeometry(0.5, 0.5);
+const closeGeometry = new THREE.PlaneGeometry(0.8, 0.8);
 const linksGeometry = new THREE.PlaneGeometry(0.8, 0.8);
 const projectsFolderGeometry = new THREE.PlaneGeometry(2.5, 2.7);
 const openImageGeometry = new THREE.PlaneGeometry(2.85, 2.3);
@@ -388,7 +388,7 @@ projectPopupNav.position.set(-8, 28.9, 4.55);
 projectPopupCloseNav.position.set(-8.5, 34.2, -0.66);
 creditsNav.position.set(-10, 33.9, 0.3); 
 creditsPopupNav.position.set(-8.7, 27.1, 7.75);
-creditsCloseNav.position.set(-9.5, 30.56, 1.95);
+creditsCloseNav.position.set(-9.2, 30.56, 1.95);
 photosNav.position.set(-10, 33.9, -3);
 photosPopupNav.position.set(-9, 29.3, 6.9);  
 photosCloseNav.position.set(-9.8, 33.63, -0.7);  
